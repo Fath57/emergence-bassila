@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergence Bassila - Innovation & Excellence</title>
+    <title>Bassila Connect - Plateforme Communautaire</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,15 +12,18 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
-                <span class="logo">Emergence Bassila</span>
+                <span class="logo">Bassila Connect</span>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Accueil</a></li>
-                <li><a href="#features">Services</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
                 <li><a href="#about">À Propos</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="nav-cta">Commencer</button>
+            @auth
+                <a href="{{ route('dashboard') }}" class="nav-cta">Mon Profil</a>
+            @else
+                <a href="{{ route('login') }}" class="nav-cta">Connexion</a>
+            @endauth
         </div>
     </nav>
 
@@ -29,29 +32,29 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    Transformez Vos Idées en
-                    <span class="gradient-text">Réalité Digitale</span>
+                    Plateforme Communautaire
+                    <span class="gradient-text">Bassila Connect</span>
                 </h1>
                 <p class="hero-description">
-                    Nous créons des solutions digitales innovantes qui propulsent votre entreprise
-                    vers l'excellence. Rejoignez-nous dans cette aventure technologique.
+                    Restez connectés avec les ressortissants de Bassila. Partagez vos compétences,
+                    trouvez des opportunités et maintenez le lien avec notre belle commune du Donga.
                 </p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">Découvrir Plus</button>
-                    <button class="btn btn-secondary">Nos Projets</button>
+                    <a href="{{ route('register') }}" class="btn btn-primary">Rejoindre la Communauté</a>
+                    <a href="#features" class="btn btn-secondary">En Savoir Plus</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
-                        <span class="stat-number">250+</span>
-                        <span class="stat-label">Projets Réalisés</span>
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Membres Inscrits</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">98%</span>
-                        <span class="stat-label">Satisfaction Client</span>
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Pays Représentés</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Experts</span>
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Compétences Diverses</span>
                     </div>
                 </div>
             </div>
@@ -75,70 +78,71 @@
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Nos Services</h2>
-                <p class="section-subtitle">Des solutions complètes pour tous vos besoins digitaux</p>
+                <h2 class="section-title">Nos Fonctionnalités</h2>
+                <p class="section-subtitle">Une plateforme complète pour rester connectés</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card" style="--card-color: #3498db">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                            <line x1="8" y1="21" x2="16" y2="21"></line>
-                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
                     </div>
-                    <h3>Développement Web</h3>
-                    <p>Création de sites web modernes et performants avec les dernières technologies</p>
+                    <h3>Annuaire des Membres</h3>
+                    <p>Retrouvez facilement les ressortissants de Bassila partout dans le monde</p>
                 </div>
                 <div class="feature-card" style="--card-color: #2ecc71">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="5" y="2" width="14" height="20" rx="2"></rect>
-                            <line x1="12" y1="18" x2="12" y2="18"></line>
+                            <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                         </svg>
                     </div>
-                    <h3>Applications Mobile</h3>
-                    <p>Applications natives et hybrides pour iOS et Android</p>
+                    <h3>Profils Détaillés</h3>
+                    <p>Partagez votre parcours, compétences et expériences professionnelles</p>
                 </div>
                 <div class="feature-card" style="--card-color: #e67e22">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                         </svg>
                     </div>
-                    <h3>Solutions Cloud</h3>
-                    <p>Infrastructure cloud scalable et sécurisée pour votre entreprise</p>
+                    <h3>Réseau International</h3>
+                    <p>Connectez-vous avec la diaspora bassiloise à travers le monde</p>
                 </div>
                 <div class="feature-card" style="--card-color: #9b59b6">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         </svg>
                     </div>
-                    <h3>Intelligence Artificielle</h3>
-                    <p>Intégration d'IA et Machine Learning dans vos processus</p>
+                    <h3>Opportunités Professionnelles</h3>
+                    <p>Dénicher les talents pour vos projets ou trouvez des opportunités</p>
                 </div>
                 <div class="feature-card" style="--card-color: #e74c3c">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <path d="M21 15l-5-5L5 21"></path>
                         </svg>
                     </div>
-                    <h3>Cybersécurité</h3>
-                    <p>Protection avancée de vos données et infrastructures</p>
+                    <h3>Galerie Communautaire</h3>
+                    <p>Partagez photos et moments de Bassila et des événements communautaires</p>
                 </div>
                 <div class="feature-card" style="--card-color: #1abc9c">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                         </svg>
                     </div>
-                    <h3>Consulting Digital</h3>
-                    <p>Accompagnement stratégique pour votre transformation digitale</p>
+                    <h3>Actualités</h3>
+                    <p>Restez informés des nouvelles de Bassila et des événements communautaires</p>
                 </div>
             </div>
         </div>
@@ -156,31 +160,32 @@
                     </div>
                 </div>
                 <div class="about-text">
-                    <h2 class="section-title">Qui Sommes-Nous ?</h2>
+                    <h2 class="section-title">À Propos de Bassila Connect</h2>
                     <p>
-                        Emergence Bassila est une entreprise technologique innovante qui accompagne
-                        les organisations dans leur transformation digitale. Avec plus de 10 ans
-                        d'expérience, nous combinons expertise technique et vision stratégique.
+                        Bassila Connect est une plateforme communautaire dédiée aux ressortissants
+                        de Bassila, commune du département du Donga au Bénin. Notre mission est de
+                        maintenir et renforcer les liens entre les fils et filles de Bassila dispersés
+                        à travers le monde.
                     </p>
                     <div class="about-features">
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Équipe d'experts certifiés</span>
+                            <span>Réseau communautaire fort</span>
                         </div>
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Méthodologies agiles</span>
+                            <span>Plateforme de recrutement</span>
                         </div>
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Support 24/7</span>
+                            <span>Partage de compétences</span>
                         </div>
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Innovation continue</span>
+                            <span>Validation par administration</span>
                         </div>
                     </div>
-                    <button class="btn btn-primary">En Savoir Plus</button>
+                    <a href="{{ route('register') }}" class="btn btn-primary">Rejoindre Maintenant</a>
                 </div>
             </div>
         </div>
@@ -190,9 +195,9 @@
     <section class="cta">
         <div class="container">
             <div class="cta-content">
-                <h2>Prêt à Démarrer Votre Projet ?</h2>
-                <p>Contactez-nous dès aujourd'hui pour discuter de vos besoins</p>
-                <button class="btn btn-white">Demander un Devis Gratuit</button>
+                <h2>Prêt à Rejoindre la Communauté ?</h2>
+                <p>Inscrivez-vous dès aujourd'hui et connectez-vous avec les ressortissants de Bassila</p>
+                <a href="{{ route('register') }}" class="btn btn-white">Créer Mon Compte</a>
             </div>
         </div>
     </section>
@@ -202,38 +207,36 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Emergence Bassila</h3>
-                    <p>Votre partenaire technologique de confiance</p>
+                    <h3>Bassila Connect</h3>
+                    <p>La plateforme communautaire des ressortissants de Bassila</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Services</h4>
+                    <h4>Navigation</h4>
                     <ul>
-                        <li><a href="#">Développement Web</a></li>
-                        <li><a href="#">Applications Mobile</a></li>
-                        <li><a href="#">Cloud Computing</a></li>
-                        <li><a href="#">Consulting</a></li>
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#features">Fonctionnalités</a></li>
+                        <li><a href="#about">À Propos</a></li>
+                        <li><a href="{{ route('register') }}">S'inscrire</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Entreprise</h4>
+                    <h4>Communauté</h4>
                     <ul>
-                        <li><a href="#">À Propos</a></li>
-                        <li><a href="#">Carrières</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="{{ route('login') }}">Se Connecter</a></li>
+                        <li><a href="#">Galerie</a></li>
+                        <li><a href="#">Actualités</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <ul>
-                        <li>Email: contact@emergence-bassila.com</li>
-                        <li>Tél: +229 XX XX XX XX</li>
-                        <li>Bassila, Bénin</li>
+                        <li>Email: contact@bassilaconnect.com</li>
+                        <li>Bassila, Donga, Bénin</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Emergence Bassila. Tous droits réservés.</p>
+                <p>&copy; 2024 Bassila Connect. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
