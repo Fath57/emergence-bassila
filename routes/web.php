@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\OpportunityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,18 @@ Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 /*
 |--------------------------------------------------------------------------
+| Routes publiques - Opportunités
+|--------------------------------------------------------------------------
+*/
+
+// Liste des opportunités
+Route::get('/opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
+
+// Détail d'une opportunité
+Route::get('/opportunities/{id}', [OpportunityController::class, 'show'])->name('opportunities.show');
+
+/*
+|--------------------------------------------------------------------------
 | Routes d'authentification
 |--------------------------------------------------------------------------
 */
@@ -81,6 +94,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/news/my', [NewsController::class, 'myNews'])->name('news.my');
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+
+    // Opportunités (gestion personnelle)
+    Route::get('/opportunities/my', [OpportunityController::class, 'myOpportunities'])->name('opportunities.my');
+    Route::get('/opportunities/create', [OpportunityController::class, 'create'])->name('opportunities.create');
+    Route::post('/opportunities', [OpportunityController::class, 'store'])->name('opportunities.store');
+    Route::get('/opportunities/{id}/edit', [OpportunityController::class, 'edit'])->name('opportunities.edit');
+    Route::put('/opportunities/{id}', [OpportunityController::class, 'update'])->name('opportunities.update');
+    Route::delete('/opportunities/{id}', [OpportunityController::class, 'destroy'])->name('opportunities.destroy');
 });
 
 /*

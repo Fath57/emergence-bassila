@@ -17,7 +17,7 @@
             <ul class="navbar-nav">
                 <li><a href="{{ route('landing') }}" class="{{ request()->routeIs('landing') ? 'active' : '' }}">Accueil</a></li>
                 <li><a href="{{ route('members.index') }}" class="{{ request()->routeIs('members.index') ? 'active' : '' }}">Annuaire</a></li>
-                <li><a href="{{ route('members.search') }}" class="{{ request()->routeIs('members.search') ? 'active' : '' }}">Rechercher</a></li>
+                <li><a href="{{ route('opportunities.index') }}" class="{{ request()->routeIs('opportunities.*') ? 'active' : '' }}">Opportunités</a></li>
                 <li><a href="{{ route('news.index') }}" class="{{ request()->routeIs('news.*') ? 'active' : '' }}">Actualités</a></li>
 
                 @auth
@@ -56,7 +56,7 @@
                     <h4 style="margin-bottom: 15px;">Liens rapides</h4>
                     <ul style="list-style: none;">
                         <li style="margin-bottom: 8px;"><a href="{{ route('members.index') }}" style="color: #ecf0f1;">Annuaire</a></li>
-                        <li style="margin-bottom: 8px;"><a href="{{ route('members.search') }}" style="color: #ecf0f1;">Rechercher</a></li>
+                        <li style="margin-bottom: 8px;"><a href="{{ route('opportunities.index') }}" style="color: #ecf0f1;">Opportunités</a></li>
                         <li style="margin-bottom: 8px;"><a href="{{ route('news.index') }}" style="color: #ecf0f1;">Actualités</a></li>
                         <li style="margin-bottom: 8px;"><a href="{{ route('register') }}" style="color: #ecf0f1;">S'inscrire</a></li>
                     </ul>

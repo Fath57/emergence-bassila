@@ -178,6 +178,7 @@
             <nav>
                 <a href="{{ route('dashboard') }}">Dashboard</a>
                 <a href="{{ route('dashboard.profile') }}">Mon Profil</a>
+                <a href="{{ route('opportunities.my') }}">Mes Opportunités</a>
                 <a href="{{ route('news.my') }}">Mes Actualités</a>
                 <a href="{{ route('landing') }}">Accueil</a>
                 <form method="POST" action="{{ route('logout') }}" style="display: inline;">
@@ -261,8 +262,14 @@
                 <a href="{{ route('members.search') }}" class="btn-primary" style="text-align: center;">
                     🔍 Rechercher des membres
                 </a>
+                <a href="{{ route('opportunities.create') }}" class="btn-primary" style="text-align: center;">
+                    💼 Publier une opportunité
+                </a>
                 <a href="{{ route('news.create') }}" class="btn-primary" style="text-align: center;">
                     ✍️ Publier une actualité
+                </a>
+                <a href="{{ route('opportunities.my') }}" class="btn-primary" style="text-align: center;">
+                    💼 Mes opportunités
                 </a>
                 <a href="{{ route('news.my') }}" class="btn-primary" style="text-align: center;">
                     📰 Mes actualités
@@ -272,7 +279,7 @@
                 </a>
             </div>
             <p style="margin-top: 20px; color: #7f8c8d; font-size: 14px;">
-                <strong>À venir :</strong> Opportunités d'emploi, messagerie interne
+                <strong>À venir :</strong> Messagerie interne, galerie photos
             </p>
         </div>
     </div>
