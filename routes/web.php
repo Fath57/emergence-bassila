@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,21 @@ use App\Http\Controllers\Admin\UserController;
 
 // Page d'accueil
 Route::get('/', [LandingPageController::class, 'index'])->name('landing');
+
+/*
+|--------------------------------------------------------------------------
+| Routes publiques - Annuaire et membres
+|--------------------------------------------------------------------------
+*/
+
+// Annuaire des membres
+Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+
+// Recherche avancée
+Route::get('/members/search', [MemberController::class, 'search'])->name('members.search');
+
+// Profil public d'un membre
+Route::get('/members/{id}', [MemberController::class, 'show'])->name('members.show');
 
 /*
 |--------------------------------------------------------------------------

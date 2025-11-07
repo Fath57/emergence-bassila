@@ -16,11 +16,23 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Accueil</a></li>
-                <li><a href="#features">Services</a></li>
+                <li><a href="{{ route('members.index') }}">Annuaire</a></li>
+                <li><a href="{{ route('members.search') }}">Rechercher</a></li>
                 <li><a href="#about">À Propos</a></li>
-                <li><a href="#contact">Contact</a></li>
+                @auth
+                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                @else
+                    <li><a href="{{ route('login') }}">Connexion</a></li>
+                @endauth
             </ul>
-            <button class="nav-cta">Commencer</button>
+            @auth
+                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="nav-cta" style="background: #e74c3c;">Déconnexion</button>
+                </form>
+            @else
+                <a href="{{ route('register') }}" class="nav-cta" style="text-decoration: none; color: white;">S'inscrire</a>
+            @endauth
         </div>
     </nav>
 
@@ -29,16 +41,16 @@
         <div class="hero-content">
             <div class="hero-text">
                 <h1 class="hero-title">
-                    Transformez Vos Idées en
-                    <span class="gradient-text">Réalité Digitale</span>
+                    Plateforme Communautaire des
+                    <span class="gradient-text">Ressortissants de Bassila</span>
                 </h1>
                 <p class="hero-description">
-                    Nous créons des solutions digitales innovantes qui propulsent votre entreprise
-                    vers l'excellence. Rejoignez-nous dans cette aventure technologique.
+                    Connectez-vous avec les membres de la diaspora de Bassila à travers le monde.
+                    Partagez votre parcours, trouvez des opportunités et restez en contact avec votre communauté.
                 </p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary">Découvrir Plus</button>
-                    <button class="btn btn-secondary">Nos Projets</button>
+                    <a href="{{ route('register') }}" class="btn btn-primary" style="text-decoration: none; display: inline-block;">Rejoindre la Communauté</a>
+                    <a href="{{ route('members.index') }}" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">Voir l'Annuaire</a>
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
