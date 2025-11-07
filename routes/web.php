@@ -110,7 +110,7 @@ Route::middleware(['auth'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     // Dashboard admin
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 
@@ -124,4 +124,24 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('/users/{id}/suspend', [UserController::class, 'suspend'])->name('users.suspend');
     Route::post('/users/{id}/reactivate', [UserController::class, 'reactivate'])->name('users.reactivate');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    // Gestion des actualités
+    Route::get('/news', [\App\Http\Controllers\Admin\NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/pending', [\App\Http\Controllers\Admin\NewsController::class, 'pending'])->name('news.pending');
+    Route::get('/news/{id}', [\App\Http\Controllers\Admin\NewsController::class, 'show'])->name('news.show');
+    Route::post('/news/{id}/publish', [\App\Http\Controllers\Admin\NewsController::class, 'publish'])->name('news.publish');
+    Route::post('/news/{id}/archive', [\App\Http\Controllers\Admin\NewsController::class, 'archive'])->name('news.archive');
+    Route::post('/news/{id}/restore', [\App\Http\Controllers\Admin\NewsController::class, 'restore'])->name('news.restore');
+    Route::post('/news/{id}/toggle-featured', [\App\Http\Controllers\Admin\NewsController::class, 'toggleFeatured'])->name('news.toggle-featured');
+    Route::delete('/news/{id}', [\App\Http\Controllers\Admin\NewsController::class, 'destroy'])->name('news.destroy');
+
+    // Gestion des opportunités
+    Route::get('/opportunities', [\App\Http\Controllers\Admin\OpportunityController::class, 'index'])->name('opportunities.index');
+    Route::get('/opportunities/pending', [\App\Http\Controllers\Admin\OpportunityController::class, 'pending'])->name('opportunities.pending');
+    Route::get('/opportunities/{id}', [\App\Http\Controllers\Admin\OpportunityController::class, 'show'])->name('opportunities.show');
+    Route::post('/opportunities/{id}/activate', [\App\Http\Controllers\Admin\OpportunityController::class, 'activate'])->name('opportunities.activate');
+    Route::post('/opportunities/{id}/close', [\App\Http\Controllers\Admin\OpportunityController::class, 'close'])->name('opportunities.close');
+    Route::post('/opportunities/{id}/reopen', [\App\Http\Controllers\Admin\OpportunityController::class, 'reopen'])->name('opportunities.reopen');
+    Route::post('/opportunities/{id}/toggle-featured', [\App\Http\Controllers\Admin\OpportunityController::class, 'toggleFeatured'])->name('opportunities.toggle-featured');
+    Route::delete('/opportunities/{id}', [\App\Http\Controllers\Admin\OpportunityController::class, 'destroy'])->name('opportunities.destroy');
 });

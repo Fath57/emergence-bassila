@@ -33,14 +33,36 @@ class UserController extends Controller
             'pending_users' => User::where('status', 'pending')->count(),
             'active_users' => User::where('status', 'active')->count(),
             'suspended_users' => User::where('status', 'suspended')->count(),
+
+            // Stats actualités
+            'total_news' => \App\News::count(),
+            'pending_news' => \App\News::where('status', 'draft')->count(),
+            'published_news' => \App\News::where('status', 'published')->count(),
+
+            // Stats opportunités
+            'total_opportunities' => \App\Opportunity::count(),
+            'pending_opportunities' => \App\Opportunity::where('status', 'pending')->count(),
+            'active_opportunities' => \App\Opportunity::where('status', 'active')->count(),
         ];
 
         $pendingUsers = User::where('status', 'pending')
             ->orderBy('created_at', 'desc')
-            ->limit(10)
+            ->limit(5)
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'pendingUsers'));
+        $pendingNews = \App\News::where('status', 'draft')
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        $pendingOpportunities = \App\Opportunity::where('status', 'pending')
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('admin.dashboard', compact('stats', 'pendingUsers', 'pendingNews', 'pendingOpportunities'));
     }
 
     /**
