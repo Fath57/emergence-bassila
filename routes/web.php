@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,18 @@ Route::get('/members/search', [MemberController::class, 'search'])->name('member
 
 // Profil public d'un membre
 Route::get('/members/{id}', [MemberController::class, 'show'])->name('members.show');
+
+/*
+|--------------------------------------------------------------------------
+| Routes publiques - Actualités et Événements
+|--------------------------------------------------------------------------
+*/
+
+// Liste des actualités
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+
+// Détail d'une actualité
+Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +76,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/profile', [DashboardController::class, 'profile'])->name('dashboard.profile');
     Route::get('/dashboard/profile/edit', [DashboardController::class, 'editProfile'])->name('dashboard.profile.edit');
     Route::put('/dashboard/profile', [DashboardController::class, 'updateProfile'])->name('dashboard.profile.update');
+
+    // Actualités (gestion personnelle)
+    Route::get('/news/my', [NewsController::class, 'myNews'])->name('news.my');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store');
 });
 
 /*

@@ -178,6 +178,7 @@
             <nav>
                 <a href="{{ route('dashboard') }}">Dashboard</a>
                 <a href="{{ route('dashboard.profile') }}">Mon Profil</a>
+                <a href="{{ route('news.my') }}">Mes Actualités</a>
                 <a href="{{ route('landing') }}">Accueil</a>
                 <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                     @csrf
@@ -256,13 +257,23 @@
         <!-- Quick Actions -->
         <div class="card">
             <h2>Actions rapides</h2>
-            <p>Fonctionnalités à venir :</p>
-            <ul>
-                <li>Rechercher des membres de la communauté</li>
-                <li>Poster une opportunité d'emploi</li>
-                <li>Publier une actualité</li>
-                <li>Envoyer un message à un membre</li>
-            </ul>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                <a href="{{ route('members.search') }}" class="btn-primary" style="text-align: center;">
+                    🔍 Rechercher des membres
+                </a>
+                <a href="{{ route('news.create') }}" class="btn-primary" style="text-align: center;">
+                    ✍️ Publier une actualité
+                </a>
+                <a href="{{ route('news.my') }}" class="btn-primary" style="text-align: center;">
+                    📰 Mes actualités
+                </a>
+                <a href="{{ route('members.index') }}" class="btn-primary" style="text-align: center;">
+                    👥 Annuaire
+                </a>
+            </div>
+            <p style="margin-top: 20px; color: #7f8c8d; font-size: 14px;">
+                <strong>À venir :</strong> Opportunités d'emploi, messagerie interne
+            </p>
         </div>
     </div>
 </body>
