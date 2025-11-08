@@ -3,7 +3,7 @@
 @section('title', 'Actualités & Événements - Emergence Bassila')
 
 @section('content')
-<div style="background: linear-gradient(135deg, #8e44ad, #3498db); padding: 60px 0; color: white;">
+<div style="background: #8e44ad; padding: 60px 0; color: white;">
     <div class="container text-center">
         <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">Actualités & Événements</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto;">
@@ -65,7 +65,7 @@
                 @foreach($featured as $article)
                     <a href="{{ route('news.show', $article->slug) }}" style="text-decoration: none;">
                         <div class="card" style="height: 100%; transition: transform 0.3s;">
-                            <div style="height: 200px; background: linear-gradient(135deg, #{{ dechex(rand(0x3498db, 0x9b59b6)) }}, #{{ dechex(rand(0x2ecc71, 0xe67e22)) }}); border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
+                            <div style="height: 200px; background: #3498db; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px;">
                                 @if($article->type == 'Événement')
                                     📅
                                 @elseif($article->type == 'Culture')
@@ -107,7 +107,7 @@
                 @foreach($news as $article)
                     <a href="{{ route('news.show', $article->slug) }}" style="text-decoration: none;">
                         <div class="card" style="height: 100%; transition: transform 0.3s;">
-                            <div style="height: 180px; background: linear-gradient(135deg, #{{ dechex(rand(0x3498db, 0x9b59b6)) }}, #{{ dechex(rand(0x2ecc71, 0xe67e22)) }}); border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 42px;">
+                            <div style="height: 180px; background: #3498db; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 42px;">
                                 @if($article->type == 'Événement')
                                     📅
                                 @elseif($article->type == 'Culture')

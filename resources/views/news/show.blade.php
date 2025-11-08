@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Header Article -->
-<div style="background: linear-gradient(135deg, #8e44ad, #3498db); padding: 80px 0; color: white;">
+<div style="background: #8e44ad; padding: 80px 0; color: white;">
     <div class="container" style="max-width: 800px;">
         <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
             <span class="badge" style="background: rgba(255,255,255,0.3); font-size: 14px;">{{ $article->type }}</span>
@@ -104,7 +104,7 @@
                         @foreach($related as $relatedArticle)
                             <a href="{{ route('news.show', $relatedArticle->slug) }}" style="text-decoration: none;">
                                 <div style="display: flex; gap: 15px; padding: 15px; background: #f8f9fa; border-radius: 10px; transition: all 0.3s;">
-                                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #3498db, #2ecc71); border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px;">
+                                    <div style="width: 100px; height: 100px; background: #3498db; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px;">
                                         @if($relatedArticle->type == 'Événement')📅
                                         @elseif($relatedArticle->type == 'Culture')🎭
                                         @elseif($relatedArticle->type == 'Annonce')📢
@@ -160,7 +160,7 @@
                 <h3 class="card-title">À propos de l'auteur</h3>
                 <a href="{{ route('members.show', $article->user->id) }}" style="text-decoration: none;">
                     <div style="text-align: center;">
-                        <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #3498db, #2ecc71); margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: 700;">
+                        <div style="width: 80px; height: 80px; border-radius: 50%; background: #3498db; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: 700;">
                             {{ strtoupper(substr($article->user->first_name, 0, 1)) }}{{ strtoupper(substr($article->user->last_name, 0, 1)) }}
                         </div>
                         <h4 style="font-size: 18px; font-weight: 700; color: #2c3e50; margin-bottom: 5px;">

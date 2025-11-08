@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Hero Header -->
-<div style="background: linear-gradient(135deg, #16a085, #2ecc71); padding: 80px 0; color: white;">
+<div style="background: #2ecc71; padding: 80px 0; color: white;">
     <div class="container">
         <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
             <span class="badge" style="background: rgba(255,255,255,0.3); color: white; font-size: 14px;">{{ $opportunity->type }}</span>
@@ -98,7 +98,7 @@
             </div>
 
             <!-- Contact et candidature -->
-            <div class="card" style="background: linear-gradient(135deg, #f8f9fa, #ffffff); border: 2px solid #16a085;">
+            <div class="card" style="background: #f8f9fa; border: 2px solid #16a085;">
                 <h2 class="card-title" style="color: #16a085;">📧 Comment postuler</h2>
                 <div style="color: #555; line-height: 1.8;">
                     <p style="margin-bottom: 20px;">
@@ -167,7 +167,7 @@
             <div class="card">
                 <h3 class="card-title">🏢 À propos de l'entreprise</h3>
                 <div style="text-align: center; margin-bottom: 15px;">
-                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #16a085, #2ecc71); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 32px; font-weight: 700;">
+                    <div style="width: 80px; height: 80px; background: #2ecc71; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 32px; font-weight: 700;">
                         {{ strtoupper(substr($opportunity->company_name, 0, 1)) }}
                     </div>
                 </div>
@@ -188,7 +188,7 @@
             <div class="card">
                 <h3 class="card-title">👤 Annonceur</h3>
                 <div style="text-align: center;">
-                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #3498db, #2ecc71); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px; font-weight: 700;">
+                    <div style="width: 60px; height: 60px; background: #3498db; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px; font-weight: 700;">
                         {{ strtoupper(substr($opportunity->user->first_name, 0, 1) . substr($opportunity->user->last_name, 0, 1)) }}
                     </div>
                     <h4 style="font-size: 16px; color: #2c3e50; margin-bottom: 5px;">

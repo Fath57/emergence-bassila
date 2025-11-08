@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Header Profile -->
-<div style="background: linear-gradient(135deg, #3498db, #2ecc71); padding: 80px 0 100px; color: white; position: relative;">
+<div style="background: #3498db; padding: 80px 0 100px; color: white; position: relative;">
     <div class="container">
         <div style="max-width: 800px; margin: 0 auto; text-align: center;">
             <div style="width: 150px; height: 150px; border-radius: 50%; border: 6px solid white; margin: 0 auto 20px; background: white; display: flex; align-items: center; justify-content: center; font-size: 60px; font-weight: 700; color: #3498db; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">

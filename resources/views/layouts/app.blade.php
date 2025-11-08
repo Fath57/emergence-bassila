@@ -109,7 +109,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #3498db, #2ecc71);
+            background: #3498db;
             color: white;
         }
 

@@ -3,7 +3,7 @@
 @section('title', 'Modifier mon profil - Emergence Bassila')
 
 @section('content')
-<div style="background: linear-gradient(135deg, #e67e22, #e74c3c); padding: 60px 0; color: white;">
+<div style="background: #e67e22; padding: 60px 0; color: white;">
     <div class="container text-center">
         <h1 style="font-size: 42px; margin-bottom: 10px; font-weight: 700;">Modifier mon profil</h1>
         <p style="font-size: 18px; opacity: 0.95;">Mettez à jour vos informations personnelles et professionnelles</p>

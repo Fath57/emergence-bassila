@@ -65,10 +65,7 @@ body {
 .nav-brand .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-turquoise));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary-blue);
 }
 
 .nav-menu {
@@ -102,7 +99,7 @@ body {
 
 .nav-cta {
     padding: 0.7rem 1.5rem;
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-turquoise));
+    background: var(--primary-blue);
     color: white;
     border: none;
     border-radius: 50px;
@@ -122,22 +119,9 @@ body {
 .hero {
     min-height: 100vh;
     padding: 120px 0 80px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-blue);
     position: relative;
     overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background:
-        radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(155, 89, 182, 0.1) 0%, transparent 50%);
-    animation: pulse 15s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -170,10 +154,7 @@ body {
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #fff, var(--primary-turquoise));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white;
     display: inline-block;
 }
 
@@ -273,7 +254,7 @@ body {
 .card-1 {
     width: 200px;
     height: 200px;
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-turquoise));
+    background: var(--primary-blue);
     top: 0;
     right: 0;
     animation-delay: 0s;
@@ -283,7 +264,7 @@ body {
 .card-2 {
     width: 150px;
     height: 150px;
-    background: linear-gradient(135deg, var(--primary-orange), var(--primary-red));
+    background: var(--primary-orange);
     bottom: 100px;
     left: 50px;
     animation-delay: 2s;
@@ -293,7 +274,7 @@ body {
 .card-3 {
     width: 180px;
     height: 180px;
-    background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+    background: var(--primary-purple);
     top: 150px;
     left: 0;
     animation-delay: 4s;
@@ -389,7 +370,7 @@ body {
 .feature-icon {
     width: 70px;
     height: 70px;
-    background: linear-gradient(135deg, var(--card-color), color-mix(in srgb, var(--card-color) 70%, white));
+    background: var(--card-color);
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -424,7 +405,7 @@ body {
 ======================================== */
 .about {
     padding: 100px 0;
-    background: linear-gradient(135deg, var(--light) 0%, #fff 100%);
+    background: var(--light);
 }
 
 .about-content {
@@ -443,7 +424,7 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-turquoise));
+    background: var(--primary-blue);
     border-radius: 30px;
     overflow: hidden;
 }
@@ -522,7 +503,7 @@ body {
 ======================================== */
 .cta {
     padding: 100px 0;
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+    background: var(--primary-blue);
     position: relative;
     overflow: hidden;
 }
@@ -587,10 +568,7 @@ body {
 .footer-section h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, white, var(--primary-turquoise));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white;
 }
 
 .footer-section h4 {

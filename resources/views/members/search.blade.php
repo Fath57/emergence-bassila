@@ -3,7 +3,7 @@
 @section('title', 'Recherche Avancée - Emergence Bassila')
 
 @section('content')
-<div style="background: linear-gradient(135deg, #9b59b6, #e74c3c); padding: 60px 0; color: white;">
+<div style="background: #9b59b6; padding: 60px 0; color: white;">
     <div class="container text-center">
         <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">Recherche Avancée</h1>
         <p style="font-size: 18px; opacity: 0.95;">

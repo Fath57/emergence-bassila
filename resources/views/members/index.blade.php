@@ -3,7 +3,7 @@
 @section('title', 'Annuaire des Ressortissants - Emergence Bassila')
 
 @section('content')
-<div style="background: linear-gradient(135deg, #3498db, #2ecc71); padding: 60px 0; color: white;">
+<div style="background: #3498db; padding: 60px 0; color: white;">
     <div class="container text-center">
         <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">Annuaire des Ressortissants</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 600px; margin: 0 auto;">

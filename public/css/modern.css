@@ -223,7 +223,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--primary);
     color: white;
     box-shadow: var(--shadow-md);
 }
@@ -635,7 +635,7 @@ body {
 }
 
 .profile-header {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: var(--primary);
     height: 120px;
     position: relative;
 }

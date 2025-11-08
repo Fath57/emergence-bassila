@@ -3,7 +3,7 @@
 @section('title', 'Mes actualités - Emergence Bassila')
 
 @section('content')
-<div style="background: linear-gradient(135deg, #8e44ad, #3498db); padding: 60px 0; color: white;">
+<div style="background: #8e44ad; padding: 60px 0; color: white;">
     <div class="container text-center">
         <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">📰 Mes actualités</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto;">
@@ -40,25 +40,25 @@
 
     <!-- Statistiques -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
-        <div class="card text-center" style="background: linear-gradient(135deg, #3498db, #2ecc71);">
+        <div class="card text-center" style="background: #3498db;">
             <div style="color: white;">
                 <div style="font-size: 42px; font-weight: 700; margin-bottom: 10px;">{{ $stats['total'] }}</div>
                 <div style="font-size: 16px; opacity: 0.95;">Total</div>
             </div>
         </div>
-        <div class="card text-center" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+        <div class="card text-center" style="background: #2ecc71;">
             <div style="color: white;">
                 <div style="font-size: 42px; font-weight: 700; margin-bottom: 10px;">{{ $stats['published'] }}</div>
                 <div style="font-size: 16px; opacity: 0.95;">Publiés</div>
             </div>
         </div>
-        <div class="card text-center" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+        <div class="card text-center" style="background: #f39c12;">
             <div style="color: white;">
                 <div style="font-size: 42px; font-weight: 700; margin-bottom: 10px;">{{ $stats['drafts'] }}</div>
                 <div style="font-size: 16px; opacity: 0.95;">Brouillons</div>
             </div>
         </div>
-        <div class="card text-center" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+        <div class="card text-center" style="background: #9b59b6;">
             <div style="color: white;">
                 <div style="font-size: 42px; font-weight: 700; margin-bottom: 10px;">{{ $stats['views'] }}</div>
                 <div style="font-size: 16px; opacity: 0.95;">Vues totales</div>

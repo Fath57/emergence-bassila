@@ -71,7 +71,7 @@
         }
 
         .welcome {
-            background: linear-gradient(135deg, #3498db, #2ecc71);
+            background: #3498db;
             color: white;
             padding: 40px;
             border-radius: 10px;

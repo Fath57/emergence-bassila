@@ -3,7 +3,7 @@
 @section('title', 'Opportunités - Emergence Bassila')
 
 @section('content')
-<div style="background: linear-gradient(135deg, #16a085, #2ecc71); padding: 60px 0; color: white;">
+<div style="background: #2ecc71; padding: 60px 0; color: white;">
     <div class="container text-center">
         <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">💼 Opportunités</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto;">
@@ -16,25 +16,25 @@
 
     <!-- Statistiques -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 40px;">
-        <div class="card text-center" style="background: linear-gradient(135deg, #3498db, #2ecc71);">
+        <div class="card text-center" style="background: #3498db;">
             <div style="color: white;">
                 <div style="font-size: 36px; font-weight: 700; margin-bottom: 10px;">{{ $stats['total'] }}</div>
                 <div style="font-size: 14px; opacity: 0.95;">Total</div>
             </div>
         </div>
-        <div class="card text-center" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+        <div class="card text-center" style="background: #9b59b6;">
             <div style="color: white;">
                 <div style="font-size: 36px; font-weight: 700; margin-bottom: 10px;">{{ $stats['emploi'] }}</div>
                 <div style="font-size: 14px; opacity: 0.95;">Emplois</div>
             </div>
         </div>
-        <div class="card text-center" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+        <div class="card text-center" style="background: #e74c3c;">
             <div style="color: white;">
                 <div style="font-size: 36px; font-weight: 700; margin-bottom: 10px;">{{ $stats['stage'] }}</div>
                 <div style="font-size: 14px; opacity: 0.95;">Stages</div>
             </div>
         </div>
-        <div class="card text-center" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+        <div class="card text-center" style="background: #f39c12;">
             <div style="color: white;">
                 <div style="font-size: 36px; font-weight: 700; margin-bottom: 10px;">{{ $stats['collaboration'] }}</div>
                 <div style="font-size: 14px; opacity: 0.95;">Collaborations</div>
@@ -49,7 +49,7 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                 @foreach($featured as $opp)
                     <a href="{{ route('opportunities.show', $opp->id) }}" style="text-decoration: none; color: inherit;">
-                        <div style="border: 2px solid #f39c12; border-radius: 10px; padding: 20px; background: linear-gradient(135deg, #fff9e6, #ffffff); transition: all 0.3s; height: 100%;">
+                        <div style="border: 2px solid #f39c12; border-radius: 10px; padding: 20px; background: #fff9e6; transition: all 0.3s; height: 100%;">
                             <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
                                 <span class="badge badge-warning">⭐ À la une</span>
                                 <span class="badge badge-primary">{{ $opp->type }}</span>
