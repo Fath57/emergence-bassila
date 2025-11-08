@@ -3,83 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emergence Bassila - Innovation & Excellence</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <title>Emergence Bassila - Plateforme Communautaire</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #ffffff;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #27ae60;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #27ae60;
+        }
+
+        .nav-cta {
+            background: #27ae60;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .nav-cta:hover {
+            background: #229954;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: #ecf0f1;
+            padding: 100px 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .hero-title .highlight {
+            color: #27ae60;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #229954;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #27ae60;
+            border: 2px solid #27ae60;
+        }
+
+        .btn-secondary:hover {
+            background: #27ae60;
+            color: white;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 32px;
+            font-weight: 700;
+            color: #27ae60;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .hero-image {
+            background: #27ae60;
+            height: 400px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 60px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            padding: 30px;
+            border-radius: 10px;
+            background: #ecf0f1;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .feature-card p {
+            color: #7f8c8d;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: #ecf0f1;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            background: #27ae60;
+            height: 350px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 50px;
+        }
+
+        .about-text h2 {
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .check-icon {
+            background: #27ae60;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: #27ae60;
+            text-align: center;
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-white {
+            background: white;
+            color: #27ae60;
+        }
+
+        .btn-white:hover {
+            background: #ecf0f1;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #27ae60;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #27ae60;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content,
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <span class="logo">Emergence Bassila</span>
-            </div>
+            <div class="logo">🌍 Emergence Bassila</div>
             <ul class="nav-menu">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="{{ route('members.index') }}">Annuaire</a></li>
-                <li><a href="{{ route('members.search') }}">Rechercher</a></li>
-                <li><a href="#about">À Propos</a></li>
+                <li><a href="{{ route('opportunities.index') }}">Opportunités</a></li>
+                <li><a href="{{ route('news.index') }}">Actualités</a></li>
                 @auth
                     <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="nav-cta" style="background: #e74c3c;">Déconnexion</button>
+                        </form>
+                    </li>
                 @else
                     <li><a href="{{ route('login') }}">Connexion</a></li>
+                    <li><a href="{{ route('register') }}" class="nav-cta" style="text-decoration: none; color: white; display: inline-block;">S'inscrire</a></li>
                 @endauth
             </ul>
-            @auth
-                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="nav-cta" style="background: #e74c3c;">Déconnexion</button>
-                </form>
-            @else
-                <a href="{{ route('register') }}" class="nav-cta" style="text-decoration: none; color: white;">S'inscrire</a>
-            @endauth
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    Plateforme Communautaire des
-                    <span class="gradient-text">Ressortissants de Bassila</span>
-                </h1>
-                <p class="hero-description">
-                    Connectez-vous avec les membres de la diaspora de Bassila à travers le monde.
-                    Partagez votre parcours, trouvez des opportunités et restez en contact avec votre communauté.
-                </p>
-                <div class="hero-buttons">
-                    <a href="{{ route('register') }}" class="btn btn-primary" style="text-decoration: none; display: inline-block;">Rejoindre la Communauté</a>
-                    <a href="{{ route('members.index') }}" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">Voir l'Annuaire</a>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Restez connectés avec
+                        <span class="highlight">la communauté de Bassila</span>
+                    </h1>
+                    <p class="hero-description">
+                        Plateforme communautaire qui rassemble tous les ressortissants de Bassila à travers le monde.
+                        Retrouvez vos proches, partagez votre parcours, découvrez des opportunités et contribuez au développement de notre région.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="{{ route('register') }}" class="btn btn-primary" style="text-decoration: none; display: inline-block;">Rejoindre la Communauté</a>
+                        <a href="{{ route('members.index') }}" class="btn btn-secondary" style="text-decoration: none; display: inline-block;">Voir l'Annuaire</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">👥</span>
+                            <span class="stat-label">Membres connectés</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">🌍</span>
+                            <span class="stat-label">Plusieurs pays</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">💼</span>
+                            <span class="stat-label">Opportunités partagées</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">250+</span>
-                        <span class="stat-label">Projets Réalisés</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">98%</span>
-                        <span class="stat-label">Satisfaction Client</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Experts</span>
-                    </div>
+                <div class="hero-image">
+                    🏘️
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="floating-card card-1"></div>
-                <div class="floating-card card-2"></div>
-                <div class="floating-card card-3"></div>
-                <div class="hero-illustration"></div>
-            </div>
-        </div>
-        <div class="wave-divider">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
-            </svg>
         </div>
     </section>
 
@@ -87,70 +459,39 @@
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Nos Services</h2>
-                <p class="section-subtitle">Des solutions complètes pour tous vos besoins digitaux</p>
+                <h2 class="section-title">Que pouvez-vous faire sur la plateforme ?</h2>
+                <p class="section-subtitle">Des fonctionnalités pour rester connecté avec votre communauté</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card" style="--card-color: #3498db">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                            <line x1="8" y1="21" x2="16" y2="21"></line>
-                            <line x1="12" y1="17" x2="12" y2="21"></line>
-                        </svg>
-                    </div>
-                    <h3>Développement Web</h3>
-                    <p>Création de sites web modernes et performants avec les dernières technologies</p>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Annuaire des Membres</h3>
+                    <p>Retrouvez tous les ressortissants de Bassila où qu'ils soient dans le monde. Recherchez par village, profession ou localisation actuelle.</p>
                 </div>
-                <div class="feature-card" style="--card-color: #2ecc71">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="5" y="2" width="14" height="20" rx="2"></rect>
-                            <line x1="12" y1="18" x2="12" y2="18"></line>
-                        </svg>
-                    </div>
-                    <h3>Applications Mobile</h3>
-                    <p>Applications natives et hybrides pour iOS et Android</p>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Opportunités d'Emploi</h3>
+                    <p>Découvrez et partagez des offres d'emploi, de stage, de collaboration et de bénévolat au sein de la communauté.</p>
                 </div>
-                <div class="feature-card" style="--card-color: #e67e22">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
-                    </div>
-                    <h3>Solutions Cloud</h3>
-                    <p>Infrastructure cloud scalable et sécurisée pour votre entreprise</p>
+                <div class="feature-card">
+                    <div class="feature-icon">📰</div>
+                    <h3>Actualités & Événements</h3>
+                    <p>Restez informé des nouvelles de Bassila et des événements organisés par la diaspora partout dans le monde.</p>
                 </div>
-                <div class="feature-card" style="--card-color: #9b59b6">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
-                    </div>
-                    <h3>Intelligence Artificielle</h3>
-                    <p>Intégration d'IA et Machine Learning dans vos processus</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Recherche de Profils</h3>
+                    <p>Trouvez rapidement des personnes avec des compétences spécifiques pour vos projets ou besoins.</p>
                 </div>
-                <div class="feature-card" style="--card-color: #e74c3c">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
-                    </div>
-                    <h3>Cybersécurité</h3>
-                    <p>Protection avancée de vos données et infrastructures</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Réseau Professionnel</h3>
+                    <p>Créez des synergies professionnelles et des partenariats avec d'autres membres de la communauté.</p>
                 </div>
-                <div class="feature-card" style="--card-color: #1abc9c">
-                    <div class="feature-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                    </div>
-                    <h3>Consulting Digital</h3>
-                    <p>Accompagnement stratégique pour votre transformation digitale</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🏡</div>
+                    <h3>Contribuer au Développement</h3>
+                    <p>Participez activement aux initiatives de développement de Bassila depuis n'importe où.</p>
                 </div>
             </div>
         </div>
@@ -161,38 +502,35 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    <div class="image-wrapper">
-                        <div class="floating-shape shape-1"></div>
-                        <div class="floating-shape shape-2"></div>
-                        <div class="floating-shape shape-3"></div>
-                    </div>
+                    🌍
                 </div>
                 <div class="about-text">
-                    <h2 class="section-title">Qui Sommes-Nous ?</h2>
+                    <h2 class="section-title">À propos d'Emergence Bassila</h2>
                     <p>
-                        Emergence Bassila est une entreprise technologique innovante qui accompagne
-                        les organisations dans leur transformation digitale. Avec plus de 10 ans
-                        d'expérience, nous combinons expertise technique et vision stratégique.
+                        Emergence Bassila est une plateforme communautaire créée pour maintenir et renforcer les liens entre tous les ressortissants de Bassila, qu'ils vivent au Bénin ou à l'étranger.
+                    </p>
+                    <p>
+                        Notre mission est de faciliter la communication, l'entraide et la collaboration entre les membres de notre communauté, tout en contribuant au développement socio-économique de notre région d'origine.
                     </p>
                     <div class="about-features">
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Équipe d'experts certifiés</span>
+                            <span>Connexion mondiale</span>
                         </div>
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Méthodologies agiles</span>
+                            <span>Entraide communautaire</span>
                         </div>
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Support 24/7</span>
+                            <span>Partage d'opportunités</span>
                         </div>
                         <div class="about-feature">
                             <div class="check-icon">✓</div>
-                            <span>Innovation continue</span>
+                            <span>Développement local</span>
                         </div>
                     </div>
-                    <button class="btn btn-primary">En Savoir Plus</button>
+                    <a href="{{ route('register') }}" class="btn btn-primary" style="text-decoration: none; display: inline-block;">Rejoindre Maintenant</a>
                 </div>
             </div>
         </div>
@@ -201,11 +539,9 @@
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
-            <div class="cta-content">
-                <h2>Prêt à Démarrer Votre Projet ?</h2>
-                <p>Contactez-nous dès aujourd'hui pour discuter de vos besoins</p>
-                <button class="btn btn-white">Demander un Devis Gratuit</button>
-            </div>
+            <h2>Rejoignez la communauté Emergence Bassila</h2>
+            <p>Inscrivez-vous gratuitement et restez connecté avec vos frères et sœurs de Bassila à travers le monde</p>
+            <a href="{{ route('register') }}" class="btn btn-white" style="text-decoration: none; display: inline-block;">S'inscrire Gratuitement</a>
         </div>
     </section>
 
@@ -215,23 +551,23 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Emergence Bassila</h3>
-                    <p>Votre partenaire technologique de confiance</p>
+                    <p style="color: #bdc3c7;">Plateforme communautaire des ressortissants de Bassila</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Services</h4>
+                    <h4>Liens Rapides</h4>
                     <ul>
-                        <li><a href="#">Développement Web</a></li>
-                        <li><a href="#">Applications Mobile</a></li>
-                        <li><a href="#">Cloud Computing</a></li>
-                        <li><a href="#">Consulting</a></li>
+                        <li><a href="{{ route('members.index') }}">Annuaire</a></li>
+                        <li><a href="{{ route('opportunities.index') }}">Opportunités</a></li>
+                        <li><a href="{{ route('news.index') }}">Actualités</a></li>
+                        <li><a href="{{ route('register') }}">S'inscrire</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Entreprise</h4>
+                    <h4>Communauté</h4>
                     <ul>
                         <li><a href="#">À Propos</a></li>
-                        <li><a href="#">Carrières</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Événements</a></li>
+                        <li><a href="#">Projets</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
@@ -239,13 +575,12 @@
                     <h4>Contact</h4>
                     <ul>
                         <li>Email: contact@emergence-bassila.com</li>
-                        <li>Tél: +229 XX XX XX XX</li>
-                        <li>Bassila, Bénin</li>
+                        <li>Bassila, Donga, Bénin</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Emergence Bassila. Tous droits réservés.</p>
+                <p>&copy; 2024 Emergence Bassila. Plateforme communautaire - Tous droits réservés.</p>
             </div>
         </div>
     </footer>
@@ -266,34 +601,10 @@
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
             } else {
-                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-                navbar.style.boxShadow = 'none';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
             }
-        });
-
-        // Animate on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.feature-card, .about-content > *').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
         });
     </script>
 </body>
