@@ -12,7 +12,7 @@
                 <span class="badge" style="background: rgba(255,255,255,0.2); font-size: 14px;">{{ $article->category->name }}</span>
             @endif
             @if($article->is_featured)
-                <span class="badge badge-warning" style="font-size: 14px;">⭐ À la une</span>
+                <span class="badge badge-warning" style="font-size: 14px;">À la une</span>
             @endif
         </div>
 
@@ -56,7 +56,7 @@
                         <div style="font-size: 14px; opacity: 0.9; margin-bottom: 5px;">Date de l'événement</div>
                         <div style="font-size: 24px; font-weight: 700;">{{ \Carbon\Carbon::parse($article->event_date)->format('d M Y') }}</div>
                         @if($article->event_location)
-                            <div style="font-size: 15px; margin-top: 5px; opacity: 0.95;">📍 {{ $article->event_location }}</div>
+                            <div style="font-size: 15px; margin-top: 5px; opacity: 0.95;"> {{ $article->event_location }}</div>
                         @endif
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                         <span style="font-weight: 700; color: #2c3e50;">{{ $article->views_count }}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #ecf0f1;">
-                        <span style="color: #7f8c8d;">📅 Publié</span>
+                        <span style="color: #7f8c8d;">Publié</span>
                         <span style="font-weight: 700; color: #2c3e50;">{{ $article->published_at->diffForHumans() }}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; padding: 10px 0;">

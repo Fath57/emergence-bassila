@@ -33,10 +33,10 @@
                             <label for="type">Type *</label>
                             <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" required>
                                 <option value="">-- Sélectionner --</option>
-                                <option value="Emploi" {{ old('type', $opportunity->type) == 'Emploi' ? 'selected' : '' }}>💼 Emploi</option>
+                                <option value="Emploi" {{ old('type', $opportunity->type) == 'Emploi' ? 'selected' : '' }}> Emploi</option>
                                 <option value="Stage" {{ old('type', $opportunity->type) == 'Stage' ? 'selected' : '' }}>🎓 Stage</option>
                                 <option value="Bénévolat" {{ old('type', $opportunity->type) == 'Bénévolat' ? 'selected' : '' }}>❤️ Bénévolat</option>
-                                <option value="Collaboration" {{ old('type', $opportunity->type) == 'Collaboration' ? 'selected' : '' }}>🤝 Collaboration</option>
+                                <option value="Collaboration" {{ old('type', $opportunity->type) == 'Collaboration' ? 'selected' : '' }}> Collaboration</option>
                                 <option value="Autre" {{ old('type', $opportunity->type) == 'Autre' ? 'selected' : '' }}>📌 Autre</option>
                             </select>
                             @error('type')
@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                                 <input type="checkbox" name="is_featured" value="1" {{ old('is_featured', $opportunity->is_featured) ? 'checked' : '' }} style="width: 20px; height: 20px;">
-                                <span>⭐ Mettre à la une</span>
+                                <span> Mettre à la une</span>
                             </label>
                         </div>
                     @endif
@@ -104,7 +104,7 @@
 
                 <!-- Entreprise -->
                 <div class="card-section">
-                    <h2 class="card-title">🏢 Informations sur l'entreprise</h2>
+                    <h2 class="card-title"> Informations sur l'entreprise</h2>
 
                     <div class="form-group">
                         <label for="company_name">Nom de l'entreprise/organisation *</label>
@@ -127,7 +127,7 @@
 
                 <!-- Détails du contrat -->
                 <div class="card-section">
-                    <h2 class="card-title">📋 Détails du contrat</h2>
+                    <h2 class="card-title"> Détails du contrat</h2>
 
                     <div class="form-row">
                         <div class="form-group">
@@ -159,7 +159,7 @@
                     <div class="form-group">
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <input type="checkbox" name="remote_possible" value="1" {{ old('remote_possible', $opportunity->remote_possible) ? 'checked' : '' }} style="width: 20px; height: 20px;">
-                            <span>🌍 Télétravail possible</span>
+                            <span> Télétravail possible</span>
                         </label>
                     </div>
 

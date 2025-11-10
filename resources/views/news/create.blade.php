@@ -32,10 +32,10 @@
                             <label for="type">Type *</label>
                             <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" required>
                                 <option value="">-- Sélectionner --</option>
-                                <option value="Actualité" {{ old('type') == 'Actualité' ? 'selected' : '' }}>📰 Actualité</option>
-                                <option value="Événement" {{ old('type') == 'Événement' ? 'selected' : '' }}>📅 Événement</option>
-                                <option value="Annonce" {{ old('type') == 'Annonce' ? 'selected' : '' }}>📢 Annonce</option>
-                                <option value="Culture" {{ old('type') == 'Culture' ? 'selected' : '' }}>🎭 Culture</option>
+                                <option value="Actualité" {{ old('type') == 'Actualité' ? 'selected' : '' }}>Actualité</option>
+                                <option value="Événement" {{ old('type') == 'Événement' ? 'selected' : '' }}>Événement</option>
+                                <option value="Annonce" {{ old('type') == 'Annonce' ? 'selected' : '' }}>Annonce</option>
+                                <option value="Culture" {{ old('type') == 'Culture' ? 'selected' : '' }}>Culture</option>
                             </select>
                             @error('type')
                                 <span class="invalid-feedback">{{ $message }}</span>
@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                                 <input type="checkbox" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }} style="width: 20px; height: 20px;">
-                                <span>⭐ Mettre à la une</span>
+                                <span>Mettre à la une</span>
                             </label>
                         </div>
                     @endif
@@ -113,7 +113,7 @@
 
                 <!-- Informations événement (visible uniquement si type = Événement) -->
                 <div id="event-fields" class="card-section" style="display: none;">
-                    <h2 class="card-title">📅 Informations de l'événement</h2>
+                    <h2 class="card-title">Informations de l'événement</h2>
 
                     <div class="form-row">
                         <div class="form-group">

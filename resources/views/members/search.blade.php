@@ -83,7 +83,7 @@
             <div style="display: flex; gap: 10px; justify-content: flex-end;">
                 <a href="{{ route('members.search') }}" class="btn btn-secondary">Réinitialiser</a>
                 <button type="submit" class="btn btn-primary btn-icon">
-                    🔍 Rechercher
+                     Rechercher
                 </button>
             </div>
         </form>

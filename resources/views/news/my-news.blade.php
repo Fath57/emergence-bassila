@@ -5,7 +5,7 @@
 @section('content')
 <div style="background: #8e44ad; padding: 60px 0; color: white;">
     <div class="container text-center">
-        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">📰 Mes actualités</h1>
+        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">Mes actualités</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto;">
             Gérez vos articles et événements publiés
         </p>
@@ -33,7 +33,7 @@
                 ✍️ Nouvelle publication
             </a>
             <a href="{{ route('news.index') }}" class="btn btn-secondary">
-                📋 Toutes les actualités
+                Toutes les actualités
             </a>
         </div>
     </div>
@@ -86,7 +86,7 @@
                                         <span class="badge badge-secondary">📦 Archivé</span>
                                     @endif
                                     @if($article->is_featured)
-                                        <span class="badge badge-warning">⭐ À la une</span>
+                                        <span class="badge badge-warning">À la une</span>
                                     @endif
                                     @if($article->category)
                                         <span class="badge badge-light">{{ $article->category->name }}</span>
@@ -111,15 +111,15 @@
 
                                 @if($article->type == 'Événement' && $article->event_date)
                                     <div style="background: white; padding: 10px; border-radius: 8px; margin-bottom: 10px; display: inline-block;">
-                                        <span style="font-size: 13px; color: #7f8c8d;">📅 {{ \Carbon\Carbon::parse($article->event_date)->format('d/m/Y') }}</span>
+                                        <span style="font-size: 13px; color: #7f8c8d;">{{ \Carbon\Carbon::parse($article->event_date)->format('d/m/Y') }}</span>
                                         @if($article->event_location)
-                                            <span style="font-size: 13px; color: #7f8c8d; margin-left: 10px;">📍 {{ $article->event_location }}</span>
+                                            <span style="font-size: 13px; color: #7f8c8d; margin-left: 10px;"> {{ $article->event_location }}</span>
                                         @endif
                                     </div>
                                 @endif
 
                                 <div style="display: flex; gap: 20px; font-size: 13px; color: #95a5a6; margin-top: 10px;">
-                                    <span>📅 Créé {{ $article->created_at->diffForHumans() }}</span>
+                                    <span>Créé {{ $article->created_at->diffForHumans() }}</span>
                                     @if($article->published_at)
                                         <span>🌐 Publié {{ $article->published_at->diffForHumans() }}</span>
                                     @endif

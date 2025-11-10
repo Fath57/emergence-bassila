@@ -35,7 +35,7 @@
         <!-- Informations personnelles -->
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">👤 Informations personnelles</h2>
+                <h2 class="card-title"> Informations personnelles</h2>
             </div>
 
             <div class="form-row cols-2">
@@ -73,7 +73,7 @@
         <!-- Origine à Bassila -->
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">🏘️ Origine à Bassila</h2>
+                <h2 class="card-title"> Origine à Bassila</h2>
             </div>
 
             <div class="form-row cols-2">
@@ -91,7 +91,7 @@
         <!-- Localisation actuelle -->
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">📍 Localisation actuelle</h2>
+                <h2 class="card-title"> Localisation actuelle</h2>
             </div>
 
             <div class="form-row cols-2">
@@ -114,7 +114,7 @@
         <!-- Informations professionnelles -->
         <div class="card">
             <div class="card-header">
-                <h2 class="card-title">💼 Informations professionnelles</h2>
+                <h2 class="card-title"> Informations professionnelles</h2>
             </div>
 
             <div class="form-row cols-3">

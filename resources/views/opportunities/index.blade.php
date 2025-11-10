@@ -5,7 +5,7 @@
 @section('content')
 <div style="background: #2ecc71; padding: 60px 0; color: white;">
     <div class="container text-center">
-        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">💼 Opportunités</h1>
+        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;"> Opportunités</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto;">
             Découvrez les offres d'emploi, stages, collaborations et bénévolat proposés par la communauté
         </p>
@@ -45,21 +45,21 @@
     <!-- À la une -->
     @if($featured->count() > 0)
         <div class="card" style="margin-bottom: 40px;">
-            <h2 class="card-title">⭐ À la une</h2>
+            <h2 class="card-title"> À la une</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                 @foreach($featured as $opp)
                     <a href="{{ route('opportunities.show', $opp->id) }}" style="text-decoration: none; color: inherit;">
                         <div style="border: 2px solid #f39c12; border-radius: 10px; padding: 20px; background: #fff9e6; transition: all 0.3s; height: 100%;">
                             <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
-                                <span class="badge badge-warning">⭐ À la une</span>
+                                <span class="badge badge-warning"> À la une</span>
                                 <span class="badge badge-primary">{{ $opp->type }}</span>
                                 @if($opp->remote_possible)
-                                    <span class="badge badge-success">🌍 Télétravail</span>
+                                    <span class="badge badge-success"> Télétravail</span>
                                 @endif
                             </div>
                             <h3 style="font-size: 18px; font-weight: 700; color: #2c3e50; margin-bottom: 10px;">{{ $opp->title }}</h3>
                             <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 10px;">
-                                🏢 {{ $opp->company_name }} • 📍 {{ $opp->location }}
+                                 {{ $opp->company_name }} •  {{ $opp->location }}
                             </p>
                             @if($opp->deadline)
                                 <p style="color: #e74c3c; font-size: 13px; font-weight: 600;">
@@ -75,17 +75,17 @@
 
     <!-- Filtres -->
     <div class="card" style="margin-bottom: 30px;">
-        <h2 class="card-title">🔍 Filtrer les opportunités</h2>
+        <h2 class="card-title"> Filtrer les opportunités</h2>
         <form method="GET" action="{{ route('opportunities.index') }}">
             <div class="form-row">
                 <div class="form-group">
                     <label for="type">Type</label>
                     <select name="type" id="type" class="form-control">
                         <option value="">-- Tous --</option>
-                        <option value="Emploi" {{ request('type') == 'Emploi' ? 'selected' : '' }}>💼 Emploi</option>
+                        <option value="Emploi" {{ request('type') == 'Emploi' ? 'selected' : '' }}> Emploi</option>
                         <option value="Stage" {{ request('type') == 'Stage' ? 'selected' : '' }}>🎓 Stage</option>
                         <option value="Bénévolat" {{ request('type') == 'Bénévolat' ? 'selected' : '' }}>❤️ Bénévolat</option>
-                        <option value="Collaboration" {{ request('type') == 'Collaboration' ? 'selected' : '' }}>🤝 Collaboration</option>
+                        <option value="Collaboration" {{ request('type') == 'Collaboration' ? 'selected' : '' }}> Collaboration</option>
                         <option value="Autre" {{ request('type') == 'Autre' ? 'selected' : '' }}>📌 Autre</option>
                     </select>
                 </div>
@@ -125,13 +125,13 @@
                 <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                     <input type="checkbox" name="remote_possible" value="1"
                            {{ request('remote_possible') ? 'checked' : '' }} style="width: 20px; height: 20px;">
-                    <span>🌍 Télétravail possible uniquement</span>
+                    <span> Télétravail possible uniquement</span>
                 </label>
             </div>
 
             <div style="display: flex; gap: 10px;">
                 <button type="submit" class="btn btn-primary">
-                    🔍 Rechercher
+                     Rechercher
                 </button>
                 <a href="{{ route('opportunities.index') }}" class="btn btn-secondary">
                     🔄 Réinitialiser
@@ -164,10 +164,10 @@
                                             <span class="badge badge-secondary">{{ $opp->contract_type }}</span>
                                         @endif
                                         @if($opp->remote_possible)
-                                            <span class="badge badge-success">🌍 Télétravail</span>
+                                            <span class="badge badge-success"> Télétravail</span>
                                         @endif
                                         @if($opp->is_featured)
-                                            <span class="badge badge-warning">⭐</span>
+                                            <span class="badge badge-warning"></span>
                                         @endif
                                         @if($opp->category)
                                             <span class="badge badge-light">{{ $opp->category->name }}</span>
@@ -179,12 +179,12 @@
                                     </h3>
 
                                     <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 10px;">
-                                        🏢 <strong>{{ $opp->company_name }}</strong> • 📍 {{ $opp->location }}
+                                         <strong>{{ $opp->company_name }}</strong> •  {{ $opp->location }}
                                     </p>
 
                                     @if($opp->salary_range)
                                         <p style="color: #27ae60; font-size: 14px; font-weight: 600; margin-bottom: 10px;">
-                                            💰 {{ $opp->salary_range }}
+                                             {{ $opp->salary_range }}
                                         </p>
                                     @endif
 
@@ -193,7 +193,7 @@
                                     </p>
 
                                     <div style="display: flex; gap: 20px; font-size: 13px; color: #95a5a6; margin-top: 10px;">
-                                        <span>📅 Publié {{ $opp->created_at->diffForHumans() }}</span>
+                                        <span> Publié {{ $opp->created_at->diffForHumans() }}</span>
                                         <span>👁️ {{ $opp->views_count }} vues</span>
                                         @if($opp->deadline)
                                             <span style="color: #e74c3c; font-weight: 600;">
@@ -221,7 +221,7 @@
         </div>
     @else
         <div class="card text-center" style="padding: 60px 20px;">
-            <div style="font-size: 64px; margin-bottom: 20px;">💼</div>
+            <div style="font-size: 64px; margin-bottom: 20px;"></div>
             <h3 style="color: #7f8c8d; margin-bottom: 10px;">Aucune opportunité trouvée</h3>
             <p style="color: #95a5a6; margin-bottom: 30px;">
                 @if(request()->hasAny(['type', 'category_id', 'location', 'remote_possible', 'contract_type']))

@@ -22,7 +22,7 @@
                     ✍️ Publier une actualité
                 </a>
                 <a href="{{ route('news.my') }}" class="btn btn-secondary">
-                    📰 Mes actualités
+                    Mes actualités
                 </a>
             </div>
         </div>
@@ -33,10 +33,10 @@
         <form method="GET" action="{{ route('news.index') }}" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
             <select name="type" class="form-select" style="flex: 1; min-width: 200px;">
                 <option value="all" {{ request('type') == 'all' ? 'selected' : '' }}>Tous les types</option>
-                <option value="Actualité" {{ request('type') == 'Actualité' ? 'selected' : '' }}>📰 Actualités</option>
-                <option value="Événement" {{ request('type') == 'Événement' ? 'selected' : '' }}>📅 Événements</option>
-                <option value="Annonce" {{ request('type') == 'Annonce' ? 'selected' : '' }}>📢 Annonces</option>
-                <option value="Culture" {{ request('type') == 'Culture' ? 'selected' : '' }}>🎭 Culture</option>
+                <option value="Actualité" {{ request('type') == 'Actualité' ? 'selected' : '' }}>Actualités</option>
+                <option value="Événement" {{ request('type') == 'Événement' ? 'selected' : '' }}>Événements</option>
+                <option value="Annonce" {{ request('type') == 'Annonce' ? 'selected' : '' }}>Annonces</option>
+                <option value="Culture" {{ request('type') == 'Culture' ? 'selected' : '' }}>Culture</option>
             </select>
 
             @if($categories->count() > 0)
@@ -60,7 +60,7 @@
     <!-- À la une -->
     @if($featured->count() > 0 && !request()->hasAny(['type', 'category']))
         <div style="margin-bottom: 50px;">
-            <h2 style="font-size: 28px; margin-bottom: 25px; color: #2c3e50;">⭐ À la une</h2>
+            <h2 style="font-size: 28px; margin-bottom: 25px; color: #2c3e50;">À la une</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
                 @foreach($featured as $article)
                     <a href="{{ route('news.show', $article->slug) }}" style="text-decoration: none;">
@@ -85,8 +85,8 @@
                                 {{ Str::limit($article->excerpt, 100) }}
                             </p>
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ecf0f1; font-size: 13px; color: #95a5a6;">
-                                <span>👤 {{ $article->user->first_name }}</span>
-                                <span>📅 {{ $article->published_at->diffForHumans() }}</span>
+                                <span>{{ $article->user->first_name }}</span>
+                                <span>{{ $article->published_at->diffForHumans() }}</span>
                             </div>
                         </div>
                     </a>
@@ -98,7 +98,7 @@
     <!-- Toutes les actualités -->
     <div>
         <h2 style="font-size: 28px; margin-bottom: 25px; color: #2c3e50;">
-            📋 Toutes les actualités
+            Toutes les actualités
             <span style="font-size: 16px; color: #7f8c8d; font-weight: normal;">({{ $news->total() }})</span>
         </h2>
 
@@ -138,16 +138,16 @@
 
                             @if($article->type == 'Événement' && $article->event_date)
                                 <div style="background: #ecf0f1; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-                                    <div style="font-size: 12px; color: #7f8c8d; margin-bottom: 3px;">📅 Date de l'événement</div>
+                                    <div style="font-size: 12px; color: #7f8c8d; margin-bottom: 3px;">Date de l'événement</div>
                                     <div style="font-weight: 600; color: #2c3e50;">{{ \Carbon\Carbon::parse($article->event_date)->format('d/m/Y') }}</div>
                                     @if($article->event_location)
-                                        <div style="font-size: 13px; color: #7f8c8d; margin-top: 5px;">📍 {{ $article->event_location }}</div>
+                                        <div style="font-size: 13px; color: #7f8c8d; margin-top: 5px;"> {{ $article->event_location }}</div>
                                     @endif
                                 </div>
                             @endif
 
                             <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid #ecf0f1; font-size: 13px; color: #95a5a6;">
-                                <span>👤 {{ $article->user->first_name }}</span>
+                                <span>{{ $article->user->first_name }}</span>
                                 <span>👁️ {{ $article->views_count }} vues</span>
                             </div>
                         </div>

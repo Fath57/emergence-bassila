@@ -18,12 +18,12 @@
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
                 @if($user->current_city || $user->current_country)
                     <div style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 25px; backdrop-filter: blur(10px);">
-                        📍 {{ $user->current_city }}{{ $user->current_city && $user->current_country ? ', ' : '' }}{{ $user->current_country }}
+                         {{ $user->current_city }}{{ $user->current_city && $user->current_country ? ', ' : '' }}{{ $user->current_country }}
                     </div>
                 @endif
                 @if($user->village_origin)
                     <div style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 25px; backdrop-filter: blur(10px);">
-                        🏘️ Originaire de {{ $user->village_origin }}
+                         Originaire de {{ $user->village_origin }}
                     </div>
                 @endif
                 @if($user->open_to_opportunities)
@@ -155,7 +155,7 @@
                     @if($user->email)
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <div style="width: 40px; height: 40px; background: #ecf0f1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px;">
-                                📧
+                                
                             </div>
                             <div style="flex: 1;">
                                 <div style="font-size: 12px; color: #7f8c8d; margin-bottom: 2px;">Email</div>
@@ -167,7 +167,7 @@
                     @if($user->phone)
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <div style="width: 40px; height: 40px; background: #ecf0f1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px;">
-                                📱
+                                
                             </div>
                             <div style="flex: 1;">
                                 <div style="font-size: 12px; color: #7f8c8d; margin-bottom: 2px;">Téléphone</div>
@@ -225,7 +225,7 @@
                         </button>
                     @else
                         <a href="{{ route('dashboard.profile.edit') }}" class="btn btn-secondary btn-block">
-                            ✏️ Modifier mon profil
+                             Modifier mon profil
                         </a>
                     @endif
                 @else

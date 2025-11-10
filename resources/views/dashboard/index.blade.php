@@ -260,22 +260,22 @@
             <h2>Actions rapides</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
                 <a href="{{ route('members.search') }}" class="btn-primary" style="text-align: center;">
-                    🔍 Rechercher des membres
+                     Rechercher des membres
                 </a>
                 <a href="{{ route('opportunities.create') }}" class="btn-primary" style="text-align: center;">
-                    💼 Publier une opportunité
+                     Publier une opportunité
                 </a>
                 <a href="{{ route('news.create') }}" class="btn-primary" style="text-align: center;">
                     ✍️ Publier une actualité
                 </a>
                 <a href="{{ route('opportunities.my') }}" class="btn-primary" style="text-align: center;">
-                    💼 Mes opportunités
+                     Mes opportunités
                 </a>
                 <a href="{{ route('news.my') }}" class="btn-primary" style="text-align: center;">
-                    📰 Mes actualités
+                     Mes actualités
                 </a>
                 <a href="{{ route('members.index') }}" class="btn-primary" style="text-align: center;">
-                    👥 Annuaire
+                     Annuaire
                 </a>
             </div>
             <p style="margin-top: 20px; color: #7f8c8d; font-size: 14px;">

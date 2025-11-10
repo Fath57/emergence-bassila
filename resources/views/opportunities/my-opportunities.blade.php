@@ -5,7 +5,7 @@
 @section('content')
 <div style="background: #2ecc71; padding: 60px 0; color: white;">
     <div class="container text-center">
-        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">💼 Mes opportunités</h1>
+        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;"> Mes opportunités</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto;">
             Gérez vos offres d'emploi, stages et collaborations
         </p>
@@ -33,7 +33,7 @@
                 ➕ Nouvelle opportunité
             </a>
             <a href="{{ route('opportunities.index') }}" class="btn btn-secondary">
-                📋 Toutes les opportunités
+                 Toutes les opportunités
             </a>
         </div>
     </div>
@@ -88,10 +88,10 @@
                                         <span class="badge badge-danger">❌ Expirée</span>
                                     @endif
                                     @if($opp->is_featured)
-                                        <span class="badge badge-warning">⭐ À la une</span>
+                                        <span class="badge badge-warning"> À la une</span>
                                     @endif
                                     @if($opp->remote_possible)
-                                        <span class="badge badge-success">🌍 Télétravail</span>
+                                        <span class="badge badge-success"> Télétravail</span>
                                     @endif
                                     @if($opp->contract_type)
                                         <span class="badge badge-light">{{ $opp->contract_type }}</span>
@@ -109,12 +109,12 @@
                                 </h3>
 
                                 <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 10px;">
-                                    🏢 {{ $opp->company_name }} • 📍 {{ $opp->location }}
+                                     {{ $opp->company_name }} •  {{ $opp->location }}
                                 </p>
 
                                 @if($opp->salary_range)
                                     <p style="color: #27ae60; font-size: 14px; font-weight: 600; margin-bottom: 10px;">
-                                        💰 {{ $opp->salary_range }}
+                                         {{ $opp->salary_range }}
                                     </p>
                                 @endif
 
@@ -130,7 +130,7 @@
                                 @endif
 
                                 <div style="display: flex; gap: 20px; font-size: 13px; color: #95a5a6; margin-top: 10px;">
-                                    <span>📅 Créé {{ $opp->created_at->diffForHumans() }}</span>
+                                    <span> Créé {{ $opp->created_at->diffForHumans() }}</span>
                                     <span>👁️ {{ $opp->views_count }} vues</span>
                                     @if($opp->category)
                                         <span>📂 {{ $opp->category->name }}</span>
@@ -167,7 +167,7 @@
         </div>
     @else
         <div class="card text-center" style="padding: 60px 20px;">
-            <div style="font-size: 64px; margin-bottom: 20px;">💼</div>
+            <div style="font-size: 64px; margin-bottom: 20px;"></div>
             <h3 style="color: #7f8c8d; margin-bottom: 10px;">Aucune opportunité pour le moment</h3>
             <p style="color: #95a5a6; margin-bottom: 30px;">Commencez par publier votre première opportunité</p>
             <a href="{{ route('opportunities.create') }}" class="btn btn-primary btn-icon" style="display: inline-block;">

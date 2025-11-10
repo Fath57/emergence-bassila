@@ -12,25 +12,25 @@
                 <span class="badge" style="background: rgba(255,255,255,0.3); color: white; font-size: 14px;">{{ $opportunity->contract_type }}</span>
             @endif
             @if($opportunity->remote_possible)
-                <span class="badge" style="background: rgba(255,255,255,0.3); color: white; font-size: 14px;">🌍 Télétravail possible</span>
+                <span class="badge" style="background: rgba(255,255,255,0.3); color: white; font-size: 14px;"> Télétravail possible</span>
             @endif
             @if($opportunity->is_featured)
-                <span class="badge" style="background: #f39c12; color: white; font-size: 14px;">⭐ À la une</span>
+                <span class="badge" style="background: #f39c12; color: white; font-size: 14px;"> À la une</span>
             @endif
         </div>
 
         <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">{{ $opportunity->title }}</h1>
 
         <div style="display: flex; gap: 30px; font-size: 16px; margin-bottom: 20px; flex-wrap: wrap;">
-            <div>🏢 <strong>{{ $opportunity->company_name }}</strong></div>
-            <div>📍 {{ $opportunity->location }}</div>
+            <div> <strong>{{ $opportunity->company_name }}</strong></div>
+            <div> {{ $opportunity->location }}</div>
             @if($opportunity->salary_range)
-                <div>💰 {{ $opportunity->salary_range }}</div>
+                <div> {{ $opportunity->salary_range }}</div>
             @endif
         </div>
 
         <div style="display: flex; gap: 20px; font-size: 14px; opacity: 0.9; flex-wrap: wrap;">
-            <span>📅 Publié {{ $opportunity->created_at->diffForHumans() }}</span>
+            <span> Publié {{ $opportunity->created_at->diffForHumans() }}</span>
             <span>👁️ {{ $opportunity->views_count }} vues</span>
             @if($opportunity->deadline)
                 <span style="background: #e74c3c; padding: 5px 12px; border-radius: 5px; font-weight: 600;">
@@ -79,7 +79,7 @@
 
                     @if($opportunity->start_date)
                         <div style="padding: 15px; background: #ecf0f1; border-radius: 8px;">
-                            <strong style="color: #2c3e50;">📅 Date de début :</strong>
+                            <strong style="color: #2c3e50;"> Date de début :</strong>
                             <div style="color: #555; margin-top: 5px;">{{ \Carbon\Carbon::parse($opportunity->start_date)->format('d/m/Y') }}</div>
                         </div>
                     @endif
@@ -165,7 +165,7 @@
 
             <!-- Info entreprise -->
             <div class="card">
-                <h3 class="card-title">🏢 À propos de l'entreprise</h3>
+                <h3 class="card-title"> À propos de l'entreprise</h3>
                 <div style="text-align: center; margin-bottom: 15px;">
                     <div style="width: 80px; height: 80px; background: #2ecc71; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 32px; font-weight: 700;">
                         {{ strtoupper(substr($opportunity->company_name, 0, 1)) }}
@@ -175,7 +175,7 @@
                     {{ $opportunity->company_name }}
                 </h4>
                 <p style="text-align: center; color: #7f8c8d; font-size: 14px; margin-bottom: 15px;">
-                    📍 {{ $opportunity->location }}
+                     {{ $opportunity->location }}
                 </p>
                 @if($opportunity->company_website)
                     <a href="{{ $opportunity->company_website }}" target="_blank" class="btn btn-outline btn-sm btn-block">
@@ -186,7 +186,7 @@
 
             <!-- Annonceur -->
             <div class="card">
-                <h3 class="card-title">👤 Annonceur</h3>
+                <h3 class="card-title"> Annonceur</h3>
                 <div style="text-align: center;">
                     <div style="width: 60px; height: 60px; background: #3498db; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px; font-weight: 700;">
                         {{ strtoupper(substr($opportunity->user->first_name, 0, 1) . substr($opportunity->user->last_name, 0, 1)) }}
@@ -244,7 +244,7 @@
     <!-- Opportunités similaires -->
     @if($similar->count() > 0)
         <div class="card" style="margin-top: 40px;">
-            <h2 class="card-title">🔍 Opportunités similaires</h2>
+            <h2 class="card-title"> Opportunités similaires</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
                 @foreach($similar as $sim)
                     <a href="{{ route('opportunities.show', $sim->id) }}" style="text-decoration: none; color: inherit;">
@@ -252,12 +252,12 @@
                             <div style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
                                 <span class="badge badge-primary">{{ $sim->type }}</span>
                                 @if($sim->remote_possible)
-                                    <span class="badge badge-success">🌍 Télétravail</span>
+                                    <span class="badge badge-success"> Télétravail</span>
                                 @endif
                             </div>
                             <h3 style="font-size: 16px; font-weight: 700; color: #2c3e50; margin-bottom: 10px;">{{ $sim->title }}</h3>
                             <p style="color: #7f8c8d; font-size: 13px;">
-                                🏢 {{ $sim->company_name }} • 📍 {{ $sim->location }}
+                                 {{ $sim->company_name }} •  {{ $sim->location }}
                             </p>
                         </div>
                     </a>

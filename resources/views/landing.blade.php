@@ -235,8 +235,16 @@
         }
 
         .feature-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
         }
 
         .feature-card h3 {
@@ -411,7 +419,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="logo">🌍 Emergence Bassila</div>
+            <div class="logo">Emergence Bassila</div>
             <ul class="nav-menu">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="{{ route('members.index') }}">Annuaire</a></li>
@@ -452,15 +460,15 @@
                     </div>
                     <div class="hero-stats">
                         <div class="stat">
-                            <span class="stat-number">👥</span>
+                            <span class="stat-number">500+</span>
                             <span class="stat-label">Membres connectés</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number">🌍</span>
+                            <span class="stat-number">15+</span>
                             <span class="stat-label">Plusieurs pays</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number">💼</span>
+                            <span class="stat-number">100+</span>
                             <span class="stat-label">Opportunités partagées</span>
                         </div>
                     </div>
@@ -483,32 +491,32 @@
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">👥</div>
+                    <div class="feature-icon" style="background: #3498db;">A</div>
                     <h3>Annuaire des Membres</h3>
                     <p>Retrouvez tous les ressortissants de Bassila où qu'ils soient dans le monde. Recherchez par village, profession ou localisation actuelle.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💼</div>
+                    <div class="feature-icon" style="background: #27ae60;">O</div>
                     <h3>Opportunités d'Emploi</h3>
                     <p>Découvrez et partagez des offres d'emploi, de stage, de collaboration et de bénévolat au sein de la communauté.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📰</div>
+                    <div class="feature-icon" style="background: #e67e22;">N</div>
                     <h3>Actualités & Événements</h3>
                     <p>Restez informé des nouvelles de Bassila et des événements organisés par la diaspora partout dans le monde.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
+                    <div class="feature-icon" style="background: #9b59b6;">R</div>
                     <h3>Recherche de Profils</h3>
                     <p>Trouvez rapidement des personnes avec des compétences spécifiques pour vos projets ou besoins.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
+                    <div class="feature-icon" style="background: #e74c3c;">P</div>
                     <h3>Réseau Professionnel</h3>
                     <p>Créez des synergies professionnelles et des partenariats avec d'autres membres de la communauté.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🏡</div>
+                    <div class="feature-icon" style="background: #1abc9c;">D</div>
                     <h3>Contribuer au Développement</h3>
                     <p>Participez activement aux initiatives de développement de Bassila depuis n'importe où.</p>
                 </div>

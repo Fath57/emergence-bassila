@@ -5,7 +5,7 @@
 @section('content')
 <div style="background: #2ecc71; padding: 60px 0; color: white;">
     <div class="container text-center">
-        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;">💼 Publier une opportunité</h1>
+        <h1 style="font-size: 42px; margin-bottom: 20px; font-weight: 700;"> Publier une opportunité</h1>
         <p style="font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto;">
             Partagez une offre d'emploi, de stage, de collaboration ou de bénévolat
         </p>
@@ -32,10 +32,10 @@
                             <label for="type">Type *</label>
                             <select name="type" id="type" class="form-control @error('type') is-invalid @enderror" required>
                                 <option value="">-- Sélectionner --</option>
-                                <option value="Emploi" {{ old('type') == 'Emploi' ? 'selected' : '' }}>💼 Emploi</option>
+                                <option value="Emploi" {{ old('type') == 'Emploi' ? 'selected' : '' }}> Emploi</option>
                                 <option value="Stage" {{ old('type') == 'Stage' ? 'selected' : '' }}>🎓 Stage</option>
                                 <option value="Bénévolat" {{ old('type') == 'Bénévolat' ? 'selected' : '' }}>❤️ Bénévolat</option>
-                                <option value="Collaboration" {{ old('type') == 'Collaboration' ? 'selected' : '' }}>🤝 Collaboration</option>
+                                <option value="Collaboration" {{ old('type') == 'Collaboration' ? 'selected' : '' }}> Collaboration</option>
                                 <option value="Autre" {{ old('type') == 'Autre' ? 'selected' : '' }}>📌 Autre</option>
                             </select>
                             @error('type')
@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                                 <input type="checkbox" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }} style="width: 20px; height: 20px;">
-                                <span>⭐ Mettre à la une</span>
+                                <span> Mettre à la une</span>
                             </label>
                         </div>
                     @endif
@@ -103,7 +103,7 @@
 
                 <!-- Entreprise -->
                 <div class="card-section">
-                    <h2 class="card-title">🏢 Informations sur l'entreprise</h2>
+                    <h2 class="card-title"> Informations sur l'entreprise</h2>
 
                     <div class="form-group">
                         <label for="company_name">Nom de l'entreprise/organisation *</label>
@@ -126,7 +126,7 @@
 
                 <!-- Détails du contrat -->
                 <div class="card-section">
-                    <h2 class="card-title">📋 Détails du contrat</h2>
+                    <h2 class="card-title"> Détails du contrat</h2>
 
                     <div class="form-row">
                         <div class="form-group">
@@ -158,7 +158,7 @@
                     <div class="form-group">
                         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                             <input type="checkbox" name="remote_possible" value="1" {{ old('remote_possible') ? 'checked' : '' }} style="width: 20px; height: 20px;">
-                            <span>🌍 Télétravail possible</span>
+                            <span> Télétravail possible</span>
                         </label>
                     </div>
 
