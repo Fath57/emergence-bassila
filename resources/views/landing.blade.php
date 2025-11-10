@@ -81,8 +81,19 @@
 
         /* Hero Section */
         .hero {
-            background: #ecf0f1;
+            background: url('https://images.unsplash.com/photo-1542222024-c1b012a1e268?w=1600&q=80') center/cover;
             padding: 100px 0;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 62, 80, 0.75);
         }
 
         .hero-content {
@@ -90,13 +101,15 @@
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-title {
             font-size: 48px;
             line-height: 1.2;
             margin-bottom: 20px;
-            color: #2c3e50;
+            color: #ffffff;
         }
 
         .hero-title .highlight {
@@ -105,7 +118,7 @@
 
         .hero-description {
             font-size: 18px;
-            color: #7f8c8d;
+            color: #ecf0f1;
             margin-bottom: 30px;
         }
 
@@ -165,18 +178,20 @@
 
         .stat-label {
             font-size: 14px;
-            color: #7f8c8d;
+            color: #ecf0f1;
         }
 
         .hero-image {
-            background: #27ae60;
             height: 400px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 60px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* Features Section */
@@ -248,14 +263,16 @@
         }
 
         .about-image {
-            background: #27ae60;
             height: 350px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 50px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .about-text h2 {
@@ -449,7 +466,9 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    🏘️
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=80"
+                         alt="Communauté de Bassila"
+                         loading="lazy">
                 </div>
             </div>
         </div>
@@ -502,7 +521,9 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-image">
-                    🌍
+                    <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=800&q=80"
+                         alt="Développement communautaire en Afrique"
+                         loading="lazy">
                 </div>
                 <div class="about-text">
                     <h2 class="section-title">À propos d'Emergence Bassila</h2>
