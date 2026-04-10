@@ -202,6 +202,115 @@
 </section>
 
 {{-- ============================================================
+     COMMENT ÇA MARCHE
+============================================================ --}}
+<section class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-14 text-center">
+            <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Simple & rapide</p>
+            <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Comment ça marche ?</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-10">
+            <div class="text-center">
+                <div class="w-14 h-14 bg-[#0066CC] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
+                     style="font-family: 'Lora', serif;">1</div>
+                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Inscris-toi</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Crée ton compte gratuitement avec ton adresse email. La vérification prend moins d'une minute.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-14 h-14 bg-[#0066CC] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
+                     style="font-family: 'Lora', serif;">2</div>
+                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Crée ton profil</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Renseigne ton parcours, ton métier et tes compétences. Un admin vérifie et valide ton profil.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-14 h-14 bg-[#DC143C] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
+                     style="font-family: 'Lora', serif;">3</div>
+                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Connecte-toi</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Explore l'annuaire, contacte des membres et contribue au blog communautaire.
+                </p>
+            </div>
+        </div>
+        @guest
+            <div class="text-center mt-12">
+                <a href="{{ route('register') }}"
+                   class="inline-block bg-[#0066CC] hover:bg-blue-800 text-white font-semibold px-8 py-3 text-sm transition">
+                    Commencer maintenant
+                </a>
+            </div>
+        @endguest
+    </div>
+</section>
+
+{{-- ============================================================
+     SECTEURS REPRÉSENTÉS
+============================================================ --}}
+@if($sectors->isNotEmpty())
+<section class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10">
+            <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Diversité</p>
+            <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Secteurs représentés</h2>
+        </div>
+        <div class="flex flex-wrap gap-3">
+            @foreach($sectors as $sector)
+                <a href="{{ route('directory.index', ['sector' => $sector->id]) }}"
+                   class="inline-flex items-center gap-2 border border-gray-200 bg-white px-4 py-2.5 text-sm text-[#111827] font-medium hover:border-[#0066CC] hover:text-[#0066CC] transition">
+                    {{ $sector->name }}
+                    <span class="text-xs text-gray-400 font-normal">{{ $sector->profiles_count }}</span>
+                </a>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- ============================================================
+     TÉMOIGNAGES
+============================================================ --}}
+<section class="bg-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
+            <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Témoignages</p>
+            <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Ils parlent de leur communauté</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            @foreach([
+                [
+                    'quote' => "EmergenceBassila m'a permis de retrouver d'anciens camarades que je n'avais pas vus depuis plus de 20 ans. Une vraie renaissance des liens communautaires.",
+                    'name'  => 'Moussa K.',
+                    'role'  => 'Ingénieur, Paris',
+                ],
+                [
+                    'quote' => "Grâce à l'annuaire, j'ai trouvé un partenaire commercial bassilais à Cotonou. La confiance s'installe naturellement quand on partage les mêmes racines.",
+                    'name'  => 'Aïcha D.',
+                    'role'  => 'Entrepreneuse, Cotonou',
+                ],
+                [
+                    'quote' => "Le blog communautaire est une fenêtre ouverte sur Bassila pour ceux d'entre nous qui vivent à l'étranger. On s'y sent moins loin.",
+                    'name'  => 'Ibrahim S.',
+                    'role'  => 'Médecin, Lyon',
+                ],
+            ] as $t)
+                <div class="border border-gray-200 p-8">
+                    <div class="text-5xl text-[#0066CC]/20 mb-3 leading-none" style="font-family: Georgia, serif;">"</div>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6 italic">{{ $t['quote'] }}</p>
+                    <div class="border-t border-gray-100 pt-4">
+                        <span class="font-semibold text-[#111827] text-sm">{{ $t['name'] }}</span>
+                        <span class="text-gray-400 text-xs ml-2">— {{ $t['role'] }}</span>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
+{{-- ============================================================
      RECENT BLOG POSTS
 ============================================================ --}}
 <section class="bg-white py-20">
