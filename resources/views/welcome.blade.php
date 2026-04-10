@@ -394,7 +394,7 @@
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
                 <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Communauté</p>
-                <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Quelques membres</h2>
+                <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Membres récemment vérifiés</h2>
             </div>
             <a href="{{ route('directory.index') }}"
                class="text-[#0066CC] text-sm font-semibold hover:underline shrink-0">
@@ -437,6 +437,11 @@
                                     {{ collect([$profile->city, $profile->country])->filter()->implode(', ') }}
                                 </p>
                             @endif
+                            @if($profile->sector)
+                                <span class="inline-block mt-1 text-xs text-[#0066CC] bg-blue-50 px-2 py-0.5">
+                                    {{ $profile->sector->name }}
+                                </span>
+                            @endif
                         </div>
                     </a>
                 @endforeach
@@ -450,6 +455,24 @@
                 </a>
             </div>
         @endif
+    </div>
+</section>
+
+{{-- ============================================================
+     NEWSLETTER
+============================================================ --}}
+<section class="bg-[#0A1628] py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-lg">
+            <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-4">Rester informé</p>
+            <h2 class="text-white font-bold text-2xl mb-3" style="font-family: 'Lora', serif;">
+                Pas encore prêt(e) à rejoindre ?
+            </h2>
+            <p class="text-white/60 text-sm leading-relaxed mb-7">
+                Recevez les actualités de la communauté et les nouveaux profils directement dans votre boîte mail.
+            </p>
+            <livewire:newsletter.subscribe-form />
+        </div>
     </div>
 </section>
 
