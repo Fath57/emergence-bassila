@@ -36,44 +36,61 @@
                 Retrouvez d'anciens camarades, développez votre réseau professionnel et contribuez à l'histoire de votre communauté d'origine.
             </p>
             <div class="flex flex-wrap gap-4">
-                <a href="{{ route('register') }}"
-                   class="bg-[#0066CC] hover:bg-blue-800 text-white font-semibold px-7 py-3 text-sm transition">
-                    Créer mon profil
-                </a>
-                <a href="{{ route('directory.index') }}"
-                   class="border border-white/40 hover:border-white text-white font-semibold px-7 py-3 text-sm transition">
-                    Explorer l'annuaire
-                </a>
+                @auth
+                    <a href="{{ route('directory.index') }}"
+                       class="bg-[#0066CC] hover:bg-blue-800 text-white font-semibold px-7 py-3 text-sm transition">
+                        Explorer l'annuaire
+                    </a>
+                    <a href="{{ route('blog.index') }}"
+                       class="border border-white/40 hover:border-white text-white font-semibold px-7 py-3 text-sm transition">
+                        Lire le blog
+                    </a>
+                @else
+                    <a href="{{ route('register') }}"
+                       class="bg-[#0066CC] hover:bg-blue-800 text-white font-semibold px-7 py-3 text-sm transition">
+                        Créer mon profil
+                    </a>
+                    <a href="{{ route('directory.index') }}"
+                       class="border border-white/40 hover:border-white text-white font-semibold px-7 py-3 text-sm transition">
+                        Explorer l'annuaire
+                    </a>
+                @endauth
             </div>
         </div>
 
-        {{-- Stats bar at bottom of hero --}}
-        <div class="mt-16 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-6">
-            <div>
-                <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
-                    {{ $stats['members'] > 0 ? number_format($stats['members']) : '—' }}
+        {{-- Stats bar — only shown when platform has data --}}
+        @if(collect($stats)->sum() > 0)
+            <div class="mt-16 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-6">
+                <div>
+                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                        {{ number_format($stats['members']) }}
+                    </div>
+                    <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Membres inscrits</div>
                 </div>
-                <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Membres inscrits</div>
-            </div>
-            <div>
-                <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
-                    {{ $stats['profiles'] > 0 ? $stats['profiles'] : '—' }}
+                <div>
+                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                        {{ $stats['profiles'] }}
+                    </div>
+                    <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Profils vérifiés</div>
                 </div>
-                <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Profils vérifiés</div>
-            </div>
-            <div>
-                <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
-                    {{ $stats['countries'] > 0 ? $stats['countries'] : '—' }}
+                <div>
+                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                        {{ $stats['countries'] }}
+                    </div>
+                    <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Pays représentés</div>
                 </div>
-                <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Pays représentés</div>
-            </div>
-            <div>
-                <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
-                    {{ $stats['posts'] > 0 ? $stats['posts'] : '—' }}
+                <div>
+                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                        {{ $stats['posts'] }}
+                    </div>
+                    <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Articles publiés</div>
                 </div>
-                <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Articles publiés</div>
             </div>
-        </div>
+        @else
+            <div class="mt-16 pt-8 border-t border-white/15">
+                <p class="text-white/40 text-sm">Plateforme en cours de lancement — rejoignez les premiers membres.</p>
+            </div>
+        @endif
     </div>
 </section>
 

@@ -57,7 +57,7 @@ it('shows register CTA to guests', function () {
 it('shows directory and blog CTAs to authenticated users', function () {
     $this->actingAs(User::factory()->create())
         ->get('/')
-        ->assertSee('Explorer l\'annuaire')
+        ->assertSee("Explorer l'annuaire", false)
         ->assertSee('Lire le blog');
 });
 
