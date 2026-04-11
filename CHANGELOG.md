@@ -9,6 +9,93 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — Admin autonomy sub-project ③ Rich Blog Editor (2026-04-11)
+
+- **TipTap 3 editor** wired via a dedicated `resources/js/editor.js` Vite entry
+  (~180 KB gzipped, loaded only on `/blog/rediger` and `/blog/{slug}/modifier`
+  through `@push('head') @vite(...)`). StarterKit (headings H2-H4), Link,
+  Image, Table (+Row/Header/Cell from `@tiptap/extension-table`),
+  CodeBlockLowlight with github.css theme, Youtube embeds. Toolbar with
+  `data-cmd` buttons: bold, italic, strike, H2-H4, bullet/ordered lists,
+  blockquote, code block, hr, link (prompt), image (file picker + forced
+  alt-text modal + `/blog/upload-image` fetch), youtube (prompt), undo/redo
+- **`<x-tiptap-editor>`** anonymous Blade component: toolbar + mount point +
+  hidden `<textarea data-editor-content wire:model.live.debounce.3000ms>`
+  that TipTap writes HTML into via `dispatchEvent('input')` so Livewire's
+  autosave hook fires on the PHP side. `wire:ignore` on the root preserves
+  editor state across re-renders
+- **`BlogContentSanitizer` service** wrapping HTMLPurifier (ezyang/htmlpurifier
+  direct — `mews/purifier` caps at Laravel 12) with a curated whitelist:
+  `p, br, hr, h2-h4, strong, em, s, u, code, ul, ol, li, blockquote, pre,
+  a[href|rel|target], img[src|alt|title|width|height], iframe[src|...],
+  table, thead, tbody, tr, th, td`. `URI.SafeIframeRegexp` pins iframes to
+  `https://www.youtube.com/embed/` and `https://player.vimeo.com/video/`.
+  `CSS.AllowedProperties = []` disallows all inline styles.
+  `URI.AllowedSchemes` rejects `javascript:`, `data:`, `file:`, `vbscript:`.
+  `Core.EscapeNonASCIICharacters = false` preserves French accents. Warns
+  in the log if >30% of bytes were stripped
+- **`BlogImageUploader` service** using `intervention/image` v4 encoder API
+  (`JpegEncoder(quality:85)`, `PngEncoder`, `WebpEncoder`, `GifEncoder`):
+  `uploadCover` crops to 1600×900 JPEG, `uploadInline` scales down wide
+  images to max 1400px and preserves native format. Writes to
+  `Storage::disk('public')` under `blog/covers/{Y/m}/` and `blog/inline/{Y/m}/`
+- **`BlogImageUploadController`** at `POST /blog/upload-image` with
+  `can:create,App\Models\BlogPost` middleware; accepts jpg/jpeg/png/webp/gif
+  ≤ 10 MB, returns `{"url": "..."}`
+- **`add_rich_editor_fields_to_blog_posts_table`** migration: nullable
+  `meta_title` (70 chars — Google SERP limit) and `meta_description`
+  (160 chars)
+- **`BlogPost` model**: `meta_title`/`meta_description` added to fillable,
+  two new accessors `resolved_meta_title` and `resolved_meta_description`
+  with fallback to `title` and `Str::limit(strip_tags($content), 155)`
+- **CreatePost refactor**: `autoSave()` creates the row on first call
+  (title non-empty gate), updates it on subsequent calls, persists meta
+  fields on explicit save, redirects to `/mes-articles` after save,
+  uses `BlogImageUploader::uploadCover` against the local `public` disk
+  (migrated away from s3), runs every persist through the sanitizer
+- **EditPost refactor**: same autosave semantics on existing posts,
+  meta fields loaded on mount, `published_at` set only on first transition
+  to published
+- **`/mes-articles`** (`App\Livewire\Blog\MyPosts`, auth-only): 4 tabs
+  (all / draft / published / archived) with counts, ordering CASE
+  (draft→published→archived) then `latest('updated_at')`, paginated 15/page,
+  delete action with `wire:confirm`, `#[Url]` binding on the filter tab
+- **`/blog/preview/{post}`** (`App\Livewire\Blog\PreviewPost`): mount() 403s
+  unless `post->user_id === Auth::id()` or `Auth::user()->can('posts.edit.any')`.
+  Renders the draft like the public template with an amber
+  non-dismissible "Aperçu — Cet article est {status} et n'est pas visible
+  publiquement" banner and a "Retour à l'édition" link
+- **Nav "Mes articles"** link added to `partials/nav.blade.php` between
+  "Mon profil" and logout, with active highlight
+- **SEO meta tags** on `blog/show.blade.php`: `@section('title'|'description')`
+  now use the resolved accessors, `@push('head')` stack injects OG +
+  Twitter Card tags (`og:type=article`, `og:image`/`twitter:image` fallback
+  to `featured_image_url`). `@stack('head')` added to `layouts/app.blade.php`
+  so page-level meta lands in the document head
+- **Public blog show**: content now rendered via `{!! $post->content !!}`
+  wrapped in `prose prose-lg` from `@tailwindcss/typography` (not
+  `nl2br(e(...))`) since content is sanitized HTML after ③
+- **`migrate_plain_text_posts_to_html`** one-shot migration: backs up every
+  `blog_posts` row to `storage/app/backups/blog_posts_YYYY-MM-DD_HHMMSS.json`
+  then wraps plain text on blank lines into `<p>` tags (preserving single
+  line breaks via `nl2br`), runs each through the sanitizer. Idempotent:
+  skips any post already containing block-level HTML tags
+  (`p|h1-6|ul|ol|blockquote|pre|figure`). `down()` restores from the latest
+  backup. Rollback-safe
+- `@tailwindcss/typography` plugin added to `resources/css/app.css` for
+  `.prose` styling inside both the editor and the public blog render
+- PHPUnit `ini memory_limit=512M` added to `phpunit.xml` — the image-upload
+  fixtures (`UploadedFile::fake()->image(2400, 1000)`) pushed past the
+  default 128M during the full test run
+
+### Test coverage
+
+- 25 new tests (5 sanitizer + 3 uploader + 4 upload endpoint + 6 CreatePost
+  + 4 EditPost + 3 MyPosts + 3 PreviewPost + 3 migration)
+- 35/35 blog tests passing end-to-end. The 5 suite-wide failures in
+  `ContactFormTest` and `SearchTest` pre-date this sub-project and are
+  unrelated to it
+
 ### Added — Admin autonomy sub-project ② RBAC + User Management (2026-04-11)
 
 - **17 permissions** seeded across 8 domains via the new `RolePermissionSeeder` (replaces the minimal `RoleSeeder`): `posts.*`, `comments.moderate`, `profiles.moderate`, `users.*`, `roles.view`, `settings.manage`, `newsletter.*`, `admin.access`
