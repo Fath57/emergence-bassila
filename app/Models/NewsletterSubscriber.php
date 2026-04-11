@@ -37,6 +37,9 @@ class NewsletterSubscriber extends Model
             if (empty($sub->unsubscribe_token)) {
                 $sub->unsubscribe_token = Str::random(64);
             }
+            if (empty($sub->confirmation_token)) {
+                $sub->confirmation_token = Str::random(64);
+            }
         });
     }
 
