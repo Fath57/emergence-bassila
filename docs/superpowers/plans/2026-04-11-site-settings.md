@@ -1,5 +1,7 @@
 # Site Settings Implementation Plan
 
+> **⚠️ Status: Deferred.** This plan was drafted before the decision to author all four sub-project specs (① Settings, ② RBAC, ③ Blog editor, ④ Newsletter) up-front. **Before executing this plan, re-validate it against the ②③④ specs** — if any of them introduced contracts this plan didn't anticipate (e.g. a `settings.manage` permission from ② RBAC), patch this plan first. Zero work is lost; the spec itself (`docs/superpowers/specs/2026-04-11-site-settings-design.md`) remains the source of truth.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build the Site Settings + Feature Flags foundation (sub-project ① of the admin autonomy roadmap) — a key-value store, global `setting()` helper, activitylog-backed audit, and an admin page rendering 3 grouped cards for 7 initial feature flags.
