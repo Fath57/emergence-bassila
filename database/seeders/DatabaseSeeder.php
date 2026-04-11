@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             SectorSeeder::class,
             SkillSeeder::class,
             SettingSeeder::class,
+            BlogCategorySeeder::class,
             AdminSeeder::class,
             ProfileSeeder::class,
         ]);

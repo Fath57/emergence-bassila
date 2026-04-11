@@ -121,6 +121,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/',                           AdminDashboard::class)->name('dashboard');
     Route::get('/profils',                    AdminModerateProfiles::class)->name('profiles');
     Route::get('/articles',                   AdminManagePosts::class)->name('posts');
+    Route::get('/categories',                 \App\Livewire\Admin\ManageCategories::class)->name('categories');
     Route::get('/commentaires',               AdminModerateComments::class)->name('comments');
     Route::get('/utilisateurs',               \App\Livewire\Admin\Users::class)->name('users');
     Route::get('/utilisateurs/inviter',       \App\Livewire\Admin\InviteUser::class)->name('users.invite');
