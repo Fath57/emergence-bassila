@@ -1,0 +1,79 @@
+/* ============================================================
+   Animations — safe for SEO / Core Web Vitals
+   Only transform + opacity are animated (compositor-friendly).
+============================================================ */
+
+/* --- Reveal on scroll (JS adds .is-visible when intersecting) --- */
+.anim-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 500ms ease-out, transform 500ms ease-out;
+    will-change: opacity, transform;
+}
+
+.anim-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger children — index set via inline style --i */
+.anim-reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 500ms ease-out, transform 500ms ease-out;
+    transition-delay: calc(var(--i, 0) * 80ms);
+    will-change: opacity, transform;
+}
+
+.anim-reveal-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Hero entrance (pure CSS, plays on page load, no JS) --- */
+@keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.anim-hero-subtitle {
+    animation: fade-up 700ms ease-out 150ms both;
+}
+.anim-hero-cta {
+    animation: fade-up 700ms ease-out 300ms both;
+}
+/* .anim-hero-title and the hero <img> are NOT animated — LCP-protected. */
+
+/* --- Hover micro-interactions --- */
+.hover-lift {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+}
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -8px rgba(10, 22, 40, 0.15);
+}
+
+.hover-arrow svg,
+.hover-arrow .arrow {
+    transition: transform 200ms ease-out;
+}
+.hover-arrow:hover svg,
+.hover-arrow:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* --- Respect prefers-reduced-motion (overrides everything above) --- */
+@media (prefers-reduced-motion: reduce) {
+    .anim-reveal,
+    .anim-reveal-stagger > *,
+    .anim-hero-subtitle,
+    .anim-hero-cta,
+    .hover-lift,
+    .hover-arrow svg,
+    .hover-arrow .arrow {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
