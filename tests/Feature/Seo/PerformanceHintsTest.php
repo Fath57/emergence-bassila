@@ -41,3 +41,18 @@ it('home still has no img without width when seeded with blog and profiles', fun
 
     expect($missing)->toBe([]);
 });
+
+it('home hero h1 has no animation class (LCP-protected)', function () {
+    $html = get('/')->getContent();
+    preg_match('/<h1\b[^>]*>/i', $html, $m);
+    $h1Tag = $m[0] ?? '';
+    expect($h1Tag)->not->toContain('anim-');
+});
+
+it('home hero img with fetchpriority=high has no animation class (LCP-protected)', function () {
+    $html = get('/')->getContent();
+    preg_match('/<img\b[^>]*fetchpriority="high"[^>]*>/i', $html, $m);
+    $imgTag = $m[0] ?? '';
+    expect($imgTag)->not->toBe('')
+        ->and($imgTag)->not->toContain('anim-');
+});
