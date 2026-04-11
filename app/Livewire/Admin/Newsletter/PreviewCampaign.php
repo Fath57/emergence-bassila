@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Newsletter;
 
 use App\Models\NewsletterCampaign;
+use App\Models\NewsletterSubscriber;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 

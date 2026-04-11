@@ -143,4 +143,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/newsletter/{campaign}/editer', \App\Livewire\Admin\Newsletter\EditCampaign::class)->name('newsletter.edit');
     Route::get('/newsletter/{campaign}/apercu',  \App\Livewire\Admin\Newsletter\PreviewCampaign::class)->name('newsletter.preview');
     Route::get('/newsletter/abonnes',         \App\Livewire\Admin\Newsletter\Subscribers::class)->name('newsletter.subscribers');
+    Route::get('/newsletter/{campaign}/html', function (\App\Models\NewsletterCampaign $campaign) {
+        // Fake subscriber and send for preview rendering
+        $sub  = new \App\Models\NewsletterSubscriber(['email' => 'apercu@example.com', 'unsubscribe_token' => 'preview']);
+        $send = new \App\Models\NewsletterCampaignSend(['open_token' => 'preview']);
+        return view('mail.newsletter.newsletter', compact('campaign', 'sub', 'send'));
+    })->name('newsletter.html');
 });
