@@ -63,6 +63,10 @@ Route::get('/', function () {
 // SEO — sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
+// Static content pages
+Route::view('/qui-sommes-nous', 'pages.qui-sommes-nous')->name('pages.about-us');
+Route::view('/a-propos-de-bassila', 'pages.a-propos-de-bassila')->name('pages.about-bassila');
+
 // Auth
 Route::middleware(['guest', 'throttle:10,1'])->group(function () {
     Route::get('/inscription', Register::class)
