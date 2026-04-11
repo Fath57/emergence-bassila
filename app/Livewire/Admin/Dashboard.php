@@ -4,6 +4,8 @@ namespace App\Livewire\Admin;
 
 use App\Models\BlogComment;
 use App\Models\BlogPost;
+use App\Models\NewsletterCampaign;
+use App\Models\NewsletterSubscriber;
 use App\Models\Profile;
 use App\Models\User;
 use Livewire\Attributes\Layout;
@@ -29,7 +31,10 @@ class Dashboard extends Component
                                          ->whereMonth('published_at', now()->month)
                                          ->whereYear('published_at', now()->year)
                                          ->count(),
-            'comments_pending' => BlogComment::whereNull('moderated_at')->count(),
+            'comments_pending'     => BlogComment::whereNull('moderated_at')->count(),
+            'newsletter_active'    => NewsletterSubscriber::active()->count(),
+            'newsletter_pending'   => NewsletterSubscriber::whereNull('confirmed_at')->whereNull('unsubscribed_at')->count(),
+            'newsletter_campaigns' => NewsletterCampaign::where('status', 'sent')->count(),
         ];
 
         return view('livewire.admin.dashboard', compact('stats'));

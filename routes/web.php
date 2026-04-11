@@ -138,4 +138,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/utilisateurs/{user}/editer', \App\Livewire\Admin\EditUser::class)->name('users.edit');
     Route::get('/roles',                      \App\Livewire\Admin\RoleMatrix::class)->name('roles');
     Route::get('/parametres',                 \App\Livewire\Admin\Settings::class)->name('settings');
+    Route::get('/newsletter',                 \App\Livewire\Admin\Newsletter\Campaigns::class)->name('newsletter');
+    Route::get('/newsletter/creer',           \App\Livewire\Admin\Newsletter\CreateCampaign::class)->name('newsletter.create');
+    Route::get('/newsletter/{campaign}/editer', \App\Livewire\Admin\Newsletter\EditCampaign::class)->name('newsletter.edit');
+    Route::get('/newsletter/{campaign}/apercu',  \App\Livewire\Admin\Newsletter\PreviewCampaign::class)->name('newsletter.preview');
+    Route::get('/newsletter/abonnes',         \App\Livewire\Admin\Newsletter\Subscribers::class)->name('newsletter.subscribers');
 });
