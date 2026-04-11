@@ -109,4 +109,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/profils',       AdminModerateProfiles::class)->name('profiles');
     Route::get('/articles',      AdminManagePosts::class)->name('posts');
     Route::get('/commentaires',  AdminModerateComments::class)->name('comments');
+    Route::get('/parametres',    \App\Livewire\Admin\Settings::class)->name('settings');
 });
