@@ -9,7 +9,7 @@ class AvatarGenerator
 {
     /**
      * Generate a PNG avatar from the given name's initials,
-     * upload it to S3, and return the public URL.
+     * store it on the public disk, and return the public URL.
      */
     public function generate(string $name): string
     {
@@ -46,11 +46,11 @@ class AvatarGenerator
 
         imagedestroy($image);
 
-        // Store on S3
+        // Store on the public disk (persistent volume mounted at storage/app/public)
         $filename = 'avatars/generated/' . Str::uuid() . '.png';
-        Storage::disk('s3')->put($filename, $imageData, 'public');
+        Storage::disk('public')->put($filename, $imageData);
 
-        return Storage::disk('s3')->url($filename);
+        return Storage::disk('public')->url($filename);
     }
 
     /**
