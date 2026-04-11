@@ -1,5 +1,10 @@
-<div>
 @section('title', 'Rédiger un article')
+@section('description', 'Rédigez un nouvel article pour la communauté Bassila Émergence.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
+<div>
 
 @push('head')
     @vite(['resources/js/editor.js'])

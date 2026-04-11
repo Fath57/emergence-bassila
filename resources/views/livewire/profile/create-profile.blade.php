@@ -1,3 +1,9 @@
+@section('title', 'Créer mon profil')
+@section('description', 'Renseignez votre profil pour rejoindre l\'annuaire Bassila Émergence.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
 <div>
 
 {{-- Page header --}}

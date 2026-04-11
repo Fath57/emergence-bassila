@@ -1,3 +1,9 @@
+@section('title', 'Réinitialiser le mot de passe')
+@section('description', 'Définissez un nouveau mot de passe pour votre compte Bassila Émergence.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
 <div>
     <div class="mb-8">
         <h1 class="text-2xl font-bold text-[#111827] mb-1">Nouveau mot de passe</h1>

@@ -1,3 +1,9 @@
+@section('title', 'Vérifier l\'adresse e-mail')
+@section('description', 'Confirmez votre adresse e-mail pour finaliser votre inscription.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
 <div class="text-center">
     <div class="w-14 h-14 border-2 border-[#0066CC] flex items-center justify-center mx-auto mb-6">
         <svg class="w-7 h-7 text-[#0066CC]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">

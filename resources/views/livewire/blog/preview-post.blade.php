@@ -1,5 +1,10 @@
-<div>
 @section('title', 'Aperçu — ' . $post->title)
+@section('description', 'Prévisualisation d\'un article Bassila Émergence.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
+<div>
 
     {{-- Amber preview banner --}}
     <div class="bg-amber-50 border-b-2 border-amber-200 px-4 py-3">

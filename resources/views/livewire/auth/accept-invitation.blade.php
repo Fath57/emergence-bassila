@@ -1,3 +1,9 @@
+@section('title', 'Invitation')
+@section('description', 'Acceptez votre invitation à rejoindre Bassila Émergence.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
 <div>
     <div class="mb-8">
         <p class="text-xs font-semibold text-[#DC143C] uppercase tracking-widest mb-2">Invitation</p>

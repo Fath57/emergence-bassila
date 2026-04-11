@@ -1,5 +1,10 @@
-<div>
 @section('title', 'Mes articles')
+@section('description', 'Gérez vos articles publiés et brouillons.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
+<div>
 
     <div class="max-w-5xl mx-auto px-5 py-10">
 

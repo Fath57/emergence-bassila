@@ -1,3 +1,9 @@
+@section('title', 'Modifier mon profil')
+@section('description', 'Mettez à jour votre profil Bassila Émergence.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
 <div class="max-w-2xl mx-auto">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
         <h1 class="text-2xl font-bold text-[#333333] mb-2">Modifier mon profil</h1>

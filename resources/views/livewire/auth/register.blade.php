@@ -1,3 +1,9 @@
+@section('title', 'Inscription')
+@section('description', 'Créez votre compte Bassila Émergence et rejoignez le réseau des Bassilais.')
+@push('head')
+    <meta name="robots" content="noindex, nofollow">
+@endpush
+
 <div>
     <div class="mb-8">
         <h1 class="text-2xl font-bold text-[#111827] mb-1">Créer un compte</h1>
