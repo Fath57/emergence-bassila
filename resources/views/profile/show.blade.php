@@ -1,8 +1,38 @@
+@php
+    use App\Support\Seo\SeoData;
+
+    $profileTitle = $profile->full_name . ($profile->job_title ? ' — ' . $profile->job_title : '');
+    $profileDesc  = $profile->bio
+        ?: ($profile->full_name . ' — membre du réseau Bassila Émergence.');
+
+    $seo = SeoData::default()
+        ->withTitle($profileTitle)
+        ->withDescription($profileDesc)
+        ->withOgType('profile')
+        ->withOgImage($profile->avatar_url ?: null, $profile->full_name);
+@endphp
 @extends('layouts.app')
 @section('title', $profile->full_name)
+@section('description', $profileDesc)
+
+@push('head')
+    @if ($profile->is_verified)
+        <x-seo.json-ld :data="\App\Support\Seo\StructuredData::person($profile)" />
+    @endif
+@endpush
+
 @section('content')
 
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <x-breadcrumbs
+        :items="[
+            ['name' => 'Accueil', 'url' => route('home')],
+            ['name' => 'Annuaire', 'url' => route('directory.index')],
+            ['name' => $profile->full_name, 'url' => null],
+        ]"
+        :with-json-ld="true"
+    />
 
     {{-- Profile header --}}
     <div class="bg-white border border-gray-200 mb-6 relative overflow-hidden">
@@ -15,7 +45,9 @@
                 @if ($profile->avatar_url)
                     <img src="{{ $profile->avatar_url }}"
                          alt="{{ $profile->full_name }}"
-                         class="h-24 w-24 object-cover border border-gray-200">
+                         width="96" height="96"
+                         class="h-24 w-24 object-cover border border-gray-200"
+                         loading="lazy" decoding="async">
                 @else
                     <div class="h-24 w-24 bg-[#0066CC] flex items-center justify-center text-white text-2xl font-bold">
                         {{ strtoupper(substr($profile->full_name, 0, 1)) }}
