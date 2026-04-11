@@ -59,13 +59,16 @@ class AcceptInvitation extends Component
 
         $user = DB::transaction(function () use ($invitation) {
             $user = User::create([
-                'first_name'        => $this->first_name,
-                'last_name'         => $this->last_name,
-                'email'             => $invitation->email,
-                'password'          => bcrypt($this->password),
-                'email_verified_at' => now(),
-                'is_active'         => true,
+                'first_name' => $this->first_name,
+                'last_name'  => $this->last_name,
+                'email'      => $invitation->email,
+                'password'   => bcrypt($this->password),
+                'is_active'  => true,
             ]);
+
+            // email_verified_at is not in the fillable list, so mark it explicitly.
+            // The invitation link in the email is de facto proof of email ownership.
+            $user->markEmailAsVerified();
 
             $user->assignRole($invitation->role);
 

@@ -75,6 +75,7 @@ it('creates a user with the correct role and auto-logs in on the happy path', fu
         ->and($user->first_name)->toBe('Newbie')
         ->and($user->last_name)->toBe('Member')
         ->and($user->is_active)->toBeTrue()
+        ->and($user->hasVerifiedEmail())->toBeTrue()
         ->and($user->hasRole('member'))->toBeTrue();
 
     expect($invitation->fresh()->accepted_at)->not->toBeNull();
