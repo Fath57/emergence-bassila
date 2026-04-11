@@ -4,10 +4,16 @@
             <p class="text-xs font-semibold text-[#DC143C] uppercase tracking-widest mb-1">Newsletter</p>
             <h1 class="text-3xl font-bold text-[#111827]">Abonnés</h1>
         </div>
-        <a href="{{ route('admin.newsletter') }}" wire:navigate
-           class="text-sm px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition">
-            ← Campagnes
-        </a>
+        <div class="flex gap-3">
+            <button wire:click="$set('showImportModal', true)"
+                    class="text-sm px-5 py-2 bg-gray-800 hover:bg-gray-900 text-white font-semibold transition">
+                Importer CSV
+            </button>
+            <a href="{{ route('admin.newsletter') }}" wire:navigate
+               class="text-sm px-5 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 transition">
+                ← Campagnes
+            </a>
+        </div>
     </div>
 
     {{-- Filter tabs + Search --}}
@@ -88,6 +94,55 @@
 
         <div class="mt-4">
             {{ $subscribers->links() }}
+        </div>
+    @endif
+
+    {{-- CSV Import modal --}}
+    @if ($showImportModal)
+        <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+            <div class="bg-white p-6 max-w-lg w-full">
+                @if ($importResult)
+                    <h3 class="font-bold text-[#111827] mb-4">Résultats de l'import</h3>
+                    <div class="space-y-2 mb-5 text-sm">
+                        <p class="text-green-700 font-semibold">✓ {{ $importResult['imported'] }} abonné(s) importé(s)</p>
+                        @if ($importResult['skipped'] > 0)
+                            <p class="text-gray-600">→ {{ $importResult['skipped'] }} email(s) déjà présent(s), ignoré(s)</p>
+                        @endif
+                        @foreach ($importResult['errors'] as $err)
+                            <p class="text-red-600 text-xs">⚠ {{ $err }}</p>
+                        @endforeach
+                    </div>
+                    <button wire:click="closeImport"
+                            class="px-5 py-2 bg-[#0066CC] text-white text-sm font-semibold hover:bg-blue-700">
+                        Fermer
+                    </button>
+                @else
+                    <h3 class="font-bold text-[#111827] mb-2">Importer des abonnés (CSV)</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Le fichier doit contenir une colonne <code>email</code> et optionnellement <code>first_name</code>.<br>
+                        Les emails déjà présents seront ignorés. Les imports sont marqués comme <strong>confirmés</strong> (consentement RGPD obtenu à la source).
+                    </p>
+
+                    <div class="mb-4">
+                        <input wire:model="csvFile" type="file" accept=".csv,.txt"
+                               class="block w-full text-sm text-gray-600 border border-gray-300 p-2">
+                        @error('csvFile') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button wire:click="importCsv"
+                                wire:loading.attr="disabled"
+                                class="px-5 py-2 bg-gray-800 text-white text-sm font-semibold hover:bg-gray-900 transition">
+                            <span wire:loading.remove>Importer</span>
+                            <span wire:loading>Import en cours…</span>
+                        </button>
+                        <button wire:click="closeImport"
+                                class="px-5 py-2 border border-gray-300 text-gray-700 text-sm hover:bg-gray-50">
+                            Annuler
+                        </button>
+                    </div>
+                @endif
+            </div>
         </div>
     @endif
 </div>

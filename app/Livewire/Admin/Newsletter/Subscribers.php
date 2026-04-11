@@ -2,15 +2,18 @@
 
 namespace App\Livewire\Admin\Newsletter;
 
+use App\Actions\Newsletter\ImportSubscribersFromCsv;
 use App\Models\NewsletterSubscriber;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 #[Layout('layouts.admin')]
 class Subscribers extends Component
 {
+    use WithFileUploads;
     use WithPagination;
 
     #[Url]
@@ -18,6 +21,10 @@ class Subscribers extends Component
 
     #[Url]
     public string $search = '';
+
+    public bool  $showImportModal = false;
+    public $csvFile               = null;
+    public ?array $importResult   = null;
 
     public function mount(): void
     {
@@ -49,6 +56,31 @@ class Subscribers extends Component
     public function delete(int $id): void
     {
         NewsletterSubscriber::findOrFail($id)->delete();
+    }
+
+    public function importCsv(): void
+    {
+        $this->validate([
+            'csvFile' => ['required', 'file', 'mimes:csv,txt', 'max:5120'],
+        ]);
+
+        $action = new ImportSubscribersFromCsv();
+        $action->run($this->csvFile);
+
+        $this->importResult = [
+            'imported' => count($action->imported),
+            'skipped'  => count($action->skipped),
+            'errors'   => $action->errors,
+        ];
+
+        $this->csvFile = null;
+    }
+
+    public function closeImport(): void
+    {
+        $this->showImportModal = false;
+        $this->importResult    = null;
+        $this->csvFile         = null;
     }
 
     public function render()
