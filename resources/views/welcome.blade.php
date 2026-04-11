@@ -48,10 +48,10 @@
                 style="font-family: 'Lora', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700;">
                 Le réseau des Bassilois<br>à travers le monde
             </h1>
-            <p class="text-white/75 text-lg leading-relaxed mb-10 max-w-xl">
+            <p class="text-white/75 text-lg leading-relaxed mb-10 max-w-xl anim-hero-subtitle">
                 Retrouvez d'anciens camarades, développez votre réseau professionnel et contribuez à l'histoire de votre communauté d'origine.
             </p>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-4 anim-hero-cta">
                 @auth
                     <a href="{{ route('directory.index') }}"
                        class="bg-[#0066CC] hover:bg-blue-800 text-white font-semibold px-7 py-3 text-sm transition">
@@ -78,25 +78,25 @@
         @if(collect($stats)->sum() > 0)
             <div class="mt-16 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-6">
                 <div>
-                    <div class="text-white font-bold text-3xl">
+                    <div class="text-white font-bold text-3xl anim-count">
                         {{ number_format($stats['members']) }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Membres inscrits</div>
                 </div>
                 <div>
-                    <div class="text-white font-bold text-3xl">
+                    <div class="text-white font-bold text-3xl anim-count">
                         {{ $stats['profiles'] }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Profils vérifiés</div>
                 </div>
                 <div>
-                    <div class="text-white font-bold text-3xl">
+                    <div class="text-white font-bold text-3xl anim-count">
                         {{ $stats['countries'] }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Pays représentés</div>
                 </div>
                 <div>
-                    <div class="text-white font-bold text-3xl">
+                    <div class="text-white font-bold text-3xl anim-count">
                         {{ $stats['posts'] }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Articles publiés</div>
@@ -113,7 +113,7 @@
 {{-- ============================================================
      MISSION
 ============================================================ --}}
-<section class="bg-white py-20">
+<section class="bg-white py-20 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
 
@@ -129,7 +129,7 @@
                     Chaque profil raconte une histoire de résilience et de réussite. Chaque connexion est un pont entre les générations et les horizons.
                 </p>
                 <a href="{{ route('register') }}"
-                   class="inline-flex items-center gap-2 text-[#0066CC] font-semibold text-sm hover:underline">
+                   class="inline-flex items-center gap-2 text-[#0066CC] font-semibold text-sm hover:underline hover-arrow">
                     Rejoindre le réseau
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -157,7 +157,7 @@
 {{-- ============================================================
      3 PILLARS
 ============================================================ --}}
-<section class="bg-gray-50 py-20">
+<section class="bg-gray-50 py-20 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="mb-12">
@@ -167,10 +167,10 @@
             </h2>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-3 gap-6 anim-reveal-stagger">
 
             {{-- Réseau --}}
-            <div class="bg-white border border-gray-200 p-8">
+            <div class="bg-white border border-gray-200 p-8 hover-lift" style="--i: 0;">
                 <div class="w-10 h-10 border-2 border-[#0066CC] flex items-center justify-center mb-6">
                     <svg class="w-5 h-5 text-[#0066CC]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -186,7 +186,7 @@
             </div>
 
             {{-- Blog --}}
-            <div class="bg-[#0066CC] p-8">
+            <div class="bg-[#0066CC] p-8 hover-lift" style="--i: 1;">
                 <div class="w-10 h-10 border-2 border-white/40 flex items-center justify-center mb-6">
                     <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
@@ -202,7 +202,7 @@
             </div>
 
             {{-- Entraide --}}
-            <div class="bg-white border border-gray-200 p-8">
+            <div class="bg-white border border-gray-200 p-8 hover-lift" style="--i: 2;">
                 <div class="w-10 h-10 border-2 border-[#DC143C] flex items-center justify-center mb-6">
                     <svg class="w-5 h-5 text-[#DC143C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
@@ -223,14 +223,14 @@
 {{-- ============================================================
      COMMENT ÇA MARCHE
 ============================================================ --}}
-<section class="bg-white py-20">
+<section class="bg-white py-20 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-14 text-center">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Simple & rapide</p>
             <h2 class="text-3xl font-bold text-[#111827]">Comment ça marche ?</h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-10">
-            <div class="text-center">
+        <div class="grid md:grid-cols-3 gap-10 anim-reveal-stagger">
+            <div class="text-center" style="--i: 0;">
                 <div class="w-14 h-14 bg-[#0066CC] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
 >1</div>
                 <h3 class="font-bold text-[#111827] text-lg mb-3">Inscris-toi</h3>
@@ -238,7 +238,7 @@
                     Crée ton compte gratuitement avec ton adresse email. La vérification prend moins d'une minute.
                 </p>
             </div>
-            <div class="text-center">
+            <div class="text-center" style="--i: 1;">
                 <div class="w-14 h-14 bg-[#0066CC] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
 >2</div>
                 <h3 class="font-bold text-[#111827] text-lg mb-3">Crée ton profil</h3>
@@ -246,7 +246,7 @@
                     Renseigne ton parcours, ton métier et tes compétences. Un admin vérifie et valide ton profil.
                 </p>
             </div>
-            <div class="text-center">
+            <div class="text-center" style="--i: 2;">
                 <div class="w-14 h-14 bg-[#DC143C] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
 >3</div>
                 <h3 class="font-bold text-[#111827] text-lg mb-3">Connecte-toi</h3>
@@ -270,7 +270,7 @@
      SECTEURS REPRÉSENTÉS
 ============================================================ --}}
 @if($sectors->isNotEmpty())
-<section class="bg-gray-50 py-16">
+<section class="bg-gray-50 py-16 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-10">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Diversité</p>
@@ -292,13 +292,13 @@
 {{-- ============================================================
      TÉMOIGNAGES
 ============================================================ --}}
-<section class="bg-white py-20">
+<section class="bg-white py-20 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-12">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Témoignages</p>
             <h2 class="text-3xl font-bold text-[#111827]">Ils parlent de leur communauté</h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-3 gap-6 anim-reveal-stagger">
             @foreach([
                 [
                     'quote' => "Bassila Émergence m'a permis de retrouver d'anciens camarades que je n'avais pas vus depuis plus de 20 ans. Une vraie renaissance des liens communautaires.",
@@ -316,7 +316,7 @@
                     'role'  => 'Médecin, Lyon',
                 ],
             ] as $t)
-                <div class="border border-gray-200 p-8">
+                <div class="border border-gray-200 p-8" style="--i: {{ $loop->index }};">
                     <div class="text-5xl text-[#0066CC]/20 mb-3 leading-none" style="font-family: Georgia, serif;">"</div>
                     <p class="text-gray-600 text-sm leading-relaxed mb-6 italic">{{ $t['quote'] }}</p>
                     <div class="border-t border-gray-100 pt-4">
@@ -332,7 +332,7 @@
 {{-- ============================================================
      RECENT BLOG POSTS
 ============================================================ --}}
-<section class="bg-white py-20">
+<section class="bg-white py-20 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
@@ -341,15 +341,15 @@
                 <h2 class="text-3xl font-bold text-[#111827]">Histoires & Actualités</h2>
             </div>
             <a href="{{ route('blog.index') }}"
-               class="text-[#0066CC] text-sm font-semibold hover:underline shrink-0">
+               class="text-[#0066CC] text-sm font-semibold hover:underline shrink-0 hover-arrow">
                 Tous les articles &rarr;
             </a>
         </div>
 
         @if($recentPosts->isNotEmpty())
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-3 gap-6 anim-reveal-stagger">
                 @foreach($recentPosts as $post)
-                    <article class="border border-gray-200 group">
+                    <article class="border border-gray-200 group hover-lift" style="--i: {{ $loop->index }};">
                         {{-- Image --}}
                         <div class="aspect-[16/9] overflow-hidden bg-[#0066CC]">
                             @if($post->featured_image_url)
@@ -409,7 +409,7 @@
 {{-- ============================================================
      FEATURED PROFILES
 ============================================================ --}}
-<section class="bg-gray-50 py-20">
+<section class="bg-gray-50 py-20 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
@@ -418,16 +418,17 @@
                 <h2 class="text-3xl font-bold text-[#111827]">Membres récemment vérifiés</h2>
             </div>
             <a href="{{ route('directory.index') }}"
-               class="text-[#0066CC] text-sm font-semibold hover:underline shrink-0">
+               class="text-[#0066CC] text-sm font-semibold hover:underline shrink-0 hover-arrow">
                 Voir l'annuaire complet &rarr;
             </a>
         </div>
 
         @if($featuredProfiles->isNotEmpty())
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 anim-reveal-stagger">
                 @foreach($featuredProfiles as $profile)
                     <a href="{{ route('profile.show', $profile) }}"
-                       class="bg-white border border-gray-200 p-5 flex items-start gap-4 hover:border-[#0066CC] transition group">
+                       style="--i: {{ $loop->index }};"
+                       class="bg-white border border-gray-200 p-5 flex items-start gap-4 hover:border-[#0066CC] transition group hover-lift">
                         {{-- Avatar --}}
                         @if($profile->avatar_url)
                             <img src="{{ $profile->avatar_url }}"
@@ -484,7 +485,7 @@
 {{-- ============================================================
      NEWSLETTER
 ============================================================ --}}
-<section class="bg-[#0A1628] py-16">
+<section class="bg-[#0A1628] py-16 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-lg">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-4">Rester informé</p>
@@ -502,7 +503,7 @@
 {{-- ============================================================
      CTA FINAL
 ============================================================ --}}
-<section class="bg-[#0066CC] py-20">
+<section class="bg-[#0066CC] py-20 anim-reveal">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl">
             <p class="text-white/60 text-xs font-semibold uppercase tracking-widest mb-4">Rejoindre</p>
