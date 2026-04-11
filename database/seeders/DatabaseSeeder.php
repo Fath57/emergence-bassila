@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             SectorSeeder::class,
             SkillSeeder::class,
+            SettingSeeder::class,
             AdminSeeder::class,
             ProfileSeeder::class,
         ]);
