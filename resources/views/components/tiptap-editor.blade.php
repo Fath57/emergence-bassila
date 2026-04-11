@@ -1,7 +1,8 @@
 @props([
-    'name'    => 'content',
-    'value'   => '',
-    'wireKey' => 'content',
+    'name'     => 'content',
+    'value'    => '',
+    'wireKey'  => 'content',
+    'autosave' => true,
 ])
 
 <div data-editor
@@ -45,10 +46,18 @@
     {{-- Editor mount point --}}
     <div data-editor-mount></div>
 
-    {{-- Hidden textarea — Livewire binds here; TipTap JS writes HTML on update --}}
+    {{-- Hidden textarea — Livewire binds here; TipTap JS writes HTML on update.
+         autosave=true: .live.debounce.3000ms so updatedContent() fires for blog autosave.
+         autosave=false: plain wire:model so the value is flushed on the same network
+         trip as the form submit (used by the newsletter composer where there is no
+         updatedContent hook to save incremental state). --}}
     <textarea
         data-editor-content
-        wire:model.live.debounce.3000ms="{{ $wireKey }}"
+        @if ($autosave)
+            wire:model.live.debounce.3000ms="{{ $wireKey }}"
+        @else
+            wire:model="{{ $wireKey }}"
+        @endif
         name="{{ $name }}"
         class="hidden"
     >{{ $value }}</textarea>

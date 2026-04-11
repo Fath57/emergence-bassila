@@ -24,7 +24,7 @@
         {{-- Content --}}
         <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">Contenu <span class="text-red-500">*</span></label>
-            <x-tiptap-editor name="content" :value="$content" wire-key="newsletter-content" />
+            <x-tiptap-editor name="content" :value="$content" wire-key="content" :autosave="false" />
             @error('content') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
         </div>
 

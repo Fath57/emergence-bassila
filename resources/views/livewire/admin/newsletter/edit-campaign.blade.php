@@ -64,7 +64,7 @@
         <div>
             <label class="block text-sm font-semibold text-gray-700 mb-2">Contenu <span class="text-red-500">*</span></label>
             @if ($campaign->isEditable())
-                <x-tiptap-editor name="content" :value="$content" wire-key="newsletter-content-{{ $campaign->id }}" />
+                <x-tiptap-editor name="content" :value="$content" wire-key="content" :autosave="false" />
             @else
                 <div class="prose prose-sm max-w-none border border-gray-200 p-4 bg-gray-50">
                     {!! $campaign->content !!}
