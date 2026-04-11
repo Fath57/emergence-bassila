@@ -9,6 +9,44 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — Admin autonomy sub-project ① Site Settings (2026-04-11)
+
+- **Typed key-value settings table** with 7 initial feature flags:
+  - `site.registration_open`, `site.maintenance_mode`, `site.maintenance_message`
+  - `blog.public_creation`, `blog.require_moderation`
+  - `comments.enabled`, `comments.require_moderation`
+- `Setting` Eloquent model with `casted_value` accessor (bool/string), `LogsActivity` trait for audit trail
+- Global `setting()` helper with 2-layer caching: persistent `Cache::rememberForever` + per-request `app()->instance()` memo → zero DB queries after priming
+- Idempotent `SettingSeeder` using `firstOrNew` 2-branch pattern: re-running the seeder preserves admin-edited values while re-syncing metadata (label/description/group/sort_order)
+- `/admin/parametres` Livewire page rendering 3 grouped cards from DB, with nested `values[group][field]` binding matching Livewire v3 dot-notation semantics, save action persisting changes and logging activity, and a history section showing the last 20 changes ordered by id
+- `MaintenanceModeCheck` middleware — 503 + custom French message for all non-admin public routes when maintenance mode is on; `/connexion`, `/admin/*`, `/livewire/*`, `/build/*`, `/up` are always allowlisted
+- `CheckRegistrationOpen` middleware — `/inscription` redirects to `/connexion` with flash message when registration is closed; "Créer un profil" CTA hidden from nav in the same case
+- `BlogPostPolicy::create` now reads `setting('blog.public_creation')`; `/blog/rediger` route is gated by `can:create,App\Models\BlogPost` middleware
+- `CreatePost::save` / `EditPost::save` force `status = draft` for non-admin publications when `blog.require_moderation` is enabled, with a French info flash
+- `CommentForm::submit` refuses to save when `comments.enabled = false` and branches `moderated_at` on `comments.require_moderation`
+- `blog/show` template hides the comment form entirely when comments are disabled, showing a neutral placeholder
+
+### Added — Baseline RBAC (2026-04-11)
+
+- 2 baseline permissions seeded: `admin.access`, `settings.manage`, both attached to the `admin` role
+- `EnsureUserIsAdmin` middleware migrated from `hasRole('admin')` to `can('admin.access')`
+- Full 17-permission set and role rename will ship with sub-project ② RBAC
+
+### Changed
+
+- `spatie/laravel-activitylog` migration now published and run on both dev and test databases
+- `app/helpers.php` registered via `composer.json` autoload `files`
+
+### Fixed
+
+- Setting cache: plain-array payload (not Eloquent Collection) to survive cross-request deserialization on the database cache driver
+- Setting cache: per-request memo via container binding to avoid repeated `cache` table lookups (one effective DB/cache hit per HTTP request)
+- Activity log history ordered by `id` (not `created_at`) to stay deterministic across events sharing a timestamp
+
+### Test coverage
+
+- 32 new tests (unit + feature) covering Setting model, helper, seeder, maintenance middleware, registration gate, blog flags, comment flags, and the admin page
+
 ## [0.1.0] — 2026-04-08
 
 Initial MVP release on branch `001-bassila-network-platform`.
