@@ -6,27 +6,27 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @php
-        $pageTitle       = $__env->yieldContent('title');
-        $pageDescription = $__env->yieldContent('description') ?: 'La plateforme de networking des Bassilais à travers le monde.';
-        $fullTitle       = $pageTitle ? $pageTitle . ' — Bassila Émergence' : 'Bassila Émergence';
+        use App\Support\Seo\SeoData;
+
+        $seo = $seo ?? SeoData::default();
+
+        // Allow views using @section('title') / @section('description') to override the DTO.
+        $yieldedTitle = trim($__env->yieldContent('title'));
+        $yieldedDesc  = trim($__env->yieldContent('description'));
+        if ($yieldedTitle !== '') {
+            $seo = $seo->withTitle($yieldedTitle);
+        }
+        if ($yieldedDesc !== '') {
+            $seo = $seo->withDescription($yieldedDesc);
+        }
+
+        $seo = $seo->withCanonical(url()->current());
     @endphp
 
-    <title>{{ $fullTitle }}</title>
-    <meta name="description" content="{{ $pageDescription }}">
-
-    {{-- Open Graph --}}
-    <meta property="og:title" content="{{ $fullTitle }}">
-    <meta property="og:description" content="{{ $pageDescription }}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:site_name" content="Bassila Émergence">
-
-    {{-- Twitter Card --}}
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $fullTitle }}">
-    <meta name="twitter:description" content="{{ $pageDescription }}">
+    <x-seo.meta-tags :seo="$seo" />
 
     <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=lora:400,500,600,700|source-sans-3:400,400i,600,700&display=swap">
     <link href="https://fonts.bunny.net/css?family=lora:400,500,600,700|source-sans-3:400,400i,600,700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
