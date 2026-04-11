@@ -1,2 +1,29 @@
+# Bassila Émergence
 User-agent: *
-Disallow:
+Allow: /
+
+# Private / admin zones
+Disallow: /admin
+Disallow: /admin/
+
+# Auth & account flows
+Disallow: /inscription
+Disallow: /connexion
+Disallow: /mot-de-passe-oublie
+Disallow: /reinitialiser-mot-de-passe/
+Disallow: /deconnexion
+Disallow: /email/verify
+Disallow: /invitation/
+
+# Editing (auth required)
+Disallow: /profil/creer
+Disallow: /profil/modifier
+Disallow: /blog/rediger
+Disallow: /mes-articles
+Disallow: /blog/preview/
+Disallow: /blog/*/modifier
+
+# Newsletter (transactional links only)
+Disallow: /newsletter/
+
+Sitemap: https://REPLACE-WITH-PROD-URL/sitemap.xml
