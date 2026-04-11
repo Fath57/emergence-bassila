@@ -23,6 +23,10 @@
                    class="text-sm font-medium {{ request()->routeIs('directory.*') ? 'text-[#0066CC]' : 'text-gray-600 hover:text-[#111827]' }} transition">
                     Annuaire
                 </a>
+                <a href="{{ route('pages.about-us') }}"
+                   class="text-sm font-medium {{ request()->routeIs('pages.*') ? 'text-[#0066CC]' : 'text-gray-600 hover:text-[#111827]' }} transition">
+                    À propos
+                </a>
             </nav>
 
             {{-- Auth --}}

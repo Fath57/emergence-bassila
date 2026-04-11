@@ -1,6 +1,6 @@
 <footer class="bg-[#0A1628] text-gray-400 mt-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-white/10">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-10 pb-10 border-b border-white/10">
 
             {{-- Brand --}}
             <div class="md:col-span-2">
@@ -21,6 +21,15 @@
                     <li><a href="{{ route('home') }}" class="hover:text-white transition">Accueil</a></li>
                     <li><a href="{{ route('blog.index') }}" class="hover:text-white transition">Blog</a></li>
                     <li><a href="{{ route('directory.index') }}" class="hover:text-white transition">Annuaire</a></li>
+                </ul>
+            </div>
+
+            {{-- À propos --}}
+            <div>
+                <h4 class="text-white text-xs font-semibold uppercase tracking-widest mb-4">À propos</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="{{ route('pages.about-us') }}" class="hover:text-white transition">Qui sommes-nous</a></li>
+                    <li><a href="{{ route('pages.about-bassila') }}" class="hover:text-white transition">À propos de Bassila</a></li>
                 </ul>
             </div>
 
