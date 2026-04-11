@@ -11,6 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Trust Dokku's nginx reverse proxy so Laravel picks up X-Forwarded-Proto
+        // and generates HTTPS URLs when the client-facing request is HTTPS.
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'registration.check' => \App\Http\Middleware\CheckRegistrationOpen::class,
