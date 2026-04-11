@@ -109,9 +109,13 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Admin — auth + role:admin, Livewire pages
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/',              AdminDashboard::class)->name('dashboard');
-    Route::get('/profils',       AdminModerateProfiles::class)->name('profiles');
-    Route::get('/articles',      AdminManagePosts::class)->name('posts');
-    Route::get('/commentaires',  AdminModerateComments::class)->name('comments');
-    Route::get('/parametres',    \App\Livewire\Admin\Settings::class)->name('settings');
+    Route::get('/',                           AdminDashboard::class)->name('dashboard');
+    Route::get('/profils',                    AdminModerateProfiles::class)->name('profiles');
+    Route::get('/articles',                   AdminManagePosts::class)->name('posts');
+    Route::get('/commentaires',               AdminModerateComments::class)->name('comments');
+    Route::get('/utilisateurs',               \App\Livewire\Admin\Users::class)->name('users');
+    Route::get('/utilisateurs/inviter',       \App\Livewire\Admin\InviteUser::class)->name('users.invite');
+    Route::get('/utilisateurs/{user}/editer', \App\Livewire\Admin\EditUser::class)->name('users.edit');
+    Route::get('/roles',                      \App\Livewire\Admin\RoleMatrix::class)->name('roles');
+    Route::get('/parametres',                 \App\Livewire\Admin\Settings::class)->name('settings');
 });
