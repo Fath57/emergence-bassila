@@ -22,7 +22,7 @@ beforeEach(function () {
 
 it('blocks a verified member from /blog/rediger when public_creation is disabled', function () {
     $member = User::factory()->create(['email_verified_at' => now()]);
-    $member->assignRole('user');
+    $member->assignRole('member');
 
     $this->actingAs($member)
         ->get(route('blog.create'))
@@ -42,7 +42,7 @@ it('allows a verified member through /blog/rediger when public_creation is enabl
     Setting::where('key', 'blog.public_creation')->update(['value' => '1']);
 
     $member = User::factory()->create(['email_verified_at' => now()]);
-    $member->assignRole('user');
+    $member->assignRole('member');
 
     $this->actingAs($member)
         ->get(route('blog.create'))
@@ -53,7 +53,7 @@ it('forces status=draft for non-admin publications when require_moderation is en
     Setting::where('key', 'blog.public_creation')->update(['value' => '1']);
 
     $member = User::factory()->create(['email_verified_at' => now()]);
-    $member->assignRole('user');
+    $member->assignRole('member');
     $category = BlogCategory::factory()->create();
 
     Livewire::actingAs($member)

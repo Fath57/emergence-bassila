@@ -29,6 +29,6 @@ class ProfilePolicy
      */
     public function delete(User $user, Profile $profile): bool
     {
-        return $user->id === $profile->user_id || $user->hasRole('admin');
+        return $user->id === $profile->user_id || $user->can('profiles.moderate');
     }
 }

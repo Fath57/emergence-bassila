@@ -21,7 +21,7 @@ it('isLastActiveAdmin returns false when two active admins exist', function () {
 
 it('isLastActiveAdmin returns false for non-admin users', function () {
     $user = User::factory()->create(['email_verified_at' => now(), 'is_active' => true]);
-    $user->assignRole('user');
+    $user->assignRole('member');
 
     expect(User::isLastActiveAdmin($user))->toBeFalse();
 });

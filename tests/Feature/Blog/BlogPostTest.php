@@ -41,14 +41,14 @@ it('returns 404 for draft post accessed directly', function () {
 
 it('authenticated user can access create post form', function () {
     $user = User::factory()->create(['email_verified_at' => now()]);
-    $user->assignRole('user');
+    $user->assignRole('member');
 
     $this->actingAs($user)->get(route('blog.create'))->assertSuccessful();
 });
 
 it('can create a blog post as draft', function () {
     $user = User::factory()->create(['email_verified_at' => now()]);
-    $user->assignRole('user');
+    $user->assignRole('member');
 
     Livewire::actingAs($user)
         ->test(CreatePost::class)
@@ -67,7 +67,7 @@ it('can create a blog post as draft', function () {
 
 it('validates required fields for post creation', function () {
     $user = User::factory()->create(['email_verified_at' => now()]);
-    $user->assignRole('user');
+    $user->assignRole('member');
 
     Livewire::actingAs($user)
         ->test(CreatePost::class)

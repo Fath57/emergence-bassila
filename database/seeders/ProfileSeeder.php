@@ -46,24 +46,26 @@ class ProfileSeeder extends Seeder
 
         foreach ($members as $index => [$name, $job, $company, $country, $city, $sectorName]) {
             $email = 'user' . ($index + 1) . '@bassilanetwork.test';
+            [$firstName, $lastName] = array_pad(preg_split('/\s+/', trim($name), 2) ?: [''], 2, '');
 
             $user = User::firstOrCreate(
                 ['email' => $email],
                 [
-                    'name'              => $name,
+                    'first_name'        => $firstName,
+                    'last_name'         => $lastName,
                     'password'          => Hash::make('password'),
                     'email_verified_at' => now(),
                 ]
             );
 
-            $user->assignRole('user');
+            $user->assignRole('member');
 
             if ($user->profile()->doesntExist()) {
-                $sector  = $sectors->firstWhere('name', $sectorName);
-                $initials = implode('', array_map(fn ($part) => strtoupper(substr($part, 0, 1)), explode(' ', $name)));
+                $sector = $sectors->firstWhere('name', $sectorName);
 
                 $profile = $user->profile()->create([
-                    'full_name'   => $name,
+                    'first_name'  => $firstName,
+                    'last_name'   => $lastName,
                     'job_title'   => $job,
                     'company'     => $company,
                     'country'     => $country,

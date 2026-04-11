@@ -28,7 +28,7 @@ it('renders all 3 groups with their settings for an admin', function () {
 
 it('forbids access to non-admin users', function () {
     $user = User::factory()->create(['email_verified_at' => now()]);
-    $user->assignRole('user');
+    $user->assignRole('member');
 
     $this->actingAs($user)
         ->get('/admin/parametres')

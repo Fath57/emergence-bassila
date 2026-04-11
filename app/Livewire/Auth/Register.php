@@ -9,7 +9,8 @@ use Livewire\Component;
 
 class Register extends Component
 {
-    public string $name = '';
+    public string $first_name = '';
+    public string $last_name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
@@ -17,9 +18,10 @@ class Register extends Component
     protected function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:8', 'confirmed'],
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name'  => ['required', 'string', 'max:100'],
+            'email'      => ['required', 'email', 'unique:users,email'],
+            'password'   => ['required', 'min:8', 'confirmed'],
         ];
     }
 
@@ -28,12 +30,13 @@ class Register extends Component
         $validated = $this->validate();
 
         $user = User::create([
-            'name'     => $validated['name'],
-            'email'    => $validated['email'],
-            'password' => bcrypt($validated['password']),
+            'first_name' => $validated['first_name'],
+            'last_name'  => $validated['last_name'],
+            'email'      => $validated['email'],
+            'password'   => bcrypt($validated['password']),
         ]);
 
-        $user->assignRole('user');
+        $user->assignRole('member');
 
         event(new Registered($user));
 

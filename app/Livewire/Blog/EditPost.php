@@ -65,10 +65,15 @@ class EditPost extends Component
 
         $validated = $this->validate();
 
-        // Force draft for non-admin publications if moderation is required
+        // Force draft when moderation is required, unless the user can
+        // publish their own posts or edit any post (covers editor/admin roles).
+        $authUser = Auth::user();
+        $canBypassModeration = $authUser->can('posts.publish.own')
+            || $authUser->can('posts.edit.any');
+
         if ($validated['status'] === 'published'
             && setting('blog.require_moderation', false)
-            && ! Auth::user()->hasRole('admin')) {
+            && ! $canBypassModeration) {
             $validated['status'] = 'draft';
             $this->status = 'draft';
             session()->flash('info', 'Votre article sera visible après validation par un administrateur.');

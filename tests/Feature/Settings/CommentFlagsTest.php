@@ -23,7 +23,7 @@ it('refuses to save a comment when comments.enabled is false', function () {
     Setting::where('key', 'comments.enabled')->update(['value' => '0']);
 
     $member = User::factory()->create(['email_verified_at' => now()]);
-    $member->assignRole('user');
+    $member->assignRole('member');
     $post = BlogPost::factory()->create(['status' => 'published', 'published_at' => now()]);
 
     Livewire::actingAs($member)
@@ -37,7 +37,7 @@ it('refuses to save a comment when comments.enabled is false', function () {
 
 it('saves a comment with moderated_at=null when require_moderation is true', function () {
     $member = User::factory()->create(['email_verified_at' => now()]);
-    $member->assignRole('user');
+    $member->assignRole('member');
     $post = BlogPost::factory()->create(['status' => 'published', 'published_at' => now()]);
 
     Livewire::actingAs($member)
@@ -54,7 +54,7 @@ it('auto-approves a comment when require_moderation is false', function () {
     Setting::where('key', 'comments.require_moderation')->update(['value' => '0']);
 
     $member = User::factory()->create(['email_verified_at' => now()]);
-    $member->assignRole('user');
+    $member->assignRole('member');
     $post = BlogPost::factory()->create(['status' => 'published', 'published_at' => now()]);
 
     Livewire::actingAs($member)

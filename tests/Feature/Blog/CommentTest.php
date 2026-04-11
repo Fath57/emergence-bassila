@@ -8,7 +8,7 @@ use Livewire\Livewire;
 
 it('can submit a comment on a published post', function () {
     $user = User::factory()->create(['email_verified_at' => now()]);
-    $user->assignRole('user');
+    $user->assignRole('member');
 
     $post = BlogPost::factory()->create([
         'status'       => 'published',

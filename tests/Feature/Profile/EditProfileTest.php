@@ -7,28 +7,31 @@ use Livewire\Livewire;
 
 it('can edit own profile', function () {
     $user = User::factory()->create(['email_verified_at' => now()]);
-    $user->assignRole('user');
+    $user->assignRole('member');
     $profile = Profile::factory()->create(['user_id' => $user->id]);
 
     Livewire::actingAs($user)
         ->test(EditProfile::class)
-        ->set('full_name', 'Nouveau Nom')
+        ->set('first_name', 'Nouveau')
+        ->set('last_name', 'Nom')
         ->set('job_title', 'Nouveau Poste')
         ->set('country', 'France')
         ->set('sector_id', $profile->sector_id)
         ->call('save');
 
     $this->assertDatabaseHas('profiles', [
-        'id'        => $profile->id,
-        'full_name' => 'Nouveau Nom',
+        'id'         => $profile->id,
+        'first_name' => 'Nouveau',
+        'last_name'  => 'Nom',
+        'full_name'  => 'Nouveau Nom',
     ]);
 });
 
 it('cannot edit another user\'s profile', function () {
     $owner = User::factory()->create(['email_verified_at' => now()]);
-    $owner->assignRole('user');
+    $owner->assignRole('member');
     $other = User::factory()->create(['email_verified_at' => now()]);
-    $other->assignRole('user');
+    $other->assignRole('member');
     $profile = Profile::factory()->create(['user_id' => $owner->id]);
 
     $this->actingAs($other)

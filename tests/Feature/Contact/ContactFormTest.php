@@ -12,10 +12,10 @@ it('can send a contact message', function () {
     Mail::fake();
 
     $sender = User::factory()->create(['email_verified_at' => now()]);
-    $sender->assignRole('user');
+    $sender->assignRole('member');
 
     $receiver = User::factory()->create(['email_verified_at' => now()]);
-    $receiver->assignRole('user');
+    $receiver->assignRole('member');
     $profile = Profile::factory()->create(['user_id' => $receiver->id]);
 
     Livewire::actingAs($sender)
@@ -39,7 +39,7 @@ it('validates required fields in contact form', function () {
     Mail::fake();
 
     $sender = User::factory()->create(['email_verified_at' => now()]);
-    $sender->assignRole('user');
+    $sender->assignRole('member');
 
     $receiver = User::factory()->create();
     $profile = Profile::factory()->create(['user_id' => $receiver->id]);
