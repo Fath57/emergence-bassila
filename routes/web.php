@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogImageUploadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
@@ -18,6 +19,8 @@ use App\Livewire\Profile\EditProfile;
 use App\Livewire\Directory\SearchDirectory;
 use App\Livewire\Blog\CreatePost;
 use App\Livewire\Blog\EditPost;
+use App\Livewire\Blog\MyPosts;
+use App\Livewire\Blog\PreviewPost;
 use App\Models\BlogPost;
 use App\Models\Profile;
 use App\Models\Sector;
@@ -100,7 +103,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/blog/rediger', CreatePost::class)
         ->middleware('can:create,App\Models\BlogPost')
         ->name('blog.create');
+    Route::get('/mes-articles', MyPosts::class)->name('blog.mine');
+    Route::get('/blog/preview/{post}', PreviewPost::class)->name('blog.preview');
     Route::get('/blog/{slug}/modifier', EditPost::class)->name('blog.edit');
+
+    Route::post('/blog/upload-image', [BlogImageUploadController::class, 'upload'])
+        ->middleware('can:create,App\Models\BlogPost')
+        ->name('blog.upload-image');
 });
 
 // Blog - public
