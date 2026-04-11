@@ -6,6 +6,7 @@
             <a href="{{ route('home') }}" class="flex items-center shrink-0">
                 <img src="{{ asset('images/logo-trans.png') }}"
                      alt="Bassila Émergence"
+                     width="140" height="36"
                      class="h-9 w-auto">
             </a>
 

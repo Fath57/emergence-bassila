@@ -355,6 +355,8 @@
                             @if($post->featured_image_url)
                                 <img src="{{ $post->featured_image_url }}"
                                      alt="{{ $post->title }}"
+                                     width="800" height="450"
+                                     loading="lazy" decoding="async"
                                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                             @else
                                 <div class="w-full h-full flex items-center justify-center">
@@ -430,6 +432,8 @@
                         @if($profile->avatar_url)
                             <img src="{{ $profile->avatar_url }}"
                                  alt="{{ $profile->full_name }}"
+                                 width="48" height="48"
+                                 loading="lazy" decoding="async"
                                  class="w-12 h-12 object-cover shrink-0">
                         @else
                             <div class="w-12 h-12 bg-[#0066CC] flex items-center justify-center text-white font-bold shrink-0">

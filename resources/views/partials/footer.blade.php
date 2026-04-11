@@ -7,6 +7,7 @@
                 <a href="{{ route('home') }}" class="inline-block mb-4">
                     <img src="{{ asset('images/logo.png') }}"
                          alt="Bassila Émergence"
+                         width="180" height="44"
                          class="h-11 w-auto">
                 </a>
                 <p class="text-sm leading-relaxed max-w-xs">
