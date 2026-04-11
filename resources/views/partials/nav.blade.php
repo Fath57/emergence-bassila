@@ -3,8 +3,10 @@
         <div class="flex items-center justify-between h-16">
 
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-1 shrink-0">
-                <span class="font-bold text-xl tracking-tight text-[#0066CC]" style="font-family: 'Lora', serif;">Emergence</span><span class="font-bold text-xl tracking-tight text-[#DC143C]" style="font-family: 'Lora', serif;">Bassila</span>
+            <a href="{{ route('home') }}" class="flex items-center shrink-0">
+                <img src="{{ asset('images/logo-trans.png') }}"
+                     alt="Bassila Émergence"
+                     class="h-9 w-auto">
             </a>
 
             {{-- Nav links --}}
@@ -41,10 +43,12 @@
                        class="text-sm font-medium text-gray-600 hover:text-[#111827] transition hidden sm:block">
                         Connexion
                     </a>
-                    <a href="{{ route('register') }}"
-                       class="text-sm font-semibold bg-[#0066CC] hover:bg-blue-800 text-white px-4 py-2 transition">
-                        Créer un profil
-                    </a>
+                    @if (setting('site.registration_open', true))
+                        <a href="{{ route('register') }}"
+                           class="text-sm font-semibold bg-[#0066CC] hover:bg-blue-800 text-white px-4 py-2 transition">
+                            Créer un profil
+                        </a>
+                    @endif
                 @endauth
             </div>
         </div>

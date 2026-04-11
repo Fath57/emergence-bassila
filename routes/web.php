@@ -3,10 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\ManagePosts as AdminManagePosts;
+use App\Livewire\Admin\ModerateComments as AdminModerateComments;
+use App\Livewire\Admin\ModerateProfiles as AdminModerateProfiles;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Auth\VerifyEmail;
 use App\Livewire\Profile\CreateProfile;
 use App\Livewire\Profile\EditProfile;
 use App\Livewire\Directory\SearchDirectory;
@@ -50,7 +55,9 @@ Route::get('/', function () {
 
 // Auth
 Route::middleware(['guest', 'throttle:10,1'])->group(function () {
-    Route::get('/inscription', Register::class)->name('register');
+    Route::get('/inscription', Register::class)
+        ->middleware('registration.check')
+        ->name('register');
     Route::get('/connexion', Login::class)->name('login');
     Route::get('/mot-de-passe-oublie', ForgotPassword::class)->name('password.request');
     Route::get('/reinitialiser-mot-de-passe/{token}', ResetPassword::class)->name('password.reset');
@@ -64,15 +71,11 @@ Route::post('/deconnexion', function () {
 })->middleware('auth')->name('logout');
 
 // Email verification
-Route::get('/email/verify', fn () => view('auth.verify-email'))->middleware('auth')->name('verification.notice');
+Route::get('/email/verify', VerifyEmail::class)->middleware('auth')->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect()->route('profile.create');
 })->middleware(['auth', 'signed'])->name('verification.verify');
-Route::post('/email/resend', function () {
-    request()->user()->sendEmailVerificationNotification();
-    return back()->with('success', 'Lien de vérification envoyé !');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Directory (annuaire) - public
 Route::get('/annuaire', SearchDirectory::class)->name('directory.index');
@@ -97,3 +100,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Blog - public
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+// Admin — auth + role:admin, Livewire pages
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/',              AdminDashboard::class)->name('dashboard');
+    Route::get('/profils',       AdminModerateProfiles::class)->name('profiles');
+    Route::get('/articles',      AdminManagePosts::class)->name('posts');
+    Route::get('/commentaires',  AdminModerateComments::class)->name('comments');
+});
