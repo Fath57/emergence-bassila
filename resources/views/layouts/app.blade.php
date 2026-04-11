@@ -8,7 +8,7 @@
     @php
         $pageTitle       = $__env->yieldContent('title');
         $pageDescription = $__env->yieldContent('description') ?: 'La plateforme de networking des Bassilais à travers le monde.';
-        $fullTitle       = $pageTitle ? $pageTitle . ' — EmergenceBassila' : 'EmergenceBassila';
+        $fullTitle       = $pageTitle ? $pageTitle . ' — Bassila Émergence' : 'Bassila Émergence';
     @endphp
 
     <title>{{ $fullTitle }}</title>
@@ -19,7 +19,7 @@
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:site_name" content="EmergenceBassila">
+    <meta property="og:site_name" content="Bassila Émergence">
 
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image">
@@ -27,20 +27,16 @@
     <meta name="twitter:description" content="{{ $pageDescription }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=lora:400,600,700|source-sans-3:400,400i,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=lora:400,500,600,700|source-sans-3:400,400i,600,700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @stack('head')
 
+    {{-- Body background is page-specific; keep the only rule that can't
+         live in app.css because it's tied to the app (not the guest) layout --}}
     <style>
-        body {
-            font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
-            background-color: #F9FAFB;
-            color: #111827;
-        }
-        h1, h2, h3, h4, .font-serif {
-            font-family: 'Lora', Georgia, serif;
-        }
+        body { background-color: #F9FAFB; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
