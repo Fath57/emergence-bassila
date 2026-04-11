@@ -1,7 +1,20 @@
+@php
+    use App\Support\Seo\SeoData;
+
+    $seo = SeoData::default()
+        ->withTitle('Le réseau des Bassilais à travers le monde')
+        ->withDescription('Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine. Bassila Émergence est la plateforme de networking des Bassilais du Bénin et de la diaspora.')
+        ->withOgType('website');
+@endphp
 @extends('layouts.app')
 
 @section('title', 'Le réseau des Bassilais à travers le monde')
 @section('description', 'Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.')
+
+@push('head')
+    <x-seo.json-ld :data="\App\Support\Seo\StructuredData::organization()" />
+    <x-seo.json-ld :data="\App\Support\Seo\StructuredData::website()" />
+@endpush
 
 @section('content')
 
@@ -13,10 +26,13 @@
     {{-- Background photo (replace URL with a real community photo of Bassila) --}}
     <div class="absolute inset-0">
         <img
-            src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1600&q=80"
-            alt="Communauté"
+            src="{{ asset('images/home/hero-community.jpg') }}"
+            alt="Communauté Bassilaise"
+            width="1600" height="1066"
             class="w-full h-full object-cover object-center"
             loading="eager"
+            fetchpriority="high"
+            decoding="async"
         >
         {{-- Solid dark overlay — no gradient --}}
         <div class="absolute inset-0 bg-[#0A1628]/65"></div>
@@ -123,9 +139,12 @@
 
             <div class="relative">
                 <img
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80"
+                    src="{{ asset('images/home/mission.jpg') }}"
                     alt="Professionnels en réunion"
+                    width="900" height="675"
                     class="w-full aspect-[4/3] object-cover"
+                    loading="lazy"
+                    decoding="async"
                 >
                 {{-- Accent bar --}}
                 <div class="absolute bottom-0 left-0 w-16 h-1 bg-[#DC143C]"></div>
