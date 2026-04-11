@@ -1,3 +1,6 @@
+@section('title', 'Annuaire des Bassilais — Diaspora et professionnels')
+@section('description', 'Retrouvez les professionnels Bassilais du Bénin et de la diaspora. Filtrez par secteur, pays, compétences et contactez directement les membres vérifiés.')
+
 <div>
 
 {{-- Page header --}}
