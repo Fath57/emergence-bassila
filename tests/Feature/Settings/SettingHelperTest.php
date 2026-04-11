@@ -57,3 +57,33 @@ it('reflects value changes on the next call after save', function () {
 
     expect(setting('flag.live'))->toBe(true);
 });
+
+it('serializes cache payload as plain array to survive cross-request deserialization', function () {
+    // Regression guard: storing a full Eloquent Collection in the cache
+    // causes "incomplete object" errors when the cache is read back from a
+    // persisted store (database driver) across HTTP requests. The helper
+    // must cache a plain array of primitives, not an Eloquent Collection.
+
+    Setting::create([
+        'key' => 'cross.request', 'value' => '1', 'type' => 'bool',
+        'group' => 'test', 'sort_order' => 0,
+        'label' => 'Cross-request flag', 'description' => null,
+    ]);
+
+    setting('cross.request'); // populate the cache
+
+    $cached = \Illuminate\Support\Facades\Cache::get('settings.all');
+
+    expect($cached)->toBeArray();
+    expect($cached['cross.request'])->toBeArray()
+        ->and($cached['cross.request']['value'])->toBe('1')
+        ->and($cached['cross.request']['type'])->toBe('bool');
+
+    // Simulate what happens cross-request: manually serialize+unserialize
+    // the cached payload. Any Eloquent model inside would trigger the
+    // incomplete-object error; a plain array round-trips cleanly.
+    $serialized   = serialize($cached);
+    $unserialized = unserialize($serialized);
+
+    expect($unserialized)->toEqual($cached);
+});

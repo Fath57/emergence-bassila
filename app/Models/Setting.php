@@ -55,7 +55,14 @@ class Setting extends Model
 
     protected static function booted(): void
     {
-        static::saved(fn () => Cache::forget('settings.all'));
-        static::deleted(fn () => Cache::forget('settings.all'));
+        $invalidate = function () {
+            Cache::forget('settings.all');
+            if (app()->bound('settings.memo')) {
+                app()->forgetInstance('settings.memo');
+            }
+        };
+
+        static::saved($invalidate);
+        static::deleted($invalidate);
     }
 }
