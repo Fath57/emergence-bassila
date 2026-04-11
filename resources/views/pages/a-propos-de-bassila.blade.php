@@ -21,7 +21,7 @@
         :with-json-ld="true"
     />
 
-    <header class="mb-12">
+    <header class="mb-12 anim-reveal">
         <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Territoire</p>
         <h1 class="text-4xl font-bold text-[#111827] leading-tight mb-4" style="font-family: 'Lora', serif;">
             Bassila — Commune du nord-ouest du Bénin
@@ -31,7 +31,7 @@
         </p>
     </header>
 
-    <article class="prose prose-lg max-w-none">
+    <article class="prose prose-lg max-w-none anim-reveal">
 
         <h2>Géographie</h2>
         <p>
@@ -62,7 +62,7 @@
             L'économie de Bassila est portée par l'agriculture, le petit commerce, l'artisanat et des secteurs en développement. Les Bassilois présents dans le réseau couvrent un large éventail de métiers, du secteur médical à l'ingénierie en passant par l'éducation et l'entrepreneuriat.
         </p>
         <p>
-            <a href="{{ route('directory.index') }}" class="text-[#0066CC] font-semibold hover:underline">
+            <a href="{{ route('directory.index') }}" class="text-[#0066CC] font-semibold hover:underline hover-arrow">
                 Explorer les secteurs représentés dans l'annuaire &rarr;
             </a>
         </p>
@@ -74,7 +74,7 @@
 
     </article>
 
-    <section class="mt-16 bg-[#0066CC] text-white p-10">
+    <section class="mt-16 bg-[#0066CC] text-white p-10 anim-reveal">
         <h2 class="text-2xl font-bold mb-3" style="font-family: 'Lora', serif;">
             Faites partie du réseau
         </h2>
