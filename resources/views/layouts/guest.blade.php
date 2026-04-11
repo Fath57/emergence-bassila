@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'Authentification' }} — Bassila Émergence</title>
-    <meta name="description" content="Authentification sur Bassila Émergence — le réseau des Bassilais à travers le monde.">
+    <meta name="description" content="Authentification sur Bassila Émergence — le réseau des Bassilois à travers le monde.">
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="{{ url()->current() }}">
 
@@ -45,7 +45,7 @@
 
             <h2 class="text-white/80 leading-tight mb-5"
                 style="font-family: 'Lora', serif; font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700;">
-                La communauté des<br>Bassilais dans le monde
+                La communauté des<br>Bassilois dans le monde
             </h2>
 
             <p class="text-white/35 text-sm leading-relaxed max-w-xs">

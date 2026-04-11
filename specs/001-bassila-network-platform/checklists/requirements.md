@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Plateforme Réseau Communautaire Bassilaise - MVP
+# Specification Quality Checklist: Plateforme Réseau Communautaire Bassiloise - MVP
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-04-07

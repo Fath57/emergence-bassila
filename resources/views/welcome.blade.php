@@ -2,13 +2,13 @@
     use App\Support\Seo\SeoData;
 
     $seo = SeoData::default()
-        ->withTitle('Le réseau des Bassilais à travers le monde')
-        ->withDescription('Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine. Bassila Émergence est la plateforme de networking des Bassilais du Bénin et de la diaspora.')
+        ->withTitle('Le réseau des Bassilois à travers le monde')
+        ->withDescription('Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine. Bassila Émergence est la plateforme de networking des Bassilois du Bénin et de la diaspora.')
         ->withOgType('website');
 @endphp
 @extends('layouts.app')
 
-@section('title', 'Le réseau des Bassilais à travers le monde')
+@section('title', 'Le réseau des Bassilois à travers le monde')
 @section('description', 'Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.')
 
 @push('head')
@@ -27,7 +27,7 @@
     <div class="absolute inset-0">
         <img
             src="{{ asset('images/home/hero-community.jpg') }}"
-            alt="Communauté Bassilaise"
+            alt="Communauté Bassiloise"
             width="1600" height="1066"
             class="w-full h-full object-cover object-center"
             loading="eager"
@@ -46,7 +46,7 @@
             </p>
             <h1 class="text-white leading-tight mb-6"
                 style="font-family: 'Lora', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700;">
-                Le réseau des Bassilais<br>à travers le monde
+                Le réseau des Bassilois<br>à travers le monde
             </h1>
             <p class="text-white/75 text-lg leading-relaxed mb-10 max-w-xl">
                 Retrouvez d'anciens camarades, développez votre réseau professionnel et contribuez à l'histoire de votre communauté d'origine.
@@ -178,7 +178,7 @@
                 </div>
                 <h3 class="font-bold text-[#111827] text-lg mb-3">Réseau professionnel</h3>
                 <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                    Créez votre profil, partagez votre parcours et connectez-vous avec les professionnels Bassilais dans votre domaine, où qu'ils soient.
+                    Créez votre profil, partagez votre parcours et connectez-vous avec les professionnels Bassilois dans votre domaine, où qu'ils soient.
                 </p>
                 <a href="{{ route('directory.index') }}" class="text-[#0066CC] text-sm font-semibold hover:underline">
                     Explorer l'annuaire &rarr;
@@ -306,7 +306,7 @@
                     'role'  => 'Ingénieur, Paris',
                 ],
                 [
-                    'quote' => "Grâce à l'annuaire, j'ai trouvé un partenaire commercial bassilais à Cotonou. La confiance s'installe naturellement quand on partage les mêmes racines.",
+                    'quote' => "Grâce à l'annuaire, j'ai trouvé un partenaire commercial bassilois à Cotonou. La confiance s'installe naturellement quand on partage les mêmes racines.",
                     'name'  => 'Aïcha D.',
                     'role'  => 'Entrepreneuse, Cotonou',
                 ],
@@ -511,7 +511,7 @@
                 Votre histoire fait partie de l'héritage de Bassila
             </h2>
             <p class="text-white/75 text-base leading-relaxed mb-8 max-w-lg">
-                Créez votre profil gratuitement, partagez votre parcours et rejoignez les Bassilais épanouis à travers le monde.
+                Créez votre profil gratuitement, partagez votre parcours et rejoignez les Bassilois épanouis à travers le monde.
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="{{ route('register') }}"

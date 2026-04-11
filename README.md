@@ -1,6 +1,6 @@
 # Bassila Network
 
-Plateforme de networking communautaire pour la diaspora et les résidents Bassilais. Un annuaire professionnel, un espace de mise en relation et un blog communautaire.
+Plateforme de networking communautaire pour la diaspora et les résidents Bassilois. Un annuaire professionnel, un espace de mise en relation et un blog communautaire.
 
 ## Stack technique
 

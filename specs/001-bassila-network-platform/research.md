@@ -1,4 +1,4 @@
-# Research: Plateforme Réseau Communautaire Bassilaise
+# Research: Plateforme Réseau Communautaire Bassiloise
 
 **Branch**: `001-bassila-network-platform` | **Date**: 2026-04-07
 

@@ -32,7 +32,7 @@ Non-goals:
 
 | Priority | Audience | Sample queries |
 |---|---|---|
-| P1 | Bassila diaspora abroad | "diaspora Bassila", "Bassilais France", "réseau Bassila monde" |
+| P1 | Bassila diaspora abroad | "diaspora Bassila", "Bassilois France", "réseau Bassila monde" |
 | P1 | Natives in Bénin | "réseau Bassila Bénin", "professionnels Bassila", "annuaire Bassila" |
 | P2 | Informational queries about Bassila (the town) | "Bassila Bénin", "commune de Bassila", "Donga Bassila", "histoire Bassila" |
 
@@ -331,18 +331,18 @@ Structure:
 3. H2 "Histoire" — origins, settlement, key dates *(editorial TODO)*
 4. H2 "Culture & traditions" — languages (Anii, Nagot…), festivals, craft
 5. H2 "Économie locale" — agriculture, sectors, link to `/annuaire` filtered by relevant sectors
-6. H2 "La diaspora Bassilaise" — transition to the platform, CTA to register + explore directory
+6. H2 "La diaspora Bassiloise" — transition to the platform, CTA to register + explore directory
 7. Final CTA — register + newsletter
 
 Placeholder copy is neutral and factual — no invented dates, names, or statistics. Editorial content is marked with `{{-- TODO éditorial --}}`.
 
 SEO:
 - title: "À propos de Bassila — Commune du Donga, Bénin"
-- description: "Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilais."
+- description: "Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilois."
 - ogType: website, ogImage: hero section image
 - Breadcrumb with JSON-LD
 
-**`/qui-sommes-nous`** (~600 words final) — SEO targets: "Bassila Émergence", "association Bassilais", "plateforme diaspora Bassila".
+**`/qui-sommes-nous`** (~600 words final) — SEO targets: "Bassila Émergence", "association Bassilois", "plateforme diaspora Bassila".
 
 Structure:
 1. Hero — H1 *"Qui sommes-nous — Bassila Émergence"*
@@ -355,7 +355,7 @@ Structure:
 
 SEO:
 - title: "Qui sommes-nous — Bassila Émergence"
-- description: "Bassila Émergence est la plateforme qui réunit les Bassilais du Bénin et de la diaspora. Découvrez notre mission, nos valeurs et notre équipe."
+- description: "Bassila Émergence est la plateforme qui réunit les Bassilois du Bénin et de la diaspora. Découvrez notre mission, nos valeurs et notre équipe."
 - Breadcrumb with JSON-LD
 
 **Navigation integration:**
@@ -412,8 +412,8 @@ Procedural only — documented here so it is not lost at deploy time:
 ```php
 return [
     'site_name'           => 'Bassila Émergence',
-    'default_title'       => 'Le réseau des Bassilais à travers le monde',
-    'default_description' => 'La plateforme de networking des Bassilais à travers le monde. Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.',
+    'default_title'       => 'Le réseau des Bassilois à travers le monde',
+    'default_description' => 'La plateforme de networking des Bassilois à travers le monde. Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.',
     'default_og_image'    => '/images/og-default.png',
     'locale'              => 'fr_FR',
     'google_verification' => env('GOOGLE_SITE_VERIFICATION'),

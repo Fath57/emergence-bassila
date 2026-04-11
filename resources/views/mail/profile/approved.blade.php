@@ -53,7 +53,7 @@
                             <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px; line-height: 1.6;">
                                 Félicitations ! Votre profil a été examiné et vérifié par notre équipe.
                                 Un badge de vérification est maintenant affiché sur votre profil public,
-                                renforçant votre crédibilité au sein de la communauté Bassilaise.
+                                renforçant votre crédibilité au sein de la communauté Bassiloise.
                             </p>
 
                             <!-- CTA Button -->
@@ -69,7 +69,7 @@
                             </table>
 
                             <p style="margin: 24px 0 0; font-size: 12px; color: #9ca3af; text-align: center; line-height: 1.5;">
-                                Merci de contribuer à la communauté Bassilaise !
+                                Merci de contribuer à la communauté Bassiloise !
                             </p>
                         </td>
                     </tr>

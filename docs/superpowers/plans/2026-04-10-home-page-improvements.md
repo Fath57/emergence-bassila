@@ -79,11 +79,11 @@ In `resources/views/layouts/app.blade.php`, replace the `<title>` and `<meta nam
 
 ```blade
     <title>@hasSection('title')@yield('title') — @endHasSection EmergenceBassila</title>
-    <meta name="description" content="@hasSection('description')@yield('description')@else La plateforme de networking des Bassilais à travers le monde.@endHasSection">
+    <meta name="description" content="@hasSection('description')@yield('description')@else La plateforme de networking des Bassilois à travers le monde.@endHasSection">
 
     {{-- Open Graph --}}
     <meta property="og:title" content="@hasSection('title')@yield('title') — @endHasSection EmergenceBassila">
-    <meta property="og:description" content="@hasSection('description')@yield('description')@else La plateforme de networking des Bassilais à travers le monde.@endHasSection">
+    <meta property="og:description" content="@hasSection('description')@yield('description')@else La plateforme de networking des Bassilois à travers le monde.@endHasSection">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="EmergenceBassila">
@@ -91,7 +91,7 @@ In `resources/views/layouts/app.blade.php`, replace the `<title>` and `<meta nam
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@hasSection('title')@yield('title') — @endHasSection EmergenceBassila">
-    <meta name="twitter:description" content="@hasSection('description')@yield('description')@else La plateforme de networking des Bassilais à travers le monde.@endHasSection">
+    <meta name="twitter:description" content="@hasSection('description')@yield('description')@else La plateforme de networking des Bassilois à travers le monde.@endHasSection">
 ```
 
 - [ ] **Step 4: Add page-specific title/description in welcome.blade.php**
@@ -99,7 +99,7 @@ In `resources/views/layouts/app.blade.php`, replace the `<title>` and `<meta nam
 At the very top of `resources/views/welcome.blade.php`, right after `@extends('layouts.app')`, add:
 
 ```blade
-@section('title', 'Le réseau des Bassilais à travers le monde')
+@section('title', 'Le réseau des Bassilois à travers le monde')
 @section('description', 'Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.')
 ```
 
@@ -756,7 +756,7 @@ Insert the 3 new sections between the 3-pillars section closing tag and the blog
                     'role'  => 'Ingénieur, Paris',
                 ],
                 [
-                    'quote' => "Grâce à l'annuaire, j'ai trouvé un partenaire commercial bassilais à Cotonou. La confiance s'installe naturellement quand on partage les mêmes racines.",
+                    'quote' => "Grâce à l'annuaire, j'ai trouvé un partenaire commercial bassilois à Cotonou. La confiance s'installe naturellement quand on partage les mêmes racines.",
                     'name'  => 'Aïcha D.',
                     'role'  => 'Entrepreneuse, Cotonou',
                 ],

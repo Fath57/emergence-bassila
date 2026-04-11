@@ -3,12 +3,12 @@
 
     $seo = SeoData::default()
         ->withTitle('À propos de Bassila — Commune du Donga, Bénin')
-        ->withDescription('Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilais.')
+        ->withDescription('Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilois.')
         ->withOgType('website');
 @endphp
 @extends('layouts.app')
 @section('title', 'À propos de Bassila — Commune du Donga, Bénin')
-@section('description', 'Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilais.')
+@section('description', 'Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilois.')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -59,7 +59,7 @@
 
         <h2>Économie locale</h2>
         <p>
-            L'économie de Bassila est portée par l'agriculture, le petit commerce, l'artisanat et des secteurs en développement. Les Bassilais présents dans le réseau couvrent un large éventail de métiers, du secteur médical à l'ingénierie en passant par l'éducation et l'entrepreneuriat.
+            L'économie de Bassila est portée par l'agriculture, le petit commerce, l'artisanat et des secteurs en développement. Les Bassilois présents dans le réseau couvrent un large éventail de métiers, du secteur médical à l'ingénierie en passant par l'éducation et l'entrepreneuriat.
         </p>
         <p>
             <a href="{{ route('directory.index') }}" class="text-[#0066CC] font-semibold hover:underline">
@@ -67,9 +67,9 @@
             </a>
         </p>
 
-        <h2>La diaspora Bassilaise</h2>
+        <h2>La diaspora Bassiloise</h2>
         <p>
-            Des centaines de Bassilais vivent aujourd'hui en Afrique, en Europe et à travers le monde. Ils sont médecins, ingénieurs, enseignants, entrepreneurs, artistes — et ils partagent un même attachement à leur commune d'origine. Bassila Émergence est leur maison numérique commune : un lieu où les générations se retrouvent, où les compétences se partagent, et où les ponts entre le pays et le monde se construisent.
+            Des centaines de Bassilois vivent aujourd'hui en Afrique, en Europe et à travers le monde. Ils sont médecins, ingénieurs, enseignants, entrepreneurs, artistes — et ils partagent un même attachement à leur commune d'origine. Bassila Émergence est leur maison numérique commune : un lieu où les générations se retrouvent, où les compétences se partagent, et où les ponts entre le pays et le monde se construisent.
         </p>
 
     </article>
@@ -79,7 +79,7 @@
             Faites partie du réseau
         </h2>
         <p class="text-white/85 mb-6 max-w-2xl">
-            Si vous êtes Bassilais(e) — au Bénin ou à l'étranger — rejoignez la plateforme, créez votre profil et connectez-vous avec la communauté.
+            Si vous êtes Bassilois(e) — au Bénin ou à l'étranger — rejoignez la plateforme, créez votre profil et connectez-vous avec la communauté.
         </p>
         <a href="{{ route('register') }}" class="inline-block bg-white text-[#0066CC] font-semibold px-7 py-3 text-sm hover:bg-gray-100 transition">
             Créer mon profil

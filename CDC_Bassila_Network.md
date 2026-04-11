@@ -22,11 +22,11 @@ Version 1.0 - Avril 2026
 
 ### 1.1 Vision
 
-Créer une plateforme de networking numérique pour la communauté Bassilaise dispersée globalement. Permettre aux anciens étudiants et résidents de Bassila de maintenir des liens, de partager leurs parcours professionnels et de créer des opportunités de collaboration.
+Créer une plateforme de networking numérique pour la communauté Bassiloise dispersée globalement. Permettre aux anciens étudiants et résidents de Bassila de maintenir des liens, de partager leurs parcours professionnels et de créer des opportunités de collaboration.
 
 ### 1.2 Objectifs Principaux
 
-- ✅ Créer un annuaire interactif et searchable de la communauté Bassilaise
+- ✅ Créer un annuaire interactif et searchable de la communauté Bassiloise
 - ✅ Faciliter la réconnexion entre membres dispersés
 - ✅ Permettre le partage de savoir-faire et de ressources
 - ✅ Inclure un blog riche pour les histoires et actualités de la communauté
@@ -36,7 +36,7 @@ Créer une plateforme de networking numérique pour la communauté Bassilaise di
 
 - Anciens et actuels étudiants de Bassila (tous niveaux d'études)
 - Résidents actuels et ex-résidents de Bassila
-- Professionnels bassilais diaspora (France, Afrique, ailleurs)
+- Professionnels bassilois diaspora (France, Afrique, ailleurs)
 
 ---
 

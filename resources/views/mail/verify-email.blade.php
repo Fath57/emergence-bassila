@@ -39,7 +39,7 @@
                             </h1>
                             <p style="margin: 0 0 16px; color: #6b7280; font-size: 14px; line-height: 1.6;">
                                 Merci de rejoindre <strong style="color: #111827;">Bassila Émergence</strong>,
-                                la plateforme de networking des Bassilais à travers le monde.
+                                la plateforme de networking des Bassilois à travers le monde.
                             </p>
                             <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px; line-height: 1.6;">
                                 Pour activer votre compte, confirmez votre adresse email en cliquant sur le bouton ci-dessous.

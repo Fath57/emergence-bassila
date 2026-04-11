@@ -11,7 +11,7 @@
                          class="h-11 w-auto">
                 </a>
                 <p class="text-sm leading-relaxed max-w-xs">
-                    La plateforme de networking des Bassilais à travers le monde. Connectés, engagés, inspirants.
+                    La plateforme de networking des Bassilois à travers le monde. Connectés, engagés, inspirants.
                 </p>
             </div>
 

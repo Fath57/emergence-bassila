@@ -3,9 +3,9 @@
 return [
     'site_name' => 'Bassila Émergence',
 
-    'default_title' => 'Le réseau des Bassilais à travers le monde',
+    'default_title' => 'Le réseau des Bassilois à travers le monde',
 
-    'default_description' => 'La plateforme de networking des Bassilais à travers le monde. Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.',
+    'default_description' => 'La plateforme de networking des Bassilois à travers le monde. Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.',
 
     'default_og_image' => '/images/og-default.png',
 

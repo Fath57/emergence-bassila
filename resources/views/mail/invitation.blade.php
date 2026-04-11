@@ -43,7 +43,7 @@
                             <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px; line-height: 1.6;">
                                 <strong style="color: #111827;">{{ $invitedByName }}</strong> vous invite à rejoindre
                                 <strong style="color: #111827;">Bassila Émergence</strong>, la plateforme de networking
-                                des Bassilais à travers le monde.
+                                des Bassilois à travers le monde.
                             </p>
                             <p style="margin: 0 0 24px; color: #6b7280; font-size: 14px; line-height: 1.6;">
                                 Vous avez été invité avec le rôle de <strong style="color: #111827;">{{ $invitation->role }}</strong>.

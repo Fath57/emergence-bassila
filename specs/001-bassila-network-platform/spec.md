@@ -1,4 +1,4 @@
-# Feature Specification: Plateforme Réseau Communautaire Bassilaise - MVP
+# Feature Specification: Plateforme Réseau Communautaire Bassiloise - MVP
 
 **Feature Branch**: `001-bassila-network-platform`
 **Created**: 2026-04-07
@@ -11,7 +11,7 @@
 
 ### User Story 1 - Inscription et création de profil (Priority: P1)
 
-Un membre de la communauté bassilaise (étudiant, résident, diaspora) s'inscrit sur la plateforme, vérifie son email, puis complète son profil professionnel avec photo, titre, compétences et localisation. Son profil est ensuite soumis à vérification par les admins.
+Un membre de la communauté bassiloise (étudiant, résident, diaspora) s'inscrit sur la plateforme, vérifie son email, puis complète son profil professionnel avec photo, titre, compétences et localisation. Son profil est ensuite soumis à vérification par les admins.
 
 **Why this priority**: Sans profils, aucune autre fonctionnalité n'a de valeur. C'est le socle de la plateforme. Les membres doivent pouvoir exister dans l'annuaire avant toute interaction.
 
@@ -29,7 +29,7 @@ Un membre de la communauté bassilaise (étudiant, résident, diaspora) s'inscri
 
 ### User Story 2 - Recherche et découverte de membres (Priority: P2)
 
-Un membre cherche d'autres bassilais dans son domaine ou sa région. Il utilise les filtres de recherche pour trouver des profils pertinents et découvrir des connexions potentielles.
+Un membre cherche d'autres bassilois dans son domaine ou sa région. Il utilise les filtres de recherche pour trouver des profils pertinents et découvrir des connexions potentielles.
 
 **Why this priority**: La recherche est le cœur de l'annuaire communautaire. Sans elle, la plateforme n'est qu'une liste statique de profils inaccessibles.
 
@@ -47,7 +47,7 @@ Un membre cherche d'autres bassilais dans son domaine ou sa région. Il utilise 
 
 ### User Story 3 - Prise de contact entre membres (Priority: P3)
 
-Un membre souhaite contacter un autre bassilais après avoir trouvé son profil. Il envoie un message via le formulaire de contact intégré et l'autre membre reçoit une notification par email.
+Un membre souhaite contacter un autre bassilois après avoir trouvé son profil. Il envoie un message via le formulaire de contact intégré et l'autre membre reçoit une notification par email.
 
 **Why this priority**: La mise en relation est l'objectif fondamental de la plateforme. La recherche sans capacité de contact serait incomplète pour le MVP.
 
@@ -64,7 +64,7 @@ Un membre souhaite contacter un autre bassilais après avoir trouvé son profil.
 
 ### User Story 4 - Publication et consultation d'articles de blog (Priority: P4)
 
-Un membre ou admin publie un article sur la communauté bassilaise (actualités, histoires, opportunités). Les autres membres consultent et commentent les articles publiés.
+Un membre ou admin publie un article sur la communauté bassiloise (actualités, histoires, opportunités). Les autres membres consultent et commentent les articles publiés.
 
 **Why this priority**: Le blog enrichit la plateforme et encourage l'engagement communautaire au-delà du networking professionnel, mais n'est pas bloquant pour le MVP core.
 

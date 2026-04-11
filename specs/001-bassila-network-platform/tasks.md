@@ -1,8 +1,8 @@
 ---
-description: "Task list for Plateforme Réseau Communautaire Bassilaise - MVP"
+description: "Task list for Plateforme Réseau Communautaire Bassiloise - MVP"
 ---
 
-# Tasks: Plateforme Réseau Communautaire Bassilaise - MVP
+# Tasks: Plateforme Réseau Communautaire Bassiloise - MVP
 
 **Input**: Design documents from `/specs/001-bassila-network-platform/`
 **Prerequisites**: plan.md ✅, spec.md ✅, research.md ✅, data-model.md ✅, contracts/ ✅

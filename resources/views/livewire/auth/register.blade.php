@@ -1,5 +1,5 @@
 @section('title', 'Inscription')
-@section('description', 'Créez votre compte Bassila Émergence et rejoignez le réseau des Bassilais.')
+@section('description', 'Créez votre compte Bassila Émergence et rejoignez le réseau des Bassilois.')
 @push('head')
     <meta name="robots" content="noindex, nofollow">
 @endpush

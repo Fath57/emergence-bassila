@@ -75,9 +75,9 @@
 return [
     'site_name' => 'Bassila Émergence',
 
-    'default_title' => 'Le réseau des Bassilais à travers le monde',
+    'default_title' => 'Le réseau des Bassilois à travers le monde',
 
-    'default_description' => 'La plateforme de networking des Bassilais à travers le monde. Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.',
+    'default_description' => 'La plateforme de networking des Bassilois à travers le monde. Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.',
 
     'default_og_image' => '/images/og-default.png',
 
@@ -1147,8 +1147,8 @@ At the very top of `resources/views/welcome.blade.php` (before `@extends`), add:
     use App\Support\Seo\StructuredData;
 
     $seo = SeoData::default()
-        ->withTitle('Le réseau des Bassilais à travers le monde')
-        ->withDescription('Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine. Bassila Émergence est la plateforme de networking des Bassilais du Bénin et de la diaspora.')
+        ->withTitle('Le réseau des Bassilois à travers le monde')
+        ->withDescription('Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine. Bassila Émergence est la plateforme de networking des Bassilois du Bénin et de la diaspora.')
         ->withOgType('website');
 @endphp
 @extends('layouts.app')
@@ -1158,7 +1158,7 @@ At the very top of `resources/views/welcome.blade.php` (before `@extends`), add:
     <x-seo.json-ld :data="App\Support\Seo\StructuredData::website()" />
 @endpush
 
-@section('title', 'Le réseau des Bassilais à travers le monde')
+@section('title', 'Le réseau des Bassilois à travers le monde')
 @section('description', 'Retrouvez d\'anciens camarades, développez votre réseau professionnel et contribuez à l\'histoire de votre communauté d\'origine.')
 ```
 
@@ -1173,7 +1173,7 @@ In `welcome.blade.php`, replace the `<img>` at line 16 (the hero) with:
     <source srcset="{{ asset('images/home/hero-community.webp') }}" type="image/webp">
     <img
         src="{{ asset('images/home/hero-community.jpg') }}"
-        alt="Communauté Bassilaise"
+        alt="Communauté Bassiloise"
         width="1600" height="1000"
         class="w-full h-full object-cover object-center"
         loading="eager"
@@ -1231,13 +1231,13 @@ Replace the existing `@section('title')` block (first lines) with:
     use App\Support\Seo\SeoData;
 
     $seo = SeoData::default()
-        ->withTitle('Blog — Histoires & Actualités de la communauté Bassilaise')
-        ->withDescription('Articles de la communauté Bassilaise : témoignages, conseils de carrière, actualités du Bénin et réflexions sur la diaspora.')
+        ->withTitle('Blog — Histoires & Actualités de la communauté Bassiloise')
+        ->withDescription('Articles de la communauté Bassiloise : témoignages, conseils de carrière, actualités du Bénin et réflexions sur la diaspora.')
         ->withOgType('website');
 @endphp
 @extends('layouts.app')
 @section('title', 'Blog')
-@section('description', 'Articles de la communauté Bassilaise : témoignages, conseils de carrière, actualités du Bénin et réflexions sur la diaspora.')
+@section('description', 'Articles de la communauté Bassiloise : témoignages, conseils de carrière, actualités du Bénin et réflexions sur la diaspora.')
 ```
 
 - [ ] **Step 2: Modify `blog/show.blade.php` top**
@@ -1390,8 +1390,8 @@ At the very top of the file, before any existing content, add:
     use App\Support\Seo\SeoData;
 
     $pageSeo = SeoData::default()
-        ->withTitle('Annuaire des Bassilais — Diaspora et professionnels')
-        ->withDescription('Retrouvez les professionnels Bassilais du Bénin et de la diaspora. Filtrez par secteur, pays, compétences et contactez directement les membres vérifiés.')
+        ->withTitle('Annuaire des Bassilois — Diaspora et professionnels')
+        ->withDescription('Retrouvez les professionnels Bassilois du Bénin et de la diaspora. Filtrez par secteur, pays, compétences et contactez directement les membres vérifiés.')
         ->withOgType('website');
 @endphp
 ```
@@ -1399,8 +1399,8 @@ At the very top of the file, before any existing content, add:
 Note: Livewire full-page components inherit the layout. The layout reads `$seo` from its own scope; for Livewire full-page components we need a different mechanism. Instead, use `@section` at the top:
 
 ```blade
-@section('title', 'Annuaire des Bassilais — Diaspora et professionnels')
-@section('description', 'Retrouvez les professionnels Bassilais du Bénin et de la diaspora. Filtrez par secteur, pays, compétences et contactez directement les membres vérifiés.')
+@section('title', 'Annuaire des Bassilois — Diaspora et professionnels')
+@section('description', 'Retrouvez les professionnels Bassilois du Bénin et de la diaspora. Filtrez par secteur, pays, compétences et contactez directement les membres vérifiés.')
 ```
 
 Place these `@section` lines outside the root element of the Livewire view (at the very top of the file). The layout's `yieldContent` fallback picks them up.
@@ -1855,7 +1855,7 @@ Use ImageMagick (usually pre-installed) to generate a brand-coloured placeholder
 convert -size 1200x630 xc:"#0A1628" \
     -gravity center \
     -font DejaVu-Sans-Bold -pointsize 90 -fill white -annotate +0-60 "Bassila Émergence" \
-    -font DejaVu-Sans -pointsize 36 -fill "#DC143C" -annotate +0+40 "Le réseau des Bassilais à travers le monde" \
+    -font DejaVu-Sans -pointsize 36 -fill "#DC143C" -annotate +0+40 "Le réseau des Bassilois à travers le monde" \
     public/images/og-default.png
 ```
 
@@ -1937,12 +1937,12 @@ Create `resources/views/pages/qui-sommes-nous.blade.php`:
 
     $seo = SeoData::default()
         ->withTitle('Qui sommes-nous')
-        ->withDescription('Bassila Émergence est la plateforme qui réunit les Bassilais du Bénin et de la diaspora. Découvrez notre mission, nos valeurs et notre contact.')
+        ->withDescription('Bassila Émergence est la plateforme qui réunit les Bassilois du Bénin et de la diaspora. Découvrez notre mission, nos valeurs et notre contact.')
         ->withOgType('website');
 @endphp
 @extends('layouts.app')
 @section('title', 'Qui sommes-nous')
-@section('description', 'Bassila Émergence est la plateforme qui réunit les Bassilais du Bénin et de la diaspora. Découvrez notre mission, nos valeurs et notre contact.')
+@section('description', 'Bassila Émergence est la plateforme qui réunit les Bassilois du Bénin et de la diaspora. Découvrez notre mission, nos valeurs et notre contact.')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -1968,7 +1968,7 @@ Create `resources/views/pages/qui-sommes-nous.blade.php`:
             Bassila Émergence est la plateforme numérique qui réunit les natifs de Bassila, commune du département de la Donga au Bénin, et leur diaspora à travers le monde. Notre mission est de créer un lien vivant entre les générations, les horizons et les parcours professionnels de notre communauté.
         </p>
         <p>
-            Chaque profil raconte une histoire de résilience et de réussite. Chaque connexion est un pont entre une personne qui cherche ses racines et une communauté qui accueille. En rendant visible la richesse des Bassilais du Bénin comme de la diaspora, nous contribuons à renforcer l'identité, l'entraide et les opportunités au sein du réseau.
+            Chaque profil raconte une histoire de résilience et de réussite. Chaque connexion est un pont entre une personne qui cherche ses racines et une communauté qui accueille. En rendant visible la richesse des Bassilois du Bénin comme de la diaspora, nous contribuons à renforcer l'identité, l'entraide et les opportunités au sein du réseau.
         </p>
     </section>
 
@@ -1978,7 +1978,7 @@ Create `resources/views/pages/qui-sommes-nous.blade.php`:
             <div class="border border-gray-200 p-6">
                 <h3 class="font-bold text-[#111827] mb-2">Entraide</h3>
                 <p class="text-gray-600 text-sm leading-relaxed">
-                    La solidarité entre Bassilais — au pays et à l'étranger — est le ciment de notre réseau. Chaque membre est à la fois bénéficiaire et contributeur.
+                    La solidarité entre Bassilois — au pays et à l'étranger — est le ciment de notre réseau. Chaque membre est à la fois bénéficiaire et contributeur.
                 </p>
             </div>
             <div class="border border-gray-200 p-6">
@@ -2005,7 +2005,7 @@ Create `resources/views/pages/qui-sommes-nous.blade.php`:
     <section class="mb-12">
         <h2 class="text-2xl font-bold text-[#111827] mb-4">Comment ça marche</h2>
         <p class="text-gray-600 leading-relaxed mb-4">
-            Créez votre compte en quelques secondes avec votre adresse email. Après vérification, renseignez votre profil : parcours, métier, localisation. Un administrateur vérifie et valide votre profil, puis vous rejoignez officiellement l'annuaire des Bassilais.
+            Créez votre compte en quelques secondes avec votre adresse email. Après vérification, renseignez votre profil : parcours, métier, localisation. Un administrateur vérifie et valide votre profil, puis vous rejoignez officiellement l'annuaire des Bassilois.
         </p>
         <a href="{{ route('register') }}" class="inline-block bg-[#0066CC] hover:bg-blue-800 text-white font-semibold px-7 py-3 text-sm transition">
             Créer mon profil
@@ -2059,12 +2059,12 @@ Create `resources/views/pages/a-propos-de-bassila.blade.php`:
 
     $seo = SeoData::default()
         ->withTitle('À propos de Bassila — Commune du Donga, Bénin')
-        ->withDescription('Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilais.')
+        ->withDescription('Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilois.')
         ->withOgType('website');
 @endphp
 @extends('layouts.app')
 @section('title', 'À propos de Bassila — Commune du Donga, Bénin')
-@section('description', 'Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilais.')
+@section('description', 'Découvrez Bassila, commune du département de la Donga au Bénin : géographie, histoire, culture et diaspora. La plateforme du réseau des Bassilois.')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -2115,7 +2115,7 @@ Create `resources/views/pages/a-propos-de-bassila.blade.php`:
 
         <h2>Économie locale</h2>
         <p>
-            L'économie de Bassila est portée par l'agriculture, le petit commerce, l'artisanat et des secteurs en développement. Les Bassilais présents dans le réseau couvrent un large éventail de métiers, du secteur médical à l'ingénierie en passant par l'éducation et l'entrepreneuriat.
+            L'économie de Bassila est portée par l'agriculture, le petit commerce, l'artisanat et des secteurs en développement. Les Bassilois présents dans le réseau couvrent un large éventail de métiers, du secteur médical à l'ingénierie en passant par l'éducation et l'entrepreneuriat.
         </p>
         <p>
             <a href="{{ route('directory.index') }}" class="text-[#0066CC] font-semibold hover:underline">
@@ -2123,9 +2123,9 @@ Create `resources/views/pages/a-propos-de-bassila.blade.php`:
             </a>
         </p>
 
-        <h2>La diaspora Bassilaise</h2>
+        <h2>La diaspora Bassiloise</h2>
         <p>
-            Des centaines de Bassilais vivent aujourd'hui en Afrique, en Europe et à travers le monde. Ils sont médecins, ingénieurs, enseignants, entrepreneurs, artistes — et ils partagent un même attachement à leur commune d'origine. Bassila Émergence est leur maison numérique commune : un lieu où les générations se retrouvent, où les compétences se partagent, et où les ponts entre le pays et le monde se construisent.
+            Des centaines de Bassilois vivent aujourd'hui en Afrique, en Europe et à travers le monde. Ils sont médecins, ingénieurs, enseignants, entrepreneurs, artistes — et ils partagent un même attachement à leur commune d'origine. Bassila Émergence est leur maison numérique commune : un lieu où les générations se retrouvent, où les compétences se partagent, et où les ponts entre le pays et le monde se construisent.
         </p>
 
     </article>
@@ -2135,7 +2135,7 @@ Create `resources/views/pages/a-propos-de-bassila.blade.php`:
             Faites partie du réseau
         </h2>
         <p class="text-white/85 mb-6 max-w-2xl">
-            Si vous êtes Bassilais(e) — au Bénin ou à l'étranger — rejoignez la plateforme, créez votre profil et connectez-vous avec la communauté.
+            Si vous êtes Bassilois(e) — au Bénin ou à l'étranger — rejoignez la plateforme, créez votre profil et connectez-vous avec la communauté.
         </p>
         <a href="{{ route('register') }}" class="inline-block bg-white text-[#0066CC] font-semibold px-7 py-3 text-sm hover:bg-gray-100 transition">
             Créer mon profil

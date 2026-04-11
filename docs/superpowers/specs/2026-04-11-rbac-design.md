@@ -824,7 +824,7 @@ Reuses the structure of the 4 existing mail templates (white header with logo
 >
 > Bonjour,
 >
-> **{{ $invitedByName }}** vous invite à rejoindre Bassila Émergence, la plateforme de networking des Bassilais à travers le monde.
+> **{{ $invitedByName }}** vous invite à rejoindre Bassila Émergence, la plateforme de networking des Bassilois à travers le monde.
 >
 > Vous avez été invité avec le rôle de **{{ $invitation->role }}**.
 >

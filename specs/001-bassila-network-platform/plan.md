@@ -1,11 +1,11 @@
-# Implementation Plan: Plateforme Réseau Communautaire Bassilaise - MVP
+# Implementation Plan: Plateforme Réseau Communautaire Bassiloise - MVP
 
 **Branch**: `001-bassila-network-platform` | **Date**: 2026-04-07 | **Spec**: [spec.md](./spec.md)
 **Input**: Feature specification from `/specs/001-bassila-network-platform/spec.md`
 
 ## Summary
 
-Construire un annuaire communautaire de networking pour la diaspora bassilaise. La plateforme permet l'inscription, la création de profils professionnels vérifiés, la recherche fulltext avec filtres, un formulaire de contact email entre membres, un blog riche avec modération, et un panel d'administration. Stack : Laravel 11 monolithique avec Livewire 3 pour l'interactivité, PostgreSQL pour la persistance et la recherche, Filament pour l'administration.
+Construire un annuaire communautaire de networking pour la diaspora bassiloise. La plateforme permet l'inscription, la création de profils professionnels vérifiés, la recherche fulltext avec filtres, un formulaire de contact email entre membres, un blog riche avec modération, et un panel d'administration. Stack : Laravel 11 monolithique avec Livewire 3 pour l'interactivité, PostgreSQL pour la persistance et la recherche, Filament pour l'administration.
 
 ## Technical Context
 

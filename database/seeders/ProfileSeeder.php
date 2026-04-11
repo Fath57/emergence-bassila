@@ -74,7 +74,7 @@ class ProfileSeeder extends Seeder
                     'avatar_url'  => 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&background=0066CC&color=fff&size=200',
                     'is_verified' => $index % 3 === 0,
                     'verified_at' => $index % 3 === 0 ? now() : null,
-                    'bio'         => "Membre de la communauté Bassilaise. {$job} chez {$company}, basé(e) à {$city}, {$country}.",
+                    'bio'         => "Membre de la communauté Bassiloise. {$job} chez {$company}, basé(e) à {$city}, {$country}.",
                     'education_start_year' => 1995 + ($index % 15),
                     'education_end_year'   => 2000 + ($index % 12),
                 ]);
