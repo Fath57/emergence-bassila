@@ -1,7 +1,7 @@
 <div>
     @if($pending)
         <p class="text-green-400 text-sm font-semibold">
-            Vérifiez votre boite mail — un lien de confirmation vous a été envoyé.
+            Merci ! Vous recevrez les actualités de la communauté.
         </p>
     @else
         <form wire:submit.prevent="subscribe" class="flex flex-col gap-3">

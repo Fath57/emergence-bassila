@@ -12,13 +12,15 @@
         p  { font-size: 15px; color: #555; line-height: 1.6; margin: 0 0 28px; }
         a  { display: inline-block; background: #DC143C; color: #fff; text-decoration: none;
              font-size: 14px; font-weight: 600; padding: 12px 28px; }
-        .icon { font-size: 40px; margin-bottom: 20px; }
+        .logo { margin-bottom: 24px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="icon">✅</div>
-        <h1>Inscription confirmée !</h1>
+        <div class="logo">
+            <img src="{{ asset('images/logo.png') }}" alt="Bassila Émergence" style="height:36px;">
+        </div>
+        <h1>Inscription confirmée</h1>
         <p>Vous recevrez désormais les actualités de la communauté Bassila Émergence.</p>
         <a href="{{ route('home') }}">Retour au site</a>
     </div>

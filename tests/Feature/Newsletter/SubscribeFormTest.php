@@ -1,7 +1,6 @@
 <?php
 
 use App\Livewire\Newsletter\SubscribeForm;
-use App\Mail\NewsletterConfirmationMail;
 use App\Models\NewsletterSubscriber;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
@@ -10,7 +9,7 @@ beforeEach(function () {
     Mail::fake();
 });
 
-it('creates a pending subscriber and queues a confirmation mail', function () {
+it('creates a confirmed subscriber immediately (single opt-in)', function () {
     Livewire::test(SubscribeForm::class)
         ->set('email', 'fatima@example.com')
         ->set('firstName', 'Fatima')
@@ -19,15 +18,11 @@ it('creates a pending subscriber and queues a confirmation mail', function () {
         ->assertSet('pending', true);
 
     $sub = NewsletterSubscriber::where('email', 'fatima@example.com')->sole();
-    expect($sub->confirmed_at)->toBeNull()
-        ->and($sub->confirmation_token)->not->toBeNull()
-        ->and($sub->unsubscribe_token)->not->toBeNull()
+    expect($sub->confirmed_at)->not->toBeNull()
         ->and($sub->first_name)->toBe('Fatima')
         ->and($sub->source)->toBe('public_form');
 
-    Mail::assertQueued(NewsletterConfirmationMail::class, function ($mail) use ($sub) {
-        return $mail->subscriber->id === $sub->id;
-    });
+    Mail::assertNothingQueued();
 });
 
 it('rejects an invalid email format', function () {
@@ -38,7 +33,6 @@ it('rejects an invalid email format', function () {
         ->assertSet('pending', false);
 
     expect(NewsletterSubscriber::count())->toBe(0);
-    Mail::assertNothingQueued();
 });
 
 it('shows an error when the email is already confirmed', function () {
@@ -54,14 +48,13 @@ it('shows an error when the email is already confirmed', function () {
         ->assertSet('pending', false);
 
     expect(NewsletterSubscriber::where('email', 'already@example.com')->count())->toBe(1);
-    Mail::assertNothingQueued();
 });
 
-it('re-subscribes an unsubscribed email and sends a new confirmation', function () {
+it('re-subscribes an unsubscribed email without creating a duplicate', function () {
     $sub = NewsletterSubscriber::create([
-        'email'            => 'revenant@example.com',
-        'confirmed_at'     => now()->subMonth(),
-        'unsubscribed_at'  => now()->subDays(5),
+        'email'           => 'revenant@example.com',
+        'confirmed_at'    => now()->subMonth(),
+        'unsubscribed_at' => now()->subDays(5),
     ]);
 
     Livewire::test(SubscribeForm::class)
@@ -72,18 +65,15 @@ it('re-subscribes an unsubscribed email and sends a new confirmation', function 
 
     $fresh = $sub->fresh();
     expect($fresh->unsubscribed_at)->toBeNull()
-        ->and($fresh->confirmation_token)->not->toBeNull();
+        ->and($fresh->confirmed_at)->not->toBeNull();
 
-    Mail::assertQueued(NewsletterConfirmationMail::class, fn ($m) => $m->subscriber->id === $sub->id);
-    expect(NewsletterSubscriber::count())->toBe(1); // no duplicate
+    expect(NewsletterSubscriber::count())->toBe(1);
 });
 
-it('resends confirmation to a pending subscriber without creating a duplicate', function () {
+it('subscribes a pending (never confirmed) email directly', function () {
     $sub = NewsletterSubscriber::create([
-        'email'      => 'pending@example.com',
-        'first_name' => 'Ibrahim',
+        'email' => 'pending@example.com',
     ]);
-    $oldToken = $sub->confirmation_token;
 
     Livewire::test(SubscribeForm::class)
         ->set('email', 'pending@example.com')
@@ -91,10 +81,6 @@ it('resends confirmation to a pending subscriber without creating a duplicate', 
         ->assertHasNoErrors()
         ->assertSet('pending', true);
 
-    $fresh = $sub->fresh();
-    expect($fresh->confirmation_token)->not->toBe($oldToken) // new token issued
-        ->and($fresh->confirmed_at)->toBeNull();
-
-    Mail::assertQueued(NewsletterConfirmationMail::class, fn ($m) => $m->subscriber->id === $sub->id);
+    expect($sub->fresh()->confirmed_at)->not->toBeNull();
     expect(NewsletterSubscriber::count())->toBe(1);
 });

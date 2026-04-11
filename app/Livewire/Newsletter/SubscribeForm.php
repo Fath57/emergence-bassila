@@ -2,11 +2,8 @@
 
 namespace App\Livewire\Newsletter;
 
-use App\Mail\NewsletterConfirmationMail;
 use App\Models\NewsletterSubscriber;
-use Illuminate\Support\Str;
 use Livewire\Component;
-use Illuminate\Support\Facades\Mail;
 
 class SubscribeForm extends Component
 {
@@ -36,23 +33,19 @@ class SubscribeForm extends Component
                 return;
             }
 
-            // Pending or unsubscribed: refresh token and resend
-            $token = Str::random(64);
+            // Unsubscribed or pending: re-enable
             $existing->update([
-                'confirmation_token' => $token,
-                'first_name'         => $this->firstName ?: $existing->first_name,
-                'unsubscribed_at'    => null,
+                'first_name'      => $this->firstName ?: $existing->first_name,
+                'unsubscribed_at' => null,
+                'confirmed_at'    => now(),
             ]);
-
-            Mail::to($email)->queue(new NewsletterConfirmationMail($existing->fresh()));
         } else {
-            $subscriber = NewsletterSubscriber::create([
-                'email'      => $email,
-                'first_name' => $this->firstName ?: null,
-                'source'     => 'public_form',
+            NewsletterSubscriber::create([
+                'email'        => $email,
+                'first_name'   => $this->firstName ?: null,
+                'source'       => 'public_form',
+                'confirmed_at' => now(),
             ]);
-
-            Mail::to($email)->queue(new NewsletterConfirmationMail($subscriber));
         }
 
         $this->email     = '';

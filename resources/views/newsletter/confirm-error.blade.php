@@ -12,14 +12,16 @@
         p  { font-size: 15px; color: #555; line-height: 1.6; margin: 0 0 28px; }
         a  { display: inline-block; background: #0A1628; color: #fff; text-decoration: none;
              font-size: 14px; font-weight: 600; padding: 12px 28px; }
-        .icon { font-size: 40px; margin-bottom: 20px; }
+        .logo { margin-bottom: 24px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="icon">⚠️</div>
+        <div class="logo">
+            <img src="{{ asset('images/logo.png') }}" alt="Bassila Émergence" style="height:36px;">
+        </div>
         <h1>Lien invalide ou expiré</h1>
-        <p>Ce lien de confirmation n'est plus valide (il expire après 7 jours). Vous pouvez vous réinscrire via le formulaire pour recevoir un nouveau lien.</p>
+        <p>Ce lien n'est plus valide. Vous pouvez vous réinscrire via le formulaire sur le site.</p>
         <a href="{{ route('home') }}">Retour au site</a>
     </div>
 </body>
