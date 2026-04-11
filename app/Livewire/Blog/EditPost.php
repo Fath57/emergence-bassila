@@ -4,6 +4,7 @@ namespace App\Livewire\Blog;
 
 use App\Models\BlogPost;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -62,7 +63,16 @@ class EditPost extends Component
     {
         $this->authorize('update', $this->post);
 
-        $this->validate();
+        $validated = $this->validate();
+
+        // Force draft for non-admin publications if moderation is required
+        if ($validated['status'] === 'published'
+            && setting('blog.require_moderation', false)
+            && ! Auth::user()->hasRole('admin')) {
+            $validated['status'] = 'draft';
+            $this->status = 'draft';
+            session()->flash('info', 'Votre article sera visible après validation par un administrateur.');
+        }
 
         $imageUrl = $this->post->featured_image_url;
         if ($this->featuredImage) {
@@ -79,8 +89,8 @@ class EditPost extends Component
             'excerpt'            => $this->excerpt ?: null,
             'category_id'        => $this->category_id,
             'featured_image_url' => $imageUrl,
-            'status'             => $this->status,
-            'published_at'       => $this->status === 'published' && ! $wasPublished ? now() : $this->post->published_at,
+            'status'             => $validated['status'],
+            'published_at'       => $validated['status'] === 'published' && ! $wasPublished ? now() : $this->post->published_at,
         ]);
 
         $this->redirect(route('blog.show', $this->post->slug), navigate: true);

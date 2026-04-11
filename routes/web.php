@@ -93,7 +93,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Blog management - auth + verified (must be before /blog/{slug} to avoid slug capture)
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/blog/rediger', CreatePost::class)->name('blog.create');
+    Route::get('/blog/rediger', CreatePost::class)
+        ->middleware('can:create,App\Models\BlogPost')
+        ->name('blog.create');
     Route::get('/blog/{slug}/modifier', EditPost::class)->name('blog.edit');
 });
 

@@ -49,6 +49,15 @@ class CreatePost extends Component
 
         $validated = $this->validate();
 
+        // Force draft for non-admin publications if moderation is required
+        if ($validated['status'] === 'published'
+            && setting('blog.require_moderation', false)
+            && ! Auth::user()->hasRole('admin')) {
+            $validated['status'] = 'draft';
+            $this->status = 'draft';
+            session()->flash('info', 'Votre article sera visible après validation par un administrateur.');
+        }
+
         $imageUrl = null;
         if ($this->featuredImage) {
             $path     = $this->featuredImage->store('blog/covers', 's3');
@@ -63,8 +72,8 @@ class CreatePost extends Component
             'excerpt'            => $this->excerpt ?: null,
             'category_id'        => $this->category_id,
             'featured_image_url' => $imageUrl,
-            'status'             => $this->status,
-            'published_at'       => $this->status === 'published' ? now() : null,
+            'status'             => $validated['status'],
+            'published_at'       => $validated['status'] === 'published' ? now() : null,
         ]);
 
         $this->redirect(route('blog.show', $post->slug), navigate: true);

@@ -9,7 +9,11 @@ class BlogPostPolicy
 {
     public function create(User $user): bool
     {
-        return true;
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        return setting('blog.public_creation', true);
     }
 
     public function update(User $user, BlogPost $post): bool
