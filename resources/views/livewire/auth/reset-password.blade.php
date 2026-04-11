@@ -1,6 +1,6 @@
 <div>
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-[#111827] mb-1" style="font-family: 'Lora', serif;">Nouveau mot de passe</h1>
+        <h1 class="text-2xl font-bold text-[#111827] mb-1">Nouveau mot de passe</h1>
         <p class="text-sm text-gray-400">Choisissez un nouveau mot de passe sécurisé.</p>
     </div>
 

@@ -9,7 +9,7 @@
     <div class="absolute bottom-0 left-0 right-0 h-px bg-[#DC143C] opacity-60"></div>
     <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
         <p class="text-xs font-semibold text-[#DC143C] uppercase tracking-widest mb-2">Rejoindre la communauté</p>
-        <h1 class="text-2xl font-bold text-white" style="font-family: 'Lora', serif;">Créer mon profil</h1>
+        <h1 class="text-2xl font-bold text-white">Créer mon profil</h1>
         <p class="text-sm text-white/40 mt-1">Votre profil sera visible par tous les membres de la communauté.</p>
     </div>
 </div>
@@ -59,20 +59,32 @@
         @if ($step === 1)
             <div class="p-8 pl-10">
                 <div class="mb-7">
-                    <h2 class="text-lg font-bold text-[#111827]" style="font-family: 'Lora', serif;">Qui êtes-vous ?</h2>
+                    <h2 class="text-lg font-bold text-[#111827]">Qui êtes-vous ?</h2>
                     <p class="text-sm text-gray-400 mt-0.5">Décrivez votre identité professionnelle.</p>
                 </div>
 
                 <div class="space-y-5">
-                    <div>
-                        <label for="full_name" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
-                            Nom complet <span class="text-[#DC143C]">*</span>
-                        </label>
-                        <input wire:model="full_name"
-                               id="full_name" type="text" autocomplete="name"
-                               placeholder="Prénom Nom"
-                               class="w-full border px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('full_name') border-red-400 @else border-gray-200 @enderror">
-                        @error('full_name') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="first_name" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                                Prénom <span class="text-[#DC143C]">*</span>
+                            </label>
+                            <input wire:model="first_name"
+                                   id="first_name" type="text" autocomplete="given-name"
+                                   placeholder="Votre prénom"
+                                   class="w-full border px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('first_name') border-red-400 @else border-gray-200 @enderror">
+                            @error('first_name') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label for="last_name" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                                Nom <span class="text-[#DC143C]">*</span>
+                            </label>
+                            <input wire:model="last_name"
+                                   id="last_name" type="text" autocomplete="family-name"
+                                   placeholder="Votre nom"
+                                   class="w-full border px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('last_name') border-red-400 @else border-gray-200 @enderror">
+                            @error('last_name') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -119,7 +131,7 @@
         @if ($step === 2)
             <div class="p-8 pl-10">
                 <div class="mb-7">
-                    <h2 class="text-lg font-bold text-[#111827]" style="font-family: 'Lora', serif;">Localisation & Contact</h2>
+                    <h2 class="text-lg font-bold text-[#111827]">Localisation & Contact</h2>
                     <p class="text-sm text-gray-400 mt-0.5">Où vivez-vous et comment vous joindre ?</p>
                 </div>
 
@@ -213,7 +225,7 @@
         @if ($step === 3)
             <div class="p-8 pl-10">
                 <div class="mb-7">
-                    <h2 class="text-lg font-bold text-[#111827]" style="font-family: 'Lora', serif;">Parlez-nous de vous</h2>
+                    <h2 class="text-lg font-bold text-[#111827]">Parlez-nous de vous</h2>
                     <p class="text-sm text-gray-400 mt-0.5">Une courte présentation et vos domaines d'expertise.</p>
                 </div>
 
@@ -237,25 +249,107 @@
                         </div>
                     </div>
 
-                    @if ($skills->count() > 0)
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wider">
+                    {{-- ── Skill picker : search + selected pills + category accordion ── --}}
+                    @php
+                        $skillGroups     = $this->skillGroups;
+                        $searchActive    = trim($skillSearch) !== '';
+                        $openCategories  = $searchActive
+                            ? $skillGroups->keys()->all()
+                            : $expandedCategories;
+                    @endphp
+
+                    <div>
+                        <div class="flex items-baseline justify-between mb-3">
+                            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                 Compétences <span class="text-gray-400 normal-case font-normal">(optionnel)</span>
                             </label>
-                            <div class="flex flex-wrap gap-2">
-                                @foreach ($skills as $skill)
-                                    <button type="button"
-                                            wire:click="toggleSkill({{ $skill->id }})"
-                                            class="text-xs font-semibold px-3 py-1.5 border transition {{ in_array($skill->id, $selectedSkills) ? 'bg-[#0066CC] text-white border-[#0066CC]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#0066CC] hover:text-[#0066CC]' }}">
-                                        {{ $skill->name }}
-                                    </button>
-                                @endforeach
-                            </div>
                             @if (count($selectedSkills) > 0)
-                                <p class="mt-2 text-xs text-[#0066CC]">{{ count($selectedSkills) }} compétence(s) sélectionnée(s)</p>
+                                <span class="text-xs text-[#0066CC] font-semibold">{{ count($selectedSkills) }} sélectionnée{{ count($selectedSkills) > 1 ? 's' : '' }}</span>
                             @endif
                         </div>
-                    @endif
+
+                        {{-- Search --}}
+                        <div class="relative mb-3">
+                            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
+                            </svg>
+                            <input type="text"
+                                   wire:model.live.debounce.250ms="skillSearch"
+                                   placeholder="Rechercher une compétence…"
+                                   class="w-full border border-gray-200 pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-[#0066CC] transition">
+                            @if ($searchActive)
+                                <button type="button" wire:click="$set('skillSearch', '')"
+                                        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            @endif
+                        </div>
+
+                        {{-- Selected skills pills --}}
+                        @if (count($selectedSkills) > 0)
+                            <div class="bg-blue-50/50 border border-blue-100 p-3 mb-3">
+                                <div class="flex flex-wrap gap-1.5">
+                                    @foreach ($selectedSkillModels as $skill)
+                                        <button type="button"
+                                                wire:click="toggleSkill({{ $skill->id }})"
+                                                class="inline-flex items-center gap-1.5 text-xs font-semibold bg-[#0066CC] text-white pl-2.5 pr-1.5 py-1 hover:bg-blue-800 transition">
+                                            {{ $skill->name }}
+                                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                            </svg>
+                                        </button>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        {{-- Category accordion --}}
+                        <div class="border border-gray-200 divide-y divide-gray-100">
+                            @forelse ($skillGroups as $category => $categorySkills)
+                                @php
+                                    $isOpen = in_array($category, $openCategories, true);
+                                    $selectedInCat = $categorySkills->filter(fn ($s) => in_array($s->id, $selectedSkills))->count();
+                                @endphp
+                                <div>
+                                    <button type="button"
+                                            wire:click="toggleCategory({{ json_encode($category) }})"
+                                            @if ($searchActive) disabled @endif
+                                            class="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition @if ($searchActive) cursor-default @endif">
+                                        <span class="flex items-center gap-2">
+                                            <span class="text-sm font-semibold text-[#111827]">{{ $category }}</span>
+                                            <span class="text-xs text-gray-400">({{ $categorySkills->count() }})</span>
+                                            @if ($selectedInCat > 0)
+                                                <span class="text-xs font-semibold text-[#0066CC]">· {{ $selectedInCat }} sélectionnée{{ $selectedInCat > 1 ? 's' : '' }}</span>
+                                            @endif
+                                        </span>
+                                        <svg class="w-4 h-4 text-gray-400 transition-transform {{ $isOpen ? 'rotate-180' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                        </svg>
+                                    </button>
+
+                                    @if ($isOpen)
+                                        <div class="px-4 pb-4 pt-1">
+                                            <div class="flex flex-wrap gap-1.5">
+                                                @foreach ($categorySkills as $skill)
+                                                    <button type="button"
+                                                            wire:click="toggleSkill({{ $skill->id }})"
+                                                            class="text-xs font-semibold px-3 py-1.5 border transition {{ in_array($skill->id, $selectedSkills) ? 'bg-[#0066CC] text-white border-[#0066CC]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#0066CC] hover:text-[#0066CC]' }}">
+                                                        {{ $skill->name }}
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            @empty
+                                <div class="px-4 py-6 text-center text-sm text-gray-400">
+                                    Aucune compétence ne correspond à « {{ $skillSearch }} ».
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
                 </div>
             </div>
         @endif
@@ -264,7 +358,7 @@
         @if ($step === 4)
             <div class="p-8 pl-10">
                 <div class="mb-7">
-                    <h2 class="text-lg font-bold text-[#111827]" style="font-family: 'Lora', serif;">Photo & liens</h2>
+                    <h2 class="text-lg font-bold text-[#111827]">Photo & liens</h2>
                     <p class="text-sm text-gray-400 mt-0.5">Tout est optionnel — vous pouvez compléter plus tard.</p>
                 </div>
 
@@ -345,7 +439,7 @@
                     <div class="border border-gray-100 bg-gray-50 p-4">
                         <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Récapitulatif</p>
                         <div class="space-y-1 text-sm text-gray-600">
-                            <p><span class="font-semibold text-[#111827]">{{ $full_name }}</span>{{ $job_title ? ' · ' . $job_title : '' }}{{ $company ? ' @ ' . $company : '' }}</p>
+                            <p><span class="font-semibold text-[#111827]">{{ trim($first_name . ' ' . $last_name) }}</span>{{ $job_title ? ' · ' . $job_title : '' }}{{ $company ? ' @ ' . $company : '' }}</p>
                             @if ($country_id)
                                 @php $selectedCountry = $countries->firstWhere('id', $country_id); @endphp
                                 <p class="text-xs text-gray-400">{{ $selectedCountry?->flag }} {{ $selectedCountry?->name }}{{ $city ? ', ' . $city : '' }}</p>

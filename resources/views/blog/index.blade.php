@@ -10,8 +10,8 @@
                 background-size: 48px 48px;"></div>
     <div class="absolute bottom-0 left-0 right-0 h-px bg-[#DC143C] opacity-60"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
-        <h1 class="text-2xl font-bold text-white mb-1" style="font-family: 'Lora', serif;">Blog</h1>
-        <p class="text-sm text-white/40">Articles et actualités de la communauté EmergenceBassila</p>
+        <h1 class="text-2xl font-bold text-white mb-1">Blog</h1>
+        <p class="text-sm text-white/40">Articles et actualités de la communauté Bassila Émergence</p>
     </div>
 </div>
 
@@ -36,7 +36,7 @@
                         <span class="text-xs text-gray-400 border border-gray-200 px-2 py-0.5">Article à la une</span>
                     </div>
                     <h2 class="text-xl font-bold text-[#111827] mb-3 leading-snug group-hover:text-[#0066CC] transition"
-                        style="font-family: 'Lora', serif;">
+>
                         <a href="{{ route('blog.show', $featured->slug) }}">{{ $featured->title }}</a>
                     </h2>
                     @if ($featured->excerpt)
@@ -90,7 +90,7 @@
                                         <span class="text-xs font-semibold text-[#0066CC] uppercase tracking-wider">{{ $post->category->name }}</span>
                                     @endif
                                     <h3 class="font-bold text-[#111827] mt-1.5 mb-1.5 leading-snug group-hover:text-[#0066CC] transition"
-                                        style="font-family: 'Lora', serif;">
+>
                                         <a href="{{ route('blog.show', $post->slug) }}" wire:navigate>
                                             {{ $post->title }}
                                         </a>

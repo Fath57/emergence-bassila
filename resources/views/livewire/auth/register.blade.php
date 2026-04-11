@@ -1,20 +1,32 @@
 <div>
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-[#111827] mb-1" style="font-family: 'Lora', serif;">Créer un compte</h1>
-        <p class="text-sm text-gray-400">Rejoignez la communauté EmergenceBassila</p>
+        <h1 class="text-2xl font-bold text-[#111827] mb-1">Créer un compte</h1>
+        <p class="text-sm text-gray-400">Rejoignez la communauté Bassila Émergence</p>
     </div>
 
     <form wire:submit.prevent="register" class="space-y-5">
 
-        <div>
-            <label for="name" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
-                Nom complet
-            </label>
-            <input wire:model="name"
-                   id="name" type="text" autocomplete="name"
-                   placeholder="Votre nom"
-                   class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('name') border-red-400 @enderror">
-            @error('name') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
+        <div class="grid grid-cols-2 gap-3">
+            <div>
+                <label for="first_name" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                    Prénom
+                </label>
+                <input wire:model="first_name"
+                       id="first_name" type="text" autocomplete="given-name"
+                       placeholder="Prénom"
+                       class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('first_name') border-red-400 @enderror">
+                @error('first_name') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
+            </div>
+            <div>
+                <label for="last_name" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                    Nom
+                </label>
+                <input wire:model="last_name"
+                       id="last_name" type="text" autocomplete="family-name"
+                       placeholder="Nom"
+                       class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('last_name') border-red-400 @enderror">
+                @error('last_name') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
+            </div>
         </div>
 
         <div>

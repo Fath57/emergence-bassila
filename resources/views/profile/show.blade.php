@@ -26,7 +26,7 @@
             {{-- Info --}}
             <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 flex-wrap mb-1">
-                    <h1 class="text-xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">
+                    <h1 class="text-xl font-bold text-[#111827]">
                         {{ $profile->full_name }}
                     </h1>
                     @if ($profile->is_verified)

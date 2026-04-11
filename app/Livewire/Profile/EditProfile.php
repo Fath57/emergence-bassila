@@ -3,10 +3,16 @@
 namespace App\Livewire\Profile;
 
 use App\Models\Profile;
+use App\Models\Sector;
+use App\Models\Skill;
 use App\Services\AvatarGenerator;
+use App\Support\SectorSkillCategoryMap;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -17,7 +23,8 @@ class EditProfile extends Component
 
     public ?Profile $profile = null;
 
-    public string $full_name = '';
+    public string $first_name = '';
+    public string $last_name = '';
     public string $bio = '';
     public $avatar = null;
     public string $city = '';
@@ -31,10 +38,16 @@ class EditProfile extends Component
     public string $portfolio_url = '';
     public array $selectedSkills = [];
 
+    // Skill picker state
+    public string $skillSearch = '';
+    /** @var array<int, string> */
+    public array $expandedCategories = [];
+
     protected function rules(): array
     {
         return [
-            'full_name'            => ['required', 'string', 'max:255'],
+            'first_name'           => ['required', 'string', 'max:100'],
+            'last_name'            => ['required', 'string', 'max:100'],
             'bio'                  => ['nullable', 'string', 'max:500'],
             'avatar'               => ['nullable', 'image', 'max:2048', 'dimensions:min_width=200,min_height=200'],
             'country'              => ['required', 'string'],
@@ -58,7 +71,8 @@ class EditProfile extends Component
 
         $this->profile = $profile;
 
-        $this->full_name            = $profile->full_name;
+        $this->first_name           = $profile->first_name;
+        $this->last_name            = $profile->last_name;
         $this->bio                  = $profile->bio ?? '';
         $this->city                 = $profile->city ?? '';
         $this->country              = $profile->country;
@@ -70,6 +84,62 @@ class EditProfile extends Component
         $this->linkedin_url         = $profile->linkedin_url ?? '';
         $this->portfolio_url        = $profile->portfolio_url ?? '';
         $this->selectedSkills       = $profile->skills->pluck('id')->toArray();
+
+        // Pre-expand the categories of already-selected skills so the user
+        // sees their current picks without clicking around.
+        $this->expandedCategories = Skill::whereIn('id', $this->selectedSkills)
+            ->whereNotNull('category')
+            ->pluck('category')
+            ->unique()
+            ->values()
+            ->all();
+
+        // Also expand the sector's default category (if user has no skills yet)
+        if (empty($this->expandedCategories) && $profile->sector_id) {
+            $sector = Sector::find($profile->sector_id);
+            $cat = $sector ? SectorSkillCategoryMap::for($sector->name) : null;
+            if ($cat) {
+                $this->expandedCategories[] = $cat;
+            }
+        }
+    }
+
+    public function toggleSkill(int $id): void
+    {
+        if (in_array($id, $this->selectedSkills)) {
+            $this->selectedSkills = array_values(array_filter($this->selectedSkills, fn ($s) => $s !== $id));
+        } else {
+            $this->selectedSkills[] = $id;
+        }
+    }
+
+    public function toggleCategory(string $category): void
+    {
+        if (in_array($category, $this->expandedCategories, true)) {
+            $this->expandedCategories = array_values(array_filter(
+                $this->expandedCategories,
+                fn ($c) => $c !== $category,
+            ));
+        } else {
+            $this->expandedCategories[] = $category;
+        }
+    }
+
+    #[Computed]
+    public function skillGroups(): Collection
+    {
+        $query = Skill::query()
+            ->whereNotNull('category')
+            ->orderBy('category')
+            ->orderBy('sort_order')
+            ->orderBy('name');
+
+        $search = trim($this->skillSearch);
+        if ($search !== '') {
+            $query->whereRaw('LOWER(name) LIKE ?', ['%' . Str::lower($search) . '%']);
+        }
+
+        return $query->get()->groupBy('category');
     }
 
     public function save(): void
@@ -86,7 +156,8 @@ class EditProfile extends Component
         }
 
         $this->profile->update([
-            'full_name'            => $this->full_name,
+            'first_name'           => $this->first_name,
+            'last_name'            => $this->last_name,
             'bio'                  => $this->bio ?: null,
             'avatar_url'           => $avatarUrl,
             'city'                 => $this->city ?: null,
@@ -107,6 +178,10 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('livewire.profile.edit-profile');
+        return view('livewire.profile.edit-profile', [
+            'sectors' => Sector::orderBy('name')->get(),
+            'selectedSkillModels' => Skill::whereIn('id', $this->selectedSkills)
+                ->orderBy('name')->get(),
+        ]);
     }
 }

@@ -4,8 +4,10 @@
 
             {{-- Brand --}}
             <div class="md:col-span-2">
-                <a href="{{ route('home') }}" class="flex items-center gap-1 mb-4">
-                    <span class="font-bold text-xl text-[#0066CC]" style="font-family: 'Lora', serif;">Emergence</span><span class="font-bold text-xl text-[#DC143C]" style="font-family: 'Lora', serif;">Bassila</span>
+                <a href="{{ route('home') }}" class="inline-block mb-4">
+                    <img src="{{ asset('images/logo.png') }}"
+                         alt="Bassila Émergence"
+                         class="h-11 w-auto">
                 </a>
                 <p class="text-sm leading-relaxed max-w-xs">
                     La plateforme de networking des Bassilais à travers le monde. Connectés, engagés, inspirants.
@@ -43,7 +45,7 @@
         </div>
 
         <div class="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6 text-xs">
-            <p>© {{ date('Y') }} EmergenceBassila. Tous droits réservés.</p>
+            <p>© {{ date('Y') }} Bassila Émergence. Tous droits réservés.</p>
             <div class="flex gap-5">
                 <a href="#" class="hover:text-white transition">Confidentialité</a>
                 <a href="#" class="hover:text-white transition">Conditions d'utilisation</a>

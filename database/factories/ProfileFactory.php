@@ -14,13 +14,14 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'   => User::factory(),
-            'full_name' => $this->faker->name(),
-            'job_title' => $this->faker->jobTitle(),
-            'company'   => $this->faker->company(),
-            'country'   => $this->faker->country(),
-            'city'      => $this->faker->city(),
-            'sector_id' => Sector::factory(),
+            'user_id'    => User::factory(),
+            'first_name' => $this->faker->firstName(),
+            'last_name'  => $this->faker->lastName(),
+            'job_title'  => $this->faker->jobTitle(),
+            'company'    => $this->faker->company(),
+            'country'    => $this->faker->country(),
+            'city'       => $this->faker->city(),
+            'sector_id'  => Sector::factory(),
             'avatar_url' => null,
             'bio'        => $this->faker->sentence(),
             'is_verified' => false,

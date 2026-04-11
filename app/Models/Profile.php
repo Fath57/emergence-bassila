@@ -14,7 +14,8 @@ class Profile extends Model
 
     protected $fillable = [
         'user_id',
-        'full_name',
+        'first_name',
+        'last_name',
         'bio',
         'avatar_url',
         'city',
@@ -32,6 +33,9 @@ class Profile extends Model
         'is_verified',
         'verified_at',
     ];
+
+    // full_name is a Postgres STORED generated column (first_name || ' ' || last_name);
+    // Eloquent loads it like any other attribute — do not put it in $fillable.
 
     protected $casts = [
         'is_verified'  => 'boolean',

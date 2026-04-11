@@ -1,7 +1,7 @@
 <div>
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-[#111827] mb-1" style="font-family: 'Lora', serif;">Connexion</h1>
-        <p class="text-sm text-gray-400">Bon retour sur EmergenceBassila</p>
+        <h1 class="text-2xl font-bold text-[#111827] mb-1">Connexion</h1>
+        <p class="text-sm text-gray-400">Bon retour sur Bassila Émergence</p>
     </div>
 
     <form wire:submit.prevent="login" class="space-y-5">

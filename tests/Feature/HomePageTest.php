@@ -36,7 +36,7 @@ it('does not show sectors section when no verified profiles exist', function () 
 });
 
 it('shows recently verified profiles on the home page', function () {
-    $profile = Profile::factory()->verified()->create(['full_name' => 'Amina Traoré']);
+    $profile = Profile::factory()->verified()->create(['first_name' => 'Amina', 'last_name' => 'Traoré']);
 
     $this->get('/')->assertSee('Amina Traoré');
 });
@@ -79,8 +79,9 @@ it('shows testimonials section', function () {
 it('shows sector on featured profile cards', function () {
     $sector = Sector::factory()->create(['name' => 'Santé']);
     Profile::factory()->verified()->create([
-        'full_name' => 'Fatou Diallo',
-        'sector_id' => $sector->id,
+        'first_name' => 'Fatou',
+        'last_name'  => 'Diallo',
+        'sector_id'  => $sector->id,
     ]);
 
     $this->get('/')->assertSee('Fatou Diallo')->assertSee('Santé');

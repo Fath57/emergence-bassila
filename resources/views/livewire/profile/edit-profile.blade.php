@@ -28,16 +28,30 @@
                 @error('avatar') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
             </div>
 
-            <!-- Full name -->
-            <div>
-                <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1">Nom complet <span class="text-red-500">*</span></label>
-                <input
-                    wire:model="full_name"
-                    id="full_name"
-                    type="text"
-                    class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('full_name') border-red-400 @enderror"
-                >
-                @error('full_name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+            <!-- First name + last name -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">Prénom <span class="text-red-500">*</span></label>
+                    <input
+                        wire:model="first_name"
+                        id="first_name"
+                        type="text"
+                        autocomplete="given-name"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('first_name') border-red-400 @enderror"
+                    >
+                    @error('first_name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                </div>
+                <div>
+                    <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Nom <span class="text-red-500">*</span></label>
+                    <input
+                        wire:model="last_name"
+                        id="last_name"
+                        type="text"
+                        autocomplete="family-name"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('last_name') border-red-400 @enderror"
+                    >
+                    @error('last_name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                </div>
             </div>
 
             <!-- Job title + Company -->
@@ -142,21 +156,103 @@
                 </div>
             </div>
 
-            <!-- Skills -->
+            <!-- Skills — searchable, grouped by category -->
+            @php
+                $skillGroups    = $this->skillGroups;
+                $searchActive   = trim($skillSearch) !== '';
+                $openCategories = $searchActive
+                    ? $skillGroups->keys()->all()
+                    : $expandedCategories;
+            @endphp
+
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Compétences</label>
-                <div class="flex flex-wrap gap-2 max-h-40 overflow-y-auto p-3 border border-gray-200 rounded-lg bg-gray-50">
-                    @foreach (\App\Models\Skill::orderBy('name')->get() as $skill)
-                        <label class="flex items-center gap-1.5 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                wire:model="selectedSkills"
-                                value="{{ $skill->id }}"
-                                class="rounded border-gray-300 text-[#0066CC] focus:ring-[#0066CC]"
-                            >
-                            <span class="text-sm text-gray-700">{{ $skill->name }}</span>
-                        </label>
-                    @endforeach
+                <div class="flex items-baseline justify-between mb-2">
+                    <label class="block text-sm font-medium text-gray-700">Compétences</label>
+                    @if (count($selectedSkills) > 0)
+                        <span class="text-xs text-[#0066CC] font-semibold">{{ count($selectedSkills) }} sélectionnée{{ count($selectedSkills) > 1 ? 's' : '' }}</span>
+                    @endif
+                </div>
+
+                {{-- Search --}}
+                <div class="relative mb-2">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
+                    </svg>
+                    <input type="text"
+                           wire:model.live.debounce.250ms="skillSearch"
+                           placeholder="Rechercher une compétence…"
+                           class="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC]">
+                    @if ($searchActive)
+                        <button type="button" wire:click="$set('skillSearch', '')"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    @endif
+                </div>
+
+                {{-- Selected pills --}}
+                @if (count($selectedSkills) > 0)
+                    <div class="bg-blue-50/50 border border-blue-100 p-3 mb-2 rounded-lg">
+                        <div class="flex flex-wrap gap-1.5">
+                            @foreach ($selectedSkillModels as $skill)
+                                <button type="button"
+                                        wire:click="toggleSkill({{ $skill->id }})"
+                                        class="inline-flex items-center gap-1.5 text-xs font-semibold bg-[#0066CC] text-white pl-2.5 pr-1.5 py-1 hover:bg-blue-800 transition rounded">
+                                    {{ $skill->name }}
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                {{-- Category accordion --}}
+                <div class="border border-gray-200 divide-y divide-gray-100 rounded-lg overflow-hidden">
+                    @forelse ($skillGroups as $category => $categorySkills)
+                        @php
+                            $isOpen = in_array($category, $openCategories, true);
+                            $selectedInCat = $categorySkills->filter(fn ($s) => in_array($s->id, $selectedSkills))->count();
+                        @endphp
+                        <div>
+                            <button type="button"
+                                    wire:click="toggleCategory({{ json_encode($category) }})"
+                                    @if ($searchActive) disabled @endif
+                                    class="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition @if ($searchActive) cursor-default @endif">
+                                <span class="flex items-center gap-2">
+                                    <span class="text-sm font-semibold text-[#111827]">{{ $category }}</span>
+                                    <span class="text-xs text-gray-400">({{ $categorySkills->count() }})</span>
+                                    @if ($selectedInCat > 0)
+                                        <span class="text-xs font-semibold text-[#0066CC]">· {{ $selectedInCat }} sélectionnée{{ $selectedInCat > 1 ? 's' : '' }}</span>
+                                    @endif
+                                </span>
+                                <svg class="w-4 h-4 text-gray-400 transition-transform {{ $isOpen ? 'rotate-180' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+
+                            @if ($isOpen)
+                                <div class="px-4 pb-4 pt-1 bg-gray-50/30">
+                                    <div class="flex flex-wrap gap-1.5">
+                                        @foreach ($categorySkills as $skill)
+                                            <button type="button"
+                                                    wire:click="toggleSkill({{ $skill->id }})"
+                                                    class="text-xs font-semibold px-3 py-1.5 border rounded transition {{ in_array($skill->id, $selectedSkills) ? 'bg-[#0066CC] text-white border-[#0066CC]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#0066CC] hover:text-[#0066CC]' }}">
+                                                {{ $skill->name }}
+                                            </button>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    @empty
+                        <div class="px-4 py-6 text-center text-sm text-gray-400">
+                            Aucune compétence ne correspond à « {{ $skillSearch }} ».
+                        </div>
+                    @endforelse
                 </div>
             </div>
 

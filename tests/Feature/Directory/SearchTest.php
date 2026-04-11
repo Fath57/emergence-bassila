@@ -10,8 +10,8 @@ it('renders the directory page', function () {
 });
 
 it('can search profiles by name', function () {
-    Profile::factory()->create(['full_name' => 'Amadou Kouyaté', 'job_title' => 'Développeur']);
-    Profile::factory()->create(['full_name' => 'Fatoumata Bah', 'job_title' => 'Médecin']);
+    Profile::factory()->create(['first_name' => 'Amadou', 'last_name' => 'Kouyaté', 'job_title' => 'Développeur']);
+    Profile::factory()->create(['first_name' => 'Fatoumata', 'last_name' => 'Bah', 'job_title' => 'Médecin']);
 
     $component = Livewire::test(SearchDirectory::class)
         ->set('query', 'Amadou');

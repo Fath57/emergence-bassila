@@ -8,8 +8,8 @@
                 background-size: 48px 48px;"></div>
     <div class="absolute bottom-0 left-0 right-0 h-px bg-[#DC143C] opacity-60"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative">
-        <h1 class="text-2xl font-bold text-white mb-1" style="font-family: 'Lora', serif;">Annuaire des membres</h1>
-        <p class="text-sm text-white/40">Découvrez et connectez-vous avec les membres de la communauté EmergenceBassila</p>
+        <h1 class="text-2xl font-bold text-white mb-1">Annuaire des membres</h1>
+        <p class="text-sm text-white/40">Découvrez et connectez-vous avec les membres de la communauté Bassila Émergence</p>
     </div>
 </div>
 

@@ -62,25 +62,25 @@
         @if(collect($stats)->sum() > 0)
             <div class="mt-16 pt-8 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-6">
                 <div>
-                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                    <div class="text-white font-bold text-3xl">
                         {{ number_format($stats['members']) }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Membres inscrits</div>
                 </div>
                 <div>
-                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                    <div class="text-white font-bold text-3xl">
                         {{ $stats['profiles'] }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Profils vérifiés</div>
                 </div>
                 <div>
-                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                    <div class="text-white font-bold text-3xl">
                         {{ $stats['countries'] }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Pays représentés</div>
                 </div>
                 <div>
-                    <div class="text-white font-bold text-3xl" style="font-family: 'Lora', serif;">
+                    <div class="text-white font-bold text-3xl">
                         {{ $stats['posts'] }}
                     </div>
                     <div class="text-white/50 text-xs uppercase tracking-wider mt-1">Articles publiés</div>
@@ -103,11 +103,11 @@
 
             <div>
                 <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-4">Notre mission</p>
-                <h2 class="text-3xl font-bold text-[#111827] leading-tight mb-6" style="font-family: 'Lora', serif;">
+                <h2 class="text-3xl font-bold text-[#111827] leading-tight mb-6">
                     Un lien vivant entre Bassila et sa diaspora
                 </h2>
                 <p class="text-gray-600 text-base leading-relaxed mb-5">
-                    Bassila, ville au cœur du Bénin, a vu grandir des centaines de professionnels aujourd'hui dispersés en Afrique, en Europe et dans le monde entier. EmergenceBassila est leur maison numérique.
+                    Bassila, ville au cœur du Bénin, a vu grandir des centaines de professionnels aujourd'hui dispersés en Afrique, en Europe et dans le monde entier. Bassila Émergence est leur maison numérique.
                 </p>
                 <p class="text-gray-600 text-base leading-relaxed mb-8">
                     Chaque profil raconte une histoire de résilience et de réussite. Chaque connexion est un pont entre les générations et les horizons.
@@ -143,7 +143,7 @@
 
         <div class="mb-12">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Ce que vous y trouvez</p>
-            <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">
+            <h2 class="text-3xl font-bold text-[#111827]">
                 Une plateforme, trois piliers
             </h2>
         </div>
@@ -157,7 +157,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
                 </div>
-                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Réseau professionnel</h3>
+                <h3 class="font-bold text-[#111827] text-lg mb-3">Réseau professionnel</h3>
                 <p class="text-gray-600 text-sm leading-relaxed mb-6">
                     Créez votre profil, partagez votre parcours et connectez-vous avec les professionnels Bassilais dans votre domaine, où qu'ils soient.
                 </p>
@@ -173,7 +173,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
                     </svg>
                 </div>
-                <h3 class="font-bold text-white text-lg mb-3" style="font-family: 'Lora', serif;">Blog & Actualités</h3>
+                <h3 class="font-bold text-white text-lg mb-3">Blog & Actualités</h3>
                 <p class="text-white/75 text-sm leading-relaxed mb-6">
                     Lisez et partagez des histoires inspirantes, des actualités de la communauté, des conseils de carrière et des réflexions sur Bassila.
                 </p>
@@ -189,7 +189,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                     </svg>
                 </div>
-                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Entraide & Contact</h3>
+                <h3 class="font-bold text-[#111827] text-lg mb-3">Entraide & Contact</h3>
                 <p class="text-gray-600 text-sm leading-relaxed mb-6">
                     Contactez directement les membres, demandez conseil à des experts ou proposez votre aide à la communauté.
                 </p>
@@ -208,29 +208,29 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-14 text-center">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Simple & rapide</p>
-            <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Comment ça marche ?</h2>
+            <h2 class="text-3xl font-bold text-[#111827]">Comment ça marche ?</h2>
         </div>
         <div class="grid md:grid-cols-3 gap-10">
             <div class="text-center">
                 <div class="w-14 h-14 bg-[#0066CC] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
-                     style="font-family: 'Lora', serif;">1</div>
-                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Inscris-toi</h3>
+>1</div>
+                <h3 class="font-bold text-[#111827] text-lg mb-3">Inscris-toi</h3>
                 <p class="text-gray-500 text-sm leading-relaxed">
                     Crée ton compte gratuitement avec ton adresse email. La vérification prend moins d'une minute.
                 </p>
             </div>
             <div class="text-center">
                 <div class="w-14 h-14 bg-[#0066CC] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
-                     style="font-family: 'Lora', serif;">2</div>
-                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Crée ton profil</h3>
+>2</div>
+                <h3 class="font-bold text-[#111827] text-lg mb-3">Crée ton profil</h3>
                 <p class="text-gray-500 text-sm leading-relaxed">
                     Renseigne ton parcours, ton métier et tes compétences. Un admin vérifie et valide ton profil.
                 </p>
             </div>
             <div class="text-center">
                 <div class="w-14 h-14 bg-[#DC143C] text-white text-xl font-bold flex items-center justify-center mx-auto mb-6"
-                     style="font-family: 'Lora', serif;">3</div>
-                <h3 class="font-bold text-[#111827] text-lg mb-3" style="font-family: 'Lora', serif;">Connecte-toi</h3>
+>3</div>
+                <h3 class="font-bold text-[#111827] text-lg mb-3">Connecte-toi</h3>
                 <p class="text-gray-500 text-sm leading-relaxed">
                     Explore l'annuaire, contacte des membres et contribue au blog communautaire.
                 </p>
@@ -255,7 +255,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-10">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Diversité</p>
-            <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Secteurs représentés</h2>
+            <h2 class="text-3xl font-bold text-[#111827]">Secteurs représentés</h2>
         </div>
         <div class="flex flex-wrap gap-3">
             @foreach($sectors as $sector)
@@ -277,12 +277,12 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-12">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Témoignages</p>
-            <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Ils parlent de leur communauté</h2>
+            <h2 class="text-3xl font-bold text-[#111827]">Ils parlent de leur communauté</h2>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             @foreach([
                 [
-                    'quote' => "EmergenceBassila m'a permis de retrouver d'anciens camarades que je n'avais pas vus depuis plus de 20 ans. Une vraie renaissance des liens communautaires.",
+                    'quote' => "Bassila Émergence m'a permis de retrouver d'anciens camarades que je n'avais pas vus depuis plus de 20 ans. Une vraie renaissance des liens communautaires.",
                     'name'  => 'Moussa K.',
                     'role'  => 'Ingénieur, Paris',
                 ],
@@ -319,7 +319,7 @@
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
                 <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Blog</p>
-                <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Histoires & Actualités</h2>
+                <h2 class="text-3xl font-bold text-[#111827]">Histoires & Actualités</h2>
             </div>
             <a href="{{ route('blog.index') }}"
                class="text-[#0066CC] text-sm font-semibold hover:underline shrink-0">
@@ -351,7 +351,7 @@
                                 <span class="text-xs font-semibold text-[#0066CC] uppercase tracking-wider">{{ $post->category->name }}</span>
                             @endif
                             <h3 class="font-bold text-[#111827] mt-2 mb-2 leading-snug group-hover:text-[#0066CC] transition"
-                                style="font-family: 'Lora', serif;">
+>
                                 <a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a>
                             </h3>
                             @if($post->excerpt)
@@ -394,7 +394,7 @@
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
             <div>
                 <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-3">Communauté</p>
-                <h2 class="text-3xl font-bold text-[#111827]" style="font-family: 'Lora', serif;">Membres récemment vérifiés</h2>
+                <h2 class="text-3xl font-bold text-[#111827]">Membres récemment vérifiés</h2>
             </div>
             <a href="{{ route('directory.index') }}"
                class="text-[#0066CC] text-sm font-semibold hover:underline shrink-0">
@@ -465,7 +465,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-lg">
             <p class="text-[#DC143C] text-xs font-semibold uppercase tracking-widest mb-4">Rester informé</p>
-            <h2 class="text-white font-bold text-2xl mb-3" style="font-family: 'Lora', serif;">
+            <h2 class="text-white font-bold text-2xl mb-3">
                 Pas encore prêt(e) à rejoindre ?
             </h2>
             <p class="text-white/60 text-sm leading-relaxed mb-7">

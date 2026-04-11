@@ -5,18 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Authentification' }} — EmergenceBassila</title>
+    <title>{{ $title ?? 'Authentification' }} — Bassila Émergence</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=lora:400,600,700|source-sans-3:400,400i,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=lora:400,500,600,700|source-sans-3:400,400i,600,700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-
-    <style>
-        body { font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif; color: #111827; }
-        h1, h2, h3, .font-serif { font-family: 'Lora', Georgia, serif; }
-    </style>
 </head>
 <body class="antialiased">
 
@@ -39,11 +34,10 @@
 
         {{-- Brand & headline --}}
         <div class="relative px-12 pt-14">
-            <a href="{{ url('/') }}" class="inline-flex items-center gap-0.5 mb-16 group">
-                <span class="font-bold text-2xl text-[#0066CC]"
-                      style="font-family: 'Lora', serif;">Emergence</span><span
-                    class="font-bold text-2xl text-[#DC143C]"
-                    style="font-family: 'Lora', serif;">Bassila</span>
+            <a href="{{ url('/') }}" class="inline-block mb-16 group">
+                <img src="{{ asset('images/logo.png') }}"
+                     alt="Bassila Émergence"
+                     class="h-14 w-auto">
             </a>
 
             <h2 class="text-white/80 leading-tight mb-5"
@@ -62,7 +56,7 @@
                 <p class="text-white/40 text-sm italic leading-relaxed mb-2">
                     "Connectés, engagés, inspirants."
                 </p>
-                <span class="text-white/20 text-xs uppercase tracking-widest font-semibold">EmergenceBassila</span>
+                <span class="text-white/20 text-xs uppercase tracking-widest font-semibold">Bassila Émergence</span>
             </div>
         </div>
     </div>
@@ -72,11 +66,10 @@
 
         {{-- Mobile-only logo header --}}
         <header class="lg:hidden border-b border-gray-100 h-14 px-6 flex items-center">
-            <a href="{{ url('/') }}" class="flex items-center gap-0.5">
-                <span class="font-bold text-lg text-[#0066CC]"
-                      style="font-family: 'Lora', serif;">Emergence</span><span
-                    class="font-bold text-lg text-[#DC143C]"
-                    style="font-family: 'Lora', serif;">Bassila</span>
+            <a href="{{ url('/') }}" class="flex items-center">
+                <img src="{{ asset('images/logo-trans.png') }}"
+                     alt="Bassila Émergence"
+                     class="h-8 w-auto">
             </a>
         </header>
 
@@ -87,7 +80,7 @@
         </main>
 
         <footer class="border-t border-gray-100 py-4">
-            <p class="text-center text-xs text-gray-400">© {{ date('Y') }} EmergenceBassila. Tous droits réservés.</p>
+            <p class="text-center text-xs text-gray-400">© {{ date('Y') }} Bassila Émergence. Tous droits réservés.</p>
         </footer>
     </div>
 </div>

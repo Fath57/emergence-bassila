@@ -1,6 +1,6 @@
 <div>
     <div class="mb-8">
-        <h1 class="text-2xl font-bold text-[#111827] mb-1" style="font-family: 'Lora', serif;">Mot de passe oublié</h1>
+        <h1 class="text-2xl font-bold text-[#111827] mb-1">Mot de passe oublié</h1>
         <p class="text-sm text-gray-400">Entrez votre email pour recevoir un lien de réinitialisation.</p>
     </div>
 

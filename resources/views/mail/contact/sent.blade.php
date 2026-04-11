@@ -2,47 +2,87 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Message envoyé - Bassila Network</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Message envoyé — Bassila Émergence</title>
 </head>
-<body style="font-family: Arial, sans-serif; color: #333; background: #f5f5f5; margin: 0; padding: 20px;">
-    <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
-        <!-- Header -->
-        <div style="background: #0066CC; padding: 24px 32px;">
-            <h1 style="color: white; margin: 0; font-size: 20px;">Bassila Network</h1>
-            <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0; font-size: 13px;">Confirmation d'envoi</p>
-        </div>
+<body style="font-family: Arial, Helvetica, sans-serif; color: #111827; background: #f5f5f5; margin: 0; padding: 24px 12px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"
+                       style="max-width: 600px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
 
-        <!-- Content -->
-        <div style="padding: 32px;">
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
-                <div style="width: 32px; height: 32px; background: #d1fae5; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                    <span style="color: #059669; font-size: 16px;">✓</span>
-                </div>
-                <p style="margin: 0; font-weight: 600; font-size: 15px; color: #059669;">Votre message a bien été envoyé !</p>
-            </div>
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: white; padding: 28px 32px; border-bottom: 3px solid #0066CC;">
+                            <img src="{{ asset('images/logo-trans.png') }}"
+                                 alt="Bassila Émergence"
+                                 width="180"
+                                 style="display: block; height: auto; max-width: 180px; border: 0;">
+                        </td>
+                    </tr>
 
-            <p style="margin: 0 0 16px; color: #666;">
-                Votre message à <strong>{{ $contactMessage->receiver->name }}</strong> a été transmis avec succès.
-            </p>
+                    <!-- Subheader -->
+                    <tr>
+                        <td style="padding: 20px 32px 0;">
+                            <p style="margin: 0; font-size: 11px; color: #0066CC; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+                                Confirmation d'envoi
+                            </p>
+                        </td>
+                    </tr>
 
-            <!-- Message summary -->
-            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin-bottom: 24px;">
-                <p style="margin: 0 0 8px; font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em;">Destinataire</p>
-                <p style="margin: 0 0 16px; font-weight: 600;">{{ $contactMessage->receiver->name }}</p>
-                <p style="margin: 0 0 8px; font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em;">Sujet</p>
-                <p style="margin: 0; font-weight: 500;">{{ $contactMessage->subject }}</p>
-            </div>
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding: 16px 32px 32px;">
+                            <!-- Success badge -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 20px;">
+                                <tr>
+                                    <td style="background: #d1fae5; width: 36px; height: 36px; border-radius: 50%; text-align: center; vertical-align: middle;">
+                                        <span style="color: #059669; font-size: 18px; font-weight: 700;">&#10003;</span>
+                                    </td>
+                                    <td style="padding-left: 12px;">
+                                        <p style="margin: 0; font-weight: 600; font-size: 15px; color: #059669;">
+                                            Votre message a bien été envoyé
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
 
-            <p style="margin: 0; font-size: 13px; color: #9ca3af;">
-                Si vous n'obtenez pas de réponse, vous pouvez envoyer un email directement à votre contact.<br>
-                Merci d'utiliser Bassila Network !
-            </p>
-        </div>
+                            <p style="margin: 0 0 20px; color: #6b7280; font-size: 14px; line-height: 1.6;">
+                                Votre message à <strong style="color: #111827;">{{ $contactMessage->receiver->name }}</strong> a été transmis avec succès.
+                            </p>
 
-        <!-- Footer -->
-        <div style="background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 16px 32px; text-align: center;">
-            <p style="margin: 0; font-size: 12px; color: #9ca3af;">© {{ date('Y') }} Bassila Network. Tous droits réservés.</p>
-        </div>
-    </div>
+                            <!-- Message summary -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                                   style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 20px;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <p style="margin: 0 0 6px; font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Destinataire</p>
+                                        <p style="margin: 0 0 16px; font-weight: 600; font-size: 15px; color: #111827;">{{ $contactMessage->receiver->name }}</p>
+                                        <p style="margin: 0 0 6px; font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Sujet</p>
+                                        <p style="margin: 0; font-weight: 500; font-size: 14px;">{{ $contactMessage->subject }}</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <p style="margin: 0; font-size: 12px; color: #9ca3af; line-height: 1.5;">
+                                Si vous n'obtenez pas de réponse, vous pouvez envoyer un email directement à votre contact.
+                                Merci d'utiliser Bassila Émergence !
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background: #0A1628; padding: 18px 32px; text-align: center;">
+                            <p style="margin: 0; font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.05em;">
+                                © {{ date('Y') }} Bassila Émergence. Tous droits réservés.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

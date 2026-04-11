@@ -9,7 +9,7 @@ class Skill extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'category', 'sort_order'];
 
     public function profiles(): BelongsToMany
     {
