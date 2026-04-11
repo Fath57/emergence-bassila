@@ -1,5 +1,19 @@
 @extends('layouts.app')
-@section('title', $post->title)
+@section('title', $post->resolved_meta_title)
+@section('description', $post->resolved_meta_description)
+@push('head')
+    <meta property="og:title" content="{{ $post->resolved_meta_title }}">
+    <meta property="og:description" content="{{ $post->resolved_meta_description }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ route('blog.show', $post->slug) }}">
+    @if ($post->featured_image_url)
+        <meta property="og:image" content="{{ $post->featured_image_url }}">
+        <meta name="twitter:image" content="{{ $post->featured_image_url }}">
+    @endif
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $post->resolved_meta_title }}">
+    <meta name="twitter:description" content="{{ $post->resolved_meta_description }}">
+@endpush
 @section('content')
 
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -73,9 +87,9 @@
                 </div>
             @endif
 
-            {{-- Content --}}
-            <div class="text-gray-700 text-base leading-relaxed whitespace-pre-wrap">
-                {!! nl2br(e($post->content)) !!}
+            {{-- Content (sanitized HTML via BlogContentSanitizer) --}}
+            <div class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-[#0A1628] prose-a:text-[#0066CC]">
+                {!! $post->content !!}
             </div>
         </div>
     </article>

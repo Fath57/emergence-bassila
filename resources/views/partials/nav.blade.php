@@ -32,6 +32,10 @@
                        class="text-sm font-medium text-gray-600 hover:text-[#111827] transition hidden sm:block">
                         Mon profil
                     </a>
+                    <a href="{{ route('blog.mine') }}"
+                       class="text-sm font-medium {{ request()->routeIs('blog.mine') ? 'text-[#0066CC]' : 'text-gray-600 hover:text-[#111827]' }} transition hidden sm:block">
+                        Mes articles
+                    </a>
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
                         <button type="submit" class="text-sm font-medium text-gray-500 hover:text-[#DC143C] transition">
