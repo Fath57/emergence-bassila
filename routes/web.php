@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogImageUploadController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\NewsletterTrackingController;
 use App\Http\Controllers\ProfileController;
@@ -58,6 +59,9 @@ Route::get('/', function () {
 
     return view('welcome', compact('recentPosts', 'featuredProfiles', 'sectors', 'stats'));
 })->name('home');
+
+// SEO — sitemap
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 // Auth
 Route::middleware(['guest', 'throttle:10,1'])->group(function () {
