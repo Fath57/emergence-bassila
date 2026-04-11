@@ -66,7 +66,7 @@ Chain:
 | `Procfile` | Defines `web`, `worker`, `release` process types |
 | `nginx_app.conf` | Custom nginx config for Laravel front-controller routing on `public/` |
 | `.slugignore` | Excludes dev-only files and `node_modules/` from the final slug |
-| `app.json` | Declarative description of buildpacks (for Dokku re-initialization) |
+| `bin/post_compile` | PHP-buildpack build hook: creates `public/storage` symlink during slug compile | Create |
 | `scripts/dokku-setup.sh` | One-shot script: config vars, storage mount, process scaling, scheduler cron |
 | `package.json` (modified) | Adds `heroku-postbuild` script |
 
@@ -82,11 +82,14 @@ https://github.com/heroku/heroku-buildpack-php
 ```procfile
 web: vendor/bin/heroku-php-nginx -C nginx_app.conf public/
 worker: php artisan queue:work --tries=3 --timeout=90 --sleep=3
-release: php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan event:cache
+release: php artisan migrate --force
 ```
 
-- `release` runs **before** web/worker boot. A failed `release` aborts the deploy and keeps the previous version live.
+- `release` only runs `migrate --force`. Release-phase filesystem changes are not guaranteed to persist on Dokku's herokuish builds, so only DB-external state goes in release.
+- `storage:link` runs in `bin/post_compile` (see §4.8) during build phase — baked into the slug.
+- Laravel `*:cache` commands are intentionally NOT run in release. They can be added to `bin/post_compile` later once we confirm they don't need runtime-only env vars.
 - `worker` is scaled as a separate container so queued jobs (emails, image processing) don't share PHP-FPM workers with web traffic.
+- A failed `release` aborts the deploy and keeps the previous version live.
 
 ### 4.3 `nginx_app.conf`
 
@@ -120,35 +123,37 @@ CDC_Bassila_Network.md
 README.md
 ```
 
-### 4.5 `app.json`
-
-Minimal declarative description so Dokku can re-read buildpack config if needed:
-
-```json
-{
-  "name": "emergence-bassila",
-  "description": "Bassila Network Platform",
-  "buildpacks": [
-    { "url": "https://github.com/heroku/heroku-buildpack-nodejs" },
-    { "url": "https://github.com/heroku/heroku-buildpack-php" }
-  ]
-}
-```
-
-### 4.6 `package.json` change
+### 4.5 `package.json` change
 
 Add `"heroku-postbuild": "vite build"` to the `scripts` block so the Node buildpack explicitly runs the Vite build (rather than relying on implicit `build` invocation).
 
-### 4.7 `scripts/dokku-setup.sh`
+### 4.6 `scripts/dokku-setup.sh`
 
 Idempotent bash script, run **once** after the deploy files are committed and before the first `git push dokku`. Responsibilities :
 
-1. `dokku config:set --no-restart emergence-bassila ...` — push all environment variables in a single call.
-2. `dokku storage:ensure-directory emergence-bassila-storage` + `dokku storage:mount ... /app/storage/app/public` — persist user uploads.
-3. `dokku ps:scale emergence-bassila web=1 worker=1` — start 1 web + 1 worker container.
-4. Install the Laravel scheduler cron entry in `/etc/cron.d/emergence-bassila` on the host.
+1. **Preflight**: SSH ping to verify host reachability before making any changes.
+2. `dokku config:set --no-restart emergence-bassila ...` — push all environment variables in a single call.
+3. `dokku storage:ensure-directory` + idempotent `dokku storage:mount` (guarded by `dokku storage:list | grep`) — persist user uploads; safe to re-run.
+4. `dokku ps:scale emergence-bassila web=1 worker=1` — start 1 web + 1 worker container.
+5. Install the Laravel scheduler cron entry in `/etc/cron.d/emergence-bassila` on the host.
 
 The script SSHes into `digit_immo_server` via the existing alias. It treats `APP_KEY` as a required env var passed in by the operator, e.g. `APP_KEY=base64:... ./scripts/dokku-setup.sh`.
+
+**Security note**: `APP_KEY` and `MAIL_PASSWORD` are passed as command-line arguments to `dokku config:set`, briefly visible in `/proc/<pid>/cmdline` on the remote host during execution. Accepted for v1 (single-tenant host). For multi-tenant environments, pipe secrets via stdin instead.
+
+### 4.7 `bin/post_compile`
+
+Heroku PHP buildpack post-compile hook. Runs during the build phase after `composer install`, inside the slug. Filesystem changes are baked into the final image.
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "-----> post_compile: creating storage symlink"
+php artisan storage:link
+```
+
+Cannot access runtime config vars (`APP_KEY`, `DATABASE_URL`) — those are only injected at release/runtime.
 
 ---
 
@@ -282,8 +287,9 @@ ssh digit_immo_server "dokku url emergence-bassila"
 git receive
   → heroku/nodejs buildpack (npm install, heroku-postbuild → vite build)
   → heroku/php buildpack (composer install --no-dev --optimize-autoloader)
+  → bin/post_compile hook (php artisan storage:link)
   → slug compile (.slugignore applied)
-  → release phase (migrate + storage:link + config/route/view/event cache)
+  → release phase (php artisan migrate --force)
   → web process start (heroku-php-nginx on public/)
   → worker process start (queue:work)
   → zero-downtime container swap
@@ -293,7 +299,7 @@ A failed release phase aborts the deploy; the previous release stays live.
 
 ### 7.3 `APP_URL` bootstrap note
 
-Dokku's virtual hostname is `<app>.<global-domain>` where `<global-domain>` is set on the host. We don't know it ahead of time, so we deploy with a placeholder `APP_URL=http://emergence-bassila.localhost`, read the real URL with `dokku url emergence-bassila`, then update `APP_URL` with a second `dokku config:set`. This is a one-time bootstrap cost.
+Dokku's virtual hostname is `<app>.<global-domain>` where `<global-domain>` is set on the host. We don't know it ahead of time, so we deploy with a placeholder `APP_URL=http://emergence-bassila.localhost`, read the real URL with `dokku url emergence-bassila`, then update `APP_URL` with a second `dokku config:set` which triggers a redeploy. Because `config:cache` is not run during release, Laravel picks up the new `APP_URL` on the next request without needing a manual `ps:rebuild`. This is a one-time bootstrap cost.
 
 ---
 

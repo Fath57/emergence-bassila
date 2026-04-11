@@ -20,7 +20,7 @@
 | `Procfile` | web/worker/release process definitions | Create |
 | `nginx_app.conf` | Laravel front-controller rewrite rule | Create |
 | `.slugignore` | Exclude dev/CI files from the slug | Create |
-| `app.json` | Declarative app description (buildpacks) | Create |
+| `bin/post_compile` | PHP buildpack post-compile hook: runs `php artisan storage:link` | Create |
 | `package.json` | Add `heroku-postbuild` script | Modify |
 | `scripts/dokku-setup.sh` | One-shot server provisioning (config, storage, scale, cron) | Create |
 
@@ -94,7 +94,7 @@ Write `/opt/lampp/htdocs/personal/sites/emergence-bassila/Procfile` with exactly
 ```procfile
 web: vendor/bin/heroku-php-nginx -C nginx_app.conf public/
 worker: php artisan queue:work --tries=3 --timeout=90 --sleep=3
-release: php artisan migrate --force && php artisan storage:link && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan event:cache
+release: php artisan migrate --force
 ```
 
 - [ ] **Step 2: Verify content**
@@ -104,7 +104,9 @@ Expected: three lines, one per process type (`web`, `worker`, `release`).
 
 Key invariants:
 - `web` uses `heroku-php-nginx` pointing at `public/` with the custom `nginx_app.conf`.
-- `release` runs before web/worker boot; a failure aborts the deploy.
+- `release` runs **only** `php artisan migrate --force` — release-phase filesystem changes do not persist on herokuish builds.
+- `storage:link` runs in `bin/post_compile` (Task 6) during build phase.
+- A failed `release` aborts the deploy.
 
 ---
 
@@ -176,30 +178,43 @@ Expected: the 13 lines above, in that order.
 
 ---
 
-### Task 6: Create `app.json`
+### Task 6: Create `bin/post_compile` (PHP buildpack post-compile hook)
 
 **Files:**
-- Create: `app.json`
+- Create: `bin/post_compile`
 
-- [ ] **Step 1: Write the file**
+- [ ] **Step 1: Ensure `bin/` directory exists**
 
-Write `/opt/lampp/htdocs/personal/sites/emergence-bassila/app.json` with exactly:
+Run: `test -d bin || mkdir bin`
 
-```json
-{
-  "name": "emergence-bassila",
-  "description": "Bassila Network Platform",
-  "buildpacks": [
-    { "url": "https://github.com/heroku/heroku-buildpack-nodejs" },
-    { "url": "https://github.com/heroku/heroku-buildpack-php" }
-  ]
-}
+- [ ] **Step 2: Write the hook script**
+
+Write `/opt/lampp/htdocs/personal/sites/emergence-bassila/bin/post_compile` with exactly:
+
+```bash
+#!/usr/bin/env bash
+# Heroku PHP buildpack post-compile hook.
+# Runs during build phase, after composer install, inside the slug.
+# Filesystem changes here ARE baked into the final image.
+#
+# Do NOT run anything here that requires runtime config vars
+# (APP_KEY, DATABASE_URL, etc.) — those are only available at
+# release phase and runtime.
+
+set -euo pipefail
+
+echo "-----> post_compile: creating storage symlink"
+php artisan storage:link
 ```
 
-- [ ] **Step 2: Verify JSON is valid**
+- [ ] **Step 3: Make it executable**
 
-Run: `php -r 'json_decode(file_get_contents("app.json"), true, 512, JSON_THROW_ON_ERROR); echo "ok\n";'`
-Expected output: `ok`
+Run: `chmod +x bin/post_compile`
+
+- [ ] **Step 4: Syntax check**
+
+Run: `bash -n bin/post_compile && echo "syntax ok"`
+Expected: `syntax ok`
 
 ---
 
@@ -322,13 +337,13 @@ Expected: first line is `ERROR: APP_KEY environment variable is required.` and t
 ### Task 8: Commit all deploy artifacts in a single commit
 
 **Files:**
-- Commit: `.buildpacks`, `Procfile`, `nginx_app.conf`, `.slugignore`, `app.json`, `package.json`, `scripts/dokku-setup.sh`
+- Commit: `.buildpacks`, `Procfile`, `nginx_app.conf`, `.slugignore`, `package.json`, `scripts/dokku-setup.sh`, `bin/post_compile`
 
 - [ ] **Step 1: Stage only the new/modified deploy files**
 
 Run:
 ```bash
-git add .buildpacks Procfile nginx_app.conf .slugignore app.json package.json scripts/dokku-setup.sh
+git add .buildpacks Procfile nginx_app.conf .slugignore package.json scripts/dokku-setup.sh bin/post_compile
 ```
 
 Do **not** use `git add -A` or `git add .` — there is pre-existing WIP in the working tree that the user will handle separately.
@@ -341,7 +356,7 @@ Expected output (order may vary):
 .buildpacks
 .slugignore
 Procfile
-app.json
+bin/post_compile
 nginx_app.conf
 package.json
 scripts/dokku-setup.sh
@@ -356,9 +371,10 @@ feat(deploy): Dokku buildpack config + setup script
 
 Adds Heroku multi-buildpack chain (Node then PHP), Procfile with
 web/worker/release process types, Laravel nginx rewrite config,
-slug filter, app.json descriptor, package.json heroku-postbuild
-hook, and a one-shot scripts/dokku-setup.sh for server
-provisioning (config vars, storage mount, scaling, scheduler cron).
+slug filter, package.json heroku-postbuild hook, a bin/post_compile
+hook that creates the public/storage symlink during slug compile,
+and a one-shot scripts/dokku-setup.sh for server provisioning
+(config vars, idempotent storage mount, scaling, scheduler cron).
 
 Refs docs/superpowers/specs/2026-04-11-dokku-deployment-design.md
 

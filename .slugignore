@@ -1,0 +1,13 @@
+node_modules/
+tests/
+docs/
+specs/
+.specify/
+.idea/
+.github/
+phpstan.neon
+pint.json
+docker-compose.yml
+CHANGELOG.md
+CDC_Bassila_Network.md
+README.md
