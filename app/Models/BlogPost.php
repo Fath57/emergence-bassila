@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class BlogPost extends Model
 {
@@ -18,6 +19,8 @@ class BlogPost extends Model
         'slug',
         'content',
         'excerpt',
+        'meta_title',
+        'meta_description',
         'featured_image_url',
         'status',
         'category_id',
@@ -71,5 +74,16 @@ class BlogPost extends Model
     {
         $wordCount = str_word_count(strip_tags((string) $this->content));
         return max(1, (int) ceil($wordCount / 200));
+    }
+
+    public function getResolvedMetaTitleAttribute(): string
+    {
+        return $this->meta_title ?: (string) $this->title;
+    }
+
+    public function getResolvedMetaDescriptionAttribute(): string
+    {
+        return $this->meta_description
+            ?: Str::limit(strip_tags((string) $this->content), 155);
     }
 }
