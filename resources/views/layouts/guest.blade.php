@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'Authentification' }} — Bassila Émergence</title>
+    <meta name="description" content="Authentification sur Bassila Émergence — le réseau des Bassilais à travers le monde.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=lora:400,500,600,700|source-sans-3:400,400i,600,700&display=swap" rel="stylesheet">
