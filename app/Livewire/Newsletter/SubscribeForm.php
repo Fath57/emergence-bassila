@@ -2,18 +2,20 @@
 
 namespace App\Livewire\Newsletter;
 
-use App\Models\NewsletterSubscription;
+use App\Models\NewsletterSubscriber;
 use Livewire\Component;
 
 class SubscribeForm extends Component
 {
     public string $email = '';
-    public bool $subscribed = false;
+    public string $firstName = '';
+    public bool $pending = false;
 
     protected function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:newsletter_subscriptions,email'],
+            'email'     => ['required', 'email', 'unique:newsletter_subscribers,email'],
+            'firstName' => ['nullable', 'string', 'max:100'],
         ];
     }
 
@@ -21,10 +23,15 @@ class SubscribeForm extends Component
     {
         $this->validate();
 
-        NewsletterSubscription::create(['email' => $this->email]);
+        NewsletterSubscriber::create([
+            'email'      => $this->email,
+            'first_name' => $this->firstName ?: null,
+            'source'     => 'public_form',
+        ]);
 
-        $this->email = '';
-        $this->subscribed = true;
+        $this->email     = '';
+        $this->firstName = '';
+        $this->pending   = true;
     }
 
     public function render()
