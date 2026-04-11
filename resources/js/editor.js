@@ -156,11 +156,16 @@ function openImageModal(file, editor) {
 }
 
 window.initBassilaEditor = function initBassilaEditor(root) {
+    // Idempotent: skip roots that already have an editor attached.
+    if (root.dataset.editorInitialized === '1') return;
+
     const hidden = root.querySelector('[data-editor-content]');
     const mount  = root.querySelector('[data-editor-mount]');
     const toolbar = root.querySelector('[data-editor-toolbar]');
 
     if (!mount || !hidden) return;
+
+    root.dataset.editorInitialized = '1';
 
     const editor = new Editor({
         element: mount,
@@ -253,9 +258,11 @@ window.initBassilaEditor = function initBassilaEditor(root) {
     }
 };
 
-// Auto-init on every editor root present at DOM ready. Livewire re-renders
-// preserve elements with wire:ignore, so we don't need to re-init on
-// subsequent updates.
-document.addEventListener('DOMContentLoaded', () => {
+// Auto-init on every editor root. Runs on DOMContentLoaded for first paint
+// and on livewire:navigated so the editor also initializes after a wire:navigate
+// page transition. init is idempotent via data-editor-initialized.
+function initAllEditors() {
     document.querySelectorAll('[data-editor]').forEach((root) => window.initBassilaEditor(root));
-});
+}
+document.addEventListener('DOMContentLoaded', initAllEditors);
+document.addEventListener('livewire:navigated', initAllEditors);
