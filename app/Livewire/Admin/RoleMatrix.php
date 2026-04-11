@@ -4,10 +4,9 @@ namespace App\Livewire\Admin;
 
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-/**
- * Stub — full implementation in ② Task 10.
- */
 class RoleMatrix extends Component
 {
     public function mount(): void
@@ -18,11 +17,27 @@ class RoleMatrix extends Component
     #[Layout('layouts.admin')]
     public function render()
     {
-        return <<<'HTML'
-        <div>
-            <h1 class="text-2xl font-bold text-[#111827]">Rôles &amp; permissions</h1>
-            <p class="text-sm text-gray-400 mt-2">Implémentation complète en cours (Task 10).</p>
-        </div>
-        HTML;
+        // Group permissions by their domain (first dot-separated segment).
+        $grouped = Permission::query()
+            ->orderBy('name')
+            ->get()
+            ->groupBy(fn (Permission $p) => explode('.', $p->name)[0]);
+
+        // Roles in a fixed display order: admin → editor → member.
+        $roles = Role::with('permissions')
+            ->orderByRaw("
+                CASE name
+                    WHEN 'admin'  THEN 1
+                    WHEN 'editor' THEN 2
+                    WHEN 'member' THEN 3
+                    ELSE 4
+                END
+            ")
+            ->get();
+
+        return view('livewire.admin.role-matrix', [
+            'grouped' => $grouped,
+            'roles'   => $roles,
+        ]);
     }
 }
