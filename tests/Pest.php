@@ -9,3 +9,5 @@ uses(TestCase::class, RefreshDatabase::class)
         $this->seed(RolePermissionSeeder::class);
     })
     ->in('Feature');
+
+uses(TestCase::class)->in('Unit/Seo');
