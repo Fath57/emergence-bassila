@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogImageUploadController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlogController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
@@ -111,6 +112,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('can:create,App\Models\BlogPost')
         ->name('blog.upload-image');
 });
+
+// Newsletter - public (no auth required)
+Route::get('/newsletter/confirmer/{token}',  [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
+Route::get('/newsletter/desabonner/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+// RFC 8058 one-click unsubscribe (POST from mail clients — CSRF exempted in bootstrap/app.php)
+Route::post('/newsletter/desabonner/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe.post');
 
 // Blog - public
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

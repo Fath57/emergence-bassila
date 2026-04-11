@@ -16,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'registration.check' => \App\Http\Middleware\CheckRegistrationOpen::class,
         ]);
 
+        // RFC 8058 one-click unsubscribe: mail clients POST directly, no session/CSRF
+        $middleware->validateCsrfTokens(except: [
+            'newsletter/desabonner/*',
+        ]);
+
         $middleware->appendToGroup('web', [
             \App\Http\Middleware\MaintenanceModeCheck::class,
         ]);
