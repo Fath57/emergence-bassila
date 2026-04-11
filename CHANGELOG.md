@@ -9,6 +9,27 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — Admin autonomy sub-project ② RBAC + User Management (2026-04-11)
+
+- **17 permissions** seeded across 8 domains via the new `RolePermissionSeeder` (replaces the minimal `RoleSeeder`): `posts.*`, `comments.moderate`, `profiles.moderate`, `users.*`, `roles.view`, `settings.manage`, `newsletter.*`, `admin.access`
+- **3 roles redefined**: `admin` (full), `editor` (trusted contributor — `posts.create/publish.own/edit.own + admin.access`), `member` (default — `posts.create + posts.edit.own`)
+- Legacy role migration: existing `user` role assignments become `member`, `moderator` become `editor`, orphaned rows deleted
+- **All `hasRole('admin')` authorization gates migrated to `can(...)` checks** across BlogPostPolicy, ProfilePolicy, all 4 admin Livewire components, Register, seeders, and 11 test files. Only 2 legitimate role-membership checks remain (in `User::isLastActiveAdmin` and `EditUser::changeRole`) where the intent is "is this user in the admin role" rather than an authorization gate
+- New `publish()` method on `BlogPostPolicy` — owner gets `posts.publish.own`, others need `posts.edit.any`
+- **`is_active` flag on users** — deactivated users cannot log in, their public profile returns 404, and they are hidden from the directory
+- **`user_invitations` table** + `UserInvitation` model with token, expiry, `accepted_at`, and LogsActivity audit
+- **Public invitation acceptance flow** at `/invitation/{token}` — token validation (404 / expired-redirect / already-used-redirect), pre-filled first/last name, password form, transactional account creation + role assignment + auto-login + redirect to profile creation
+- **`InvitationMail`** template matching the existing transactional mail aesthetic (white header with logo, blue accent border, navy footer, optional personal message block)
+- **Admin `/admin/utilisateurs`** list page with 2 tabs (active users, pending invitations), search by name/email, role filter, status filter (active/inactive/unverified), resend and cancel invitation actions
+- **Admin `/admin/utilisateurs/inviter`** invite form — email (required + unique against users AND pending invitations), optional first/last name, role dropdown with French labels, optional personal message (500 char max), creates `UserInvitation` with 64-char token and 7-day expiry, queues `InvitationMail`, redirects to pending tab
+- **Admin `/admin/utilisateurs/{user}/editer`** edit page with 4 sections (basic info, role dropdown, active/inactive toggle, activity history from activity_log) — **anti-lockout guards** block demoting or deactivating the last active admin both in UI (disabled controls) and at action entry (explicit `User::isLastActiveAdmin` check)
+- **Admin `/admin/roles`** read-only permission matrix page — 3 roles × 17 permissions grid grouped by French domain labels, checkmark/em-dash cells, disclaimer banner explaining roles are code-managed, footnote clarifying the `posts.create` × `member` setting-gated case
+- **User model additions**: `LogsActivity` trait with `logOnly(['email', 'is_active'])`, static `isLastActiveAdmin(User)` method for anti-lockout guards, `is_active` added to fillable and cast as boolean
+- **Login deactivation check** — after a successful `Auth::attempt`, verifies `is_active` and logs out + displays French error if false
+- **23 new tests** covering unit (isLastActiveAdmin × 4), seeder (role/permission creation × 6), deactivation semantics (5), invitation acceptance (5), invitation send (4), anti-lockout + edit user (6), role matrix (2), users list (3)
+- Admin sidebar nav now includes **Utilisateurs** (user-plus icon) and **Rôles** (shield icon) entries
+- **Baseline permissions bridge**: `admin.access` and `settings.manage` were seeded early during sub-project ① preparation so the admin middleware and settings page could use `can(...)` from the start
+
 ### Added — Admin autonomy sub-project ① Site Settings (2026-04-11)
 
 - **Typed key-value settings table** with 7 initial feature flags:
