@@ -1,29 +1,44 @@
+@php
+    use App\Support\Seo\SeoData;
+
+    $authorProfile = $post->user->profile ?? null;
+    $authorName = $authorProfile
+        ? trim($authorProfile->first_name . ' ' . $authorProfile->last_name)
+        : null;
+
+    $seo = SeoData::default()
+        ->withTitle($post->resolved_meta_title)
+        ->withDescription($post->resolved_meta_description)
+        ->withOgType('article')
+        ->withOgImage($post->featured_image_url ?: null, $post->title)
+        ->withArticleMeta([
+            'publishedTime' => optional($post->published_at)->toIso8601String(),
+            'modifiedTime'  => optional($post->updated_at)->toIso8601String(),
+            'author'        => $authorName,
+            'section'       => $post->category?->name,
+        ]);
+@endphp
 @extends('layouts.app')
 @section('title', $post->resolved_meta_title)
 @section('description', $post->resolved_meta_description)
+
 @push('head')
-    <meta property="og:title" content="{{ $post->resolved_meta_title }}">
-    <meta property="og:description" content="{{ $post->resolved_meta_description }}">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="{{ route('blog.show', $post->slug) }}">
-    @if ($post->featured_image_url)
-        <meta property="og:image" content="{{ $post->featured_image_url }}">
-        <meta name="twitter:image" content="{{ $post->featured_image_url }}">
-    @endif
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $post->resolved_meta_title }}">
-    <meta name="twitter:description" content="{{ $post->resolved_meta_description }}">
+    <x-seo.json-ld :data="\App\Support\Seo\StructuredData::article($post)" />
 @endpush
+
 @section('content')
 
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
     {{-- Breadcrumb --}}
-    <nav class="mb-6 text-sm text-gray-400 flex items-center gap-2">
-        <a href="{{ route('blog.index') }}" class="hover:text-[#0066CC] transition" wire:navigate>Blog</a>
-        <span>/</span>
-        <span class="text-gray-700 truncate">{{ $post->title }}</span>
-    </nav>
+    <x-breadcrumbs
+        :items="[
+            ['name' => 'Accueil', 'url' => route('home')],
+            ['name' => 'Blog', 'url' => route('blog.index')],
+            ['name' => $post->title, 'url' => null],
+        ]"
+        :with-json-ld="true"
+    />
 
     {{-- Article --}}
     <article class="bg-white border border-gray-200 overflow-hidden mb-10">
@@ -31,7 +46,9 @@
         @if ($post->featured_image_url)
             <img src="{{ $post->featured_image_url }}"
                  alt="{{ $post->title }}"
-                 class="w-full h-64 object-cover">
+                 width="1200" height="630"
+                 class="w-full h-64 object-cover"
+                 loading="lazy" decoding="async">
         @endif
 
         <div class="p-8 sm:p-10">

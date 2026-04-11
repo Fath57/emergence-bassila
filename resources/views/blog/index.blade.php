@@ -1,5 +1,14 @@
+@php
+    use App\Support\Seo\SeoData;
+
+    $seo = SeoData::default()
+        ->withTitle('Blog — Histoires & Actualités de la communauté Bassilaise')
+        ->withDescription('Articles de la communauté Bassilaise : témoignages, conseils de carrière, actualités du Bénin et réflexions sur la diaspora.')
+        ->withOgType('website');
+@endphp
 @extends('layouts.app')
 @section('title', 'Blog')
+@section('description', 'Articles de la communauté Bassilaise : témoignages, conseils de carrière, actualités du Bénin et réflexions sur la diaspora.')
 @section('content')
 
 {{-- Page header --}}
