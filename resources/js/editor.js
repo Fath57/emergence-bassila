@@ -18,6 +18,143 @@ import 'highlight.js/styles/github.css';
 
 const lowlight = createLowlight(common);
 
+/**
+ * Open the image insertion modal and walk the user through:
+ *   1. preview the picked file
+ *   2. enter alt text
+ *   3. upload to /blog/upload-image
+ *   4. insert <img> into TipTap
+ *
+ * Replaces window.prompt() (alt) and window.alert() (upload failure)
+ * with a fully-styled Blade modal living under [data-editor-modal].
+ *
+ * Returns a Promise that resolves with the public URL on success or
+ * rejects on cancel / error. The caller is expected to await it from
+ * within a toolbar click handler.
+ */
+function openImageModal(file, editor) {
+    const modal       = document.querySelector('[data-editor-modal]');
+    if (!modal) {
+        // Defensive fallback — if the modal markup is missing for any
+        // reason, degrade to the native prompt rather than crashing.
+        return Promise.resolve({ nativeFallback: true });
+    }
+
+    const panel       = modal.querySelector('[data-editor-modal-panel]');
+    const previewWrap = modal.querySelector('[data-editor-modal-preview]');
+    const previewImg  = modal.querySelector('[data-editor-modal-preview-img]');
+    const input       = modal.querySelector('[data-editor-modal-input]');
+    const spinner     = modal.querySelector('[data-editor-modal-spinner]');
+    const errorBox    = modal.querySelector('[data-editor-modal-error]');
+    const cancelBtn   = modal.querySelector('[data-editor-modal-cancel]');
+    const confirmBtn  = modal.querySelector('[data-editor-modal-confirm]');
+
+    // Reset state
+    input.value = '';
+    errorBox.classList.add('hidden');
+    errorBox.textContent = '';
+    spinner.classList.add('hidden');
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = "Insérer l'image";
+
+    // Preview the local file before upload
+    const previewUrl = URL.createObjectURL(file);
+    previewImg.src   = previewUrl;
+    previewWrap.classList.remove('hidden');
+
+    // Show modal
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    // Focus the input next tick so the transition completes
+    setTimeout(() => input.focus(), 30);
+
+    return new Promise((resolve) => {
+        const cleanup = () => {
+            URL.revokeObjectURL(previewUrl);
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            cancelBtn.removeEventListener('click', onCancel);
+            confirmBtn.removeEventListener('click', onConfirm);
+            document.removeEventListener('keydown', onKey);
+            modal.removeEventListener('click', onBackdrop);
+        };
+
+        const onCancel = () => {
+            cleanup();
+            resolve({ cancelled: true });
+        };
+
+        const onBackdrop = (e) => {
+            // Clicking outside the panel (on the backdrop) cancels
+            if (e.target === modal) onCancel();
+        };
+
+        const onKey = (e) => {
+            if (e.key === 'Escape') { e.preventDefault(); onCancel(); }
+            else if (e.key === 'Enter' && document.activeElement === input) {
+                e.preventDefault();
+                onConfirm();
+            }
+        };
+
+        const showError = (message) => {
+            errorBox.textContent = message;
+            errorBox.classList.remove('hidden');
+            spinner.classList.add('hidden');
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = "Réessayer";
+        };
+
+        const onConfirm = async () => {
+            const alt = input.value.trim();
+
+            // Start upload
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = "Téléversement…";
+            spinner.classList.remove('hidden');
+            errorBox.classList.add('hidden');
+
+            const fd = new FormData();
+            fd.append('image', file);
+
+            try {
+                const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+                const res = await fetch('/blog/upload-image', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfMeta ? csrfMeta.content : '',
+                        'Accept': 'application/json',
+                    },
+                    body: fd,
+                });
+
+                if (!res.ok) {
+                    let msg = "Le téléversement a échoué.";
+                    try {
+                        const err = await res.json();
+                        if (err?.errors?.image?.[0]) msg = err.errors.image[0];
+                        else if (err?.message)       msg = err.message;
+                    } catch (_) { /* ignore JSON parse issues */ }
+                    showError(msg);
+                    return;
+                }
+
+                const { url } = await res.json();
+                editor.chain().focus().setImage({ src: url, alt }).run();
+                cleanup();
+                resolve({ url });
+            } catch (e) {
+                showError("Le téléversement a échoué — vérifiez votre connexion.");
+            }
+        };
+
+        cancelBtn.addEventListener('click', onCancel);
+        confirmBtn.addEventListener('click', onConfirm);
+        document.addEventListener('keydown', onKey);
+        modal.addEventListener('click', onBackdrop);
+    });
+}
+
 window.initBassilaEditor = function initBassilaEditor(root) {
     const hidden = root.querySelector('[data-editor-content]');
     const mount  = root.querySelector('[data-editor-mount]');
@@ -100,35 +237,15 @@ window.initBassilaEditor = function initBassilaEditor(root) {
                     break;
                 }
                 case 'image': {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = 'image/jpeg,image/png,image/webp,image/gif';
-                    input.addEventListener('change', async () => {
-                        const file = input.files?.[0];
+                    const fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.accept = 'image/jpeg,image/png,image/webp,image/gif';
+                    fileInput.addEventListener('change', () => {
+                        const file = fileInput.files?.[0];
                         if (!file) return;
-                        const alt = window.prompt(
-                            "Texte alternatif (laissez vide uniquement si l'image est purement décorative)",
-                            '',
-                        );
-                        if (alt === null) return; // cancelled
-                        const fd = new FormData();
-                        fd.append('image', file);
-                        const res = await fetch('/blog/upload-image', {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                                'Accept': 'application/json',
-                            },
-                            body: fd,
-                        });
-                        if (!res.ok) {
-                            window.alert('Échec du téléversement de l\'image.');
-                            return;
-                        }
-                        const { url } = await res.json();
-                        editor.chain().focus().setImage({ src: url, alt }).run();
+                        openImageModal(file, editor);
                     });
-                    input.click();
+                    fileInput.click();
                     break;
                 }
             }
