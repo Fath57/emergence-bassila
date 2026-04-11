@@ -7,6 +7,7 @@ use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\ManagePosts as AdminManagePosts;
 use App\Livewire\Admin\ModerateComments as AdminModerateComments;
 use App\Livewire\Admin\ModerateProfiles as AdminModerateProfiles;
+use App\Livewire\Auth\AcceptInvitation;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Auth\ForgotPassword;
@@ -69,6 +70,9 @@ Route::post('/deconnexion', function () {
     request()->session()->regenerateToken();
     return redirect('/');
 })->middleware('auth')->name('logout');
+
+// Public invitation acceptance (no auth required — token-gated)
+Route::get('/invitation/{token}', AcceptInvitation::class)->name('invitation.accept');
 
 // Email verification
 Route::get('/email/verify', VerifyEmail::class)->middleware('auth')->name('verification.notice');
