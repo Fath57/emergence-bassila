@@ -22,13 +22,18 @@ class CommentForm extends Component
 
     public function submit(): void
     {
+        if (! setting('comments.enabled', true)) {
+            $this->addError('content', 'Les commentaires sont actuellement désactivés.');
+            return;
+        }
+
         $this->validate();
 
         BlogComment::create([
             'blog_post_id' => $this->post->id,
             'user_id'      => Auth::id(),
             'content'      => $this->content,
-            'moderated_at' => null,
+            'moderated_at' => setting('comments.require_moderation', true) ? null : now(),
         ]);
 
         $this->content    = '';

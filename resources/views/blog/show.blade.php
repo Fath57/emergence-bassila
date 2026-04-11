@@ -35,7 +35,7 @@
 
             {{-- Title --}}
             <h1 class="text-2xl font-bold text-[#111827] mb-6 leading-tight"
-                style="font-family: 'Lora', serif;">
+>
                 {{ $post->title }}
             </h1>
 
@@ -83,7 +83,7 @@
     {{-- Comments --}}
     <section>
         <h2 class="font-bold text-lg text-[#111827] mb-5 pb-3 border-b border-gray-200"
-            style="font-family: 'Lora', serif;">
+>
             Commentaires <span class="font-normal text-gray-400 text-base">({{ $post->comments->count() }})</span>
         </h2>
 
@@ -116,18 +116,24 @@
             <p class="text-sm text-gray-500 mb-6">Soyez le premier à commenter cet article.</p>
         @endif
 
-        @auth
-            <livewire:blog.comment-form :post="$post" />
-        @else
-            <div class="border border-gray-200 p-6 text-center">
-                <p class="text-sm text-gray-600 mb-4">Connectez-vous pour laisser un commentaire.</p>
-                <a href="{{ route('login') }}"
-                   class="bg-[#0066CC] hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 transition"
-                   wire:navigate>
-                    Se connecter
-                </a>
+        @if (! setting('comments.enabled', true))
+            <div class="bg-gray-50 border border-gray-200 p-4 text-sm text-gray-500 text-center">
+                Les commentaires sont actuellement désactivés.
             </div>
-        @endauth
+        @else
+            @auth
+                <livewire:blog.comment-form :post="$post" />
+            @else
+                <div class="border border-gray-200 p-6 text-center">
+                    <p class="text-sm text-gray-600 mb-4">Connectez-vous pour laisser un commentaire.</p>
+                    <a href="{{ route('login') }}"
+                       class="bg-[#0066CC] hover:bg-blue-800 text-white text-sm font-semibold px-5 py-2 transition"
+                       wire:navigate>
+                        Se connecter
+                    </a>
+                </div>
+            @endauth
+        @endif
     </section>
 </div>
 
