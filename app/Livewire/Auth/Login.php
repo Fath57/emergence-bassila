@@ -28,6 +28,12 @@ class Login extends Component
             return;
         }
 
+        if (! Auth::user()->is_active) {
+            Auth::logout();
+            $this->addError('email', 'Votre compte a été désactivé. Contactez un administrateur.');
+            return;
+        }
+
         session()->regenerate();
 
         $this->redirect(route('directory.index'), navigate: true);

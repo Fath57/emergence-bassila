@@ -69,6 +69,7 @@ class SearchDirectory extends Component
     public function results()
     {
         return Profile::with(['sector', 'skills'])
+            ->whereHas('user', fn ($q) => $q->where('is_active', true))
             ->search($this->query ?: null)
             ->inSector($this->sector)
             ->inCountry($this->country ?: null)

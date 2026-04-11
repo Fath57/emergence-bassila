@@ -11,7 +11,9 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        $profile->loadMissing(['skills', 'sector']);
+        $profile->loadMissing(['skills', 'sector', 'user']);
+
+        abort_if(! $profile->user || ! $profile->user->is_active, 404);
 
         return view('profile.show', compact('profile'));
     }
