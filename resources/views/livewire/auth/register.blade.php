@@ -50,10 +50,22 @@
             <label for="password" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
                 Mot de passe
             </label>
-            <input wire:model="password"
-                   id="password" type="password" autocomplete="new-password"
-                   placeholder="8 caractères minimum"
-                   class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('password') border-red-400 @enderror">
+            <div class="relative" x-data="{ show: false }">
+                <input wire:model="password"
+                       id="password" :type="show ? 'text' : 'password'" autocomplete="new-password"
+                       placeholder="8 caractères minimum"
+                       class="w-full border border-gray-200 px-4 py-3 pr-10 text-sm focus:outline-none focus:border-[#0066CC] transition @error('password') border-red-400 @enderror">
+                <button type="button" @click="show = !show"
+                        class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600 transition">
+                    <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    <svg x-show="show" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.654-4.592M9.88 9.88a3 3 0 104.24 4.24M3 3l18 18"/>
+                    </svg>
+                </button>
+            </div>
             @error('password') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
         </div>
 
@@ -61,10 +73,22 @@
             <label for="password_confirmation" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
                 Confirmer le mot de passe
             </label>
-            <input wire:model="password_confirmation"
-                   id="password_confirmation" type="password" autocomplete="new-password"
-                   placeholder="Répétez le mot de passe"
-                   class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition">
+            <div class="relative" x-data="{ show: false }">
+                <input wire:model="password_confirmation"
+                       id="password_confirmation" :type="show ? 'text' : 'password'" autocomplete="new-password"
+                       placeholder="Répétez le mot de passe"
+                       class="w-full border border-gray-200 px-4 py-3 pr-10 text-sm focus:outline-none focus:border-[#0066CC] transition">
+                <button type="button" @click="show = !show"
+                        class="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600 transition">
+                    <svg x-show="!show" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    <svg x-show="show" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.97 9.97 0 012.654-4.592M9.88 9.88a3 3 0 104.24 4.24M3 3l18 18"/>
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <button type="submit"

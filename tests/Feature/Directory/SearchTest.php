@@ -16,9 +16,9 @@ it('can search profiles by name', function () {
     $component = Livewire::test(SearchDirectory::class)
         ->set('query', 'Amadou');
 
-    $results = $component->get('profiles');
-    // Results will include matching profiles
-    expect($results)->not->toBeNull();
+    $paginator = $component->instance()->results();
+
+    expect($paginator->total())->toBeGreaterThan(0);
 });
 
 it('can filter profiles by sector', function () {
@@ -45,7 +45,8 @@ it('can filter by verified only', function () {
 it('resets page when query changes', function () {
     $component = Livewire::test(SearchDirectory::class);
 
+    $component->call('setPage', 2);
     $component->set('query', 'test');
 
-    expect($component->get('page'))->toBe(1);
+    expect($component->get('paginators')['page'] ?? 1)->toBe(1);
 });

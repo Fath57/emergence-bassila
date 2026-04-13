@@ -4,12 +4,12 @@
     <meta name="robots" content="noindex, nofollow">
 @endpush
 
-<div class="max-w-2xl mx-auto">
+<div class="max-w-2xl mx-auto space-y-6">
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
         <h1 class="text-2xl font-bold text-[#333333] mb-2">Modifier mon profil</h1>
         <p class="text-sm text-gray-500 mb-6">Mettez à jour vos informations professionnelles.</p>
 
-        <form wire:submit.prevent="save" class="space-y-5">
+        <form wire:submit.prevent="save" id="edit-profile-form" class="space-y-5">
 
             <!-- Avatar -->
             <div>
@@ -58,6 +58,24 @@
                     >
                     @error('last_name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
                 </div>
+            </div>
+
+            <!-- Gender -->
+            <div>
+                <p class="block text-sm font-medium text-gray-700 mb-2">Sexe</p>
+                <div class="flex items-center gap-6">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input wire:model="gender" type="radio" value="M"
+                               class="text-[#0066CC] focus:ring-[#0066CC]">
+                        <span class="text-sm text-gray-700">Homme</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input wire:model="gender" type="radio" value="F"
+                               class="text-[#0066CC] focus:ring-[#0066CC]">
+                        <span class="text-sm text-gray-700">Femme</span>
+                    </label>
+                </div>
+                @error('gender') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
             </div>
 
             <!-- Job title + Company -->
@@ -120,6 +138,27 @@
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC]"
                     >
                 </div>
+            </div>
+
+            <!-- Village d'origine -->
+            <div>
+                <label for="village_id" class="block text-sm font-medium text-gray-700 mb-1">Village d'origine à Bassila</label>
+                <select wire:model="village_id"
+                        id="village_id"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] bg-white @error('village_id') border-red-400 @enderror">
+                    <option value="">Choisir un village…</option>
+                    @php $lastArr = null; @endphp
+                    @foreach ($villages as $v)
+                        @if ($lastArr !== $v->arrondissement)
+                            @if ($lastArr !== null)</optgroup>@endif
+                            <optgroup label="{{ $v->arrondissement ?? 'Autres' }}">
+                        @endif
+                        <option value="{{ $v->id }}">{{ $v->name }}</option>
+                        @php $lastArr = $v->arrondissement; @endphp
+                    @endforeach
+                    @if ($lastArr !== null)</optgroup>@endif
+                </select>
+                @error('village_id') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
             </div>
 
             <!-- Bio -->
@@ -262,45 +301,6 @@
                 </div>
             </div>
 
-            <!-- Contact info -->
-            <div class="space-y-4">
-                <p class="text-sm font-semibold text-gray-700">Coordonnées de contact <span class="text-xs font-normal text-gray-400">(optionnel)</span></p>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label for="email_contact" class="block text-sm font-medium text-gray-700 mb-1">Email de contact</label>
-                        <input
-                            wire:model="email_contact"
-                            id="email_contact"
-                            type="email"
-                            placeholder="contact@exemple.com"
-                            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('email_contact') border-red-400 @enderror"
-                        >
-                        @error('email_contact') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
-                        <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
-                            <input type="checkbox" wire:model="show_email_contact" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
-                            <span class="text-xs text-gray-500">Afficher sur mon profil public</span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Téléphone / WhatsApp</label>
-                        <input
-                            wire:model="phone"
-                            id="phone"
-                            type="tel"
-                            placeholder="+229 01 00 00 00"
-                            class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('phone') border-red-400 @enderror"
-                        >
-                        @error('phone') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
-                        <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
-                            <input type="checkbox" wire:model="show_phone" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
-                            <span class="text-xs text-gray-500">Afficher sur mon profil public</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
             <!-- Links -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -325,23 +325,106 @@
                     @error('portfolio_url') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
                 </div>
             </div>
-
-            <div class="flex gap-3">
-                <button
-                    type="submit"
-                    class="flex-1 bg-[#0066CC] hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition text-sm"
-                    wire:loading.attr="disabled"
-                    wire:loading.class="opacity-75 cursor-not-allowed"
-                >
-                    <span wire:loading.remove>Enregistrer les modifications</span>
-                    <span wire:loading>Enregistrement...</span>
-                </button>
-                @if ($profile)
-                    <a href="{{ route('profile.show', $profile) }}" class="px-4 py-2.5 rounded-lg border border-gray-300 text-sm text-gray-600 hover:bg-gray-50 transition" wire:navigate>
-                        Annuler
-                    </a>
-                @endif
-            </div>
         </form>
+    </div>
+
+    {{-- Contact public : hors du bloc « profil », tout en restant dans le même composant Livewire --}}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 border-l-4 border-l-[#0066CC] p-8">
+        <h2 class="text-lg font-bold text-[#0A1628]">Contact affiché sur votre fiche publique</h2>
+        <p class="text-sm text-gray-500 mt-1 mb-6">
+            Optionnel. Renseignez un numéro ou un email puis cochez pour les montrer aux visiteurs de votre profil.
+        </p>
+
+        <div class="space-y-5">
+            <div class="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-x-4">
+                <div class="min-w-0">
+                    <label for="email_contact" class="block text-sm font-medium text-gray-700 mb-1">Email de contact</label>
+                    <input
+                        wire:model.live.debounce.300ms="email_contact"
+                        id="email_contact"
+                        type="email"
+                        placeholder="contact@exemple.com"
+                        autocomplete="email"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('email_contact') border-red-400 @enderror"
+                    >
+                    @error('email_contact') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                </div>
+                <label @class([
+                    'flex items-center gap-2 pb-0.5 select-none sm:min-w-[10rem]',
+                    'cursor-pointer' => filled(trim($email_contact)),
+                    'cursor-not-allowed opacity-50' => ! filled(trim($email_contact)),
+                ])>
+                    <input type="checkbox" wire:model.live="show_email_contact" @disabled(! filled(trim($email_contact)))
+                           class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC] disabled:opacity-40 shrink-0">
+                    <span class="text-xs font-medium text-gray-600 leading-tight">Visible publiquement</span>
+                </label>
+            </div>
+
+            <div class="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-x-4">
+                <div class="min-w-0">
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+                    <input
+                        wire:model.live.debounce.300ms="phone"
+                        id="phone"
+                        type="tel"
+                        placeholder="+229 01 00 00 00"
+                        autocomplete="tel"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('phone') border-red-400 @enderror"
+                    >
+                    @error('phone') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                </div>
+                <label @class([
+                    'flex items-center gap-2 pb-0.5 select-none sm:min-w-[10rem]',
+                    'cursor-pointer' => filled(trim($phone)),
+                    'cursor-not-allowed opacity-50' => ! filled(trim($phone)),
+                ])>
+                    <input type="checkbox" wire:model.live="show_phone" @disabled(! filled(trim($phone)))
+                           class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC] disabled:opacity-40 shrink-0">
+                    <span class="text-xs font-medium text-gray-600 leading-tight">Visible publiquement</span>
+                </label>
+            </div>
+
+            <div class="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-x-4">
+                <div class="min-w-0">
+                    <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-1">WhatsApp</label>
+                    <input
+                        wire:model.live.debounce.300ms="whatsapp"
+                        id="whatsapp"
+                        type="tel"
+                        placeholder="+229 01 00 00 00"
+                        autocomplete="tel"
+                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('whatsapp') border-red-400 @enderror"
+                    >
+                    @error('whatsapp') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                </div>
+                <label @class([
+                    'flex items-center gap-2 pb-0.5 select-none sm:min-w-[10rem]',
+                    'cursor-pointer' => filled(trim($whatsapp)),
+                    'cursor-not-allowed opacity-50' => ! filled(trim($whatsapp)),
+                ])>
+                    <input type="checkbox" wire:model.live="show_whatsapp" @disabled(! filled(trim($whatsapp)))
+                           class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC] disabled:opacity-40 shrink-0">
+                    <span class="text-xs font-medium text-gray-600 leading-tight">Visible publiquement</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col-reverse sm:flex-row gap-3 sm:items-center">
+        @if ($profile)
+            <a href="{{ route('profile.show', $profile) }}" class="sm:mr-auto text-center px-4 py-2.5 rounded-lg border border-gray-300 text-sm text-gray-600 hover:bg-gray-50 transition" wire:navigate>
+                Annuler
+            </a>
+        @endif
+        <button
+            type="submit"
+            form="edit-profile-form"
+            class="w-full sm:w-auto sm:min-w-[220px] bg-[#0066CC] hover:bg-blue-700 text-white font-medium py-2.5 px-6 rounded-lg transition text-sm"
+            wire:loading.attr="disabled"
+            wire:loading.class="opacity-75 cursor-not-allowed"
+        >
+            <span wire:loading.remove wire:target="save">Enregistrer les modifications</span>
+            <span wire:loading wire:target="save">Enregistrement...</span>
+        </button>
     </div>
 </div>

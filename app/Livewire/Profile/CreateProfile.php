@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Models\Profile;
 use App\Models\Sector;
 use App\Models\Skill;
+use App\Models\Village;
 use App\Services\AvatarGenerator;
 use App\Support\SectorSkillCategoryMap;
 use Illuminate\Support\Collection;
@@ -24,35 +25,57 @@ class CreateProfile extends Component
 
     // Step 1 — Identité
     public string $first_name = '';
+
     public string $last_name = '';
+
+    public string $gender = '';
+
     public string $job_title = '';
+
     public string $company = '';
+
     public ?int $sector_id = null;
 
     // Step 2 — Localisation
     public ?int $country_id = null;
+
     public string $city = '';
+
+    public ?int $village_id = null;
+
     public string $education_start_year = '';
+
     public string $education_end_year = '';
 
     // Step 2 — Contact
     public string $phone = '';
+
+    public string $whatsapp = '';
+
     public string $email_contact = '';
+
     public bool $show_phone = false;
+
     public bool $show_email_contact = false;
+
+    public bool $show_whatsapp = false;
 
     // Step 3 — À propos
     public string $bio = '';
+
     public array $selectedSkills = [];
 
     // Skill picker state
     public string $skillSearch = '';
+
     /** @var array<int, string> */
     public array $expandedCategories = [];
 
     // Step 4 — Médias
     public $avatar = null;
+
     public string $linkedin_url = '';
+
     public string $portfolio_url = '';
 
     public function mount(): void
@@ -60,8 +83,8 @@ class CreateProfile extends Component
         $user = Auth::user();
 
         if ($user) {
-            $this->first_name    = (string) ($user->first_name ?? '');
-            $this->last_name     = (string) ($user->last_name ?? '');
+            $this->first_name = (string) ($user->first_name ?? '');
+            $this->last_name = (string) ($user->last_name ?? '');
             $this->email_contact = (string) ($user->email ?? '');
         }
     }
@@ -71,23 +94,27 @@ class CreateProfile extends Component
         return match ($this->step) {
             1 => [
                 'first_name' => ['required', 'string', 'max:100'],
-                'last_name'  => ['required', 'string', 'max:100'],
-                'job_title'  => ['required', 'string', 'max:255'],
-                'sector_id'  => ['required', 'exists:sectors,id'],
+                'last_name' => ['required', 'string', 'max:100'],
+                'gender' => ['nullable', 'in:M,F'],
+                'job_title' => ['required', 'string', 'max:255'],
+                'sector_id' => ['required', 'exists:sectors,id'],
             ],
             2 => [
-                'country_id'    => ['required', 'exists:countries,id'],
-                'phone'              => ['nullable', 'string', 'max:30'],
-                'email_contact'      => ['nullable', 'email', 'max:255'],
-                'show_phone'         => ['boolean'],
+                'country_id' => ['required', 'exists:countries,id'],
+                'phone' => ['nullable', 'string', 'max:30'],
+                'whatsapp' => ['nullable', 'string', 'max:30'],
+                'email_contact' => ['nullable', 'email', 'max:255'],
+                'show_phone' => ['boolean'],
                 'show_email_contact' => ['boolean'],
+                'show_whatsapp' => ['boolean'],
+                'village_id' => ['nullable', 'exists:villages,id'],
             ],
             3 => [
                 'bio' => ['nullable', 'string', 'max:500'],
             ],
             4 => [
-                'avatar'        => ['nullable', 'image', 'max:2048', 'dimensions:min_width=200,min_height=200'],
-                'linkedin_url'  => ['nullable', 'url'],
+                'avatar' => ['nullable', 'image', 'max:2048', 'dimensions:min_width=200,min_height=200'],
+                'linkedin_url' => ['nullable', 'url'],
                 'portfolio_url' => ['nullable', 'url'],
             ],
             default => [],
@@ -97,19 +124,23 @@ class CreateProfile extends Component
     protected function rules(): array
     {
         return [
-            'first_name'           => ['required', 'string', 'max:100'],
-            'last_name'            => ['required', 'string', 'max:100'],
-            'bio'                  => ['nullable', 'string', 'max:500'],
-            'avatar'               => ['nullable', 'image', 'max:2048', 'dimensions:min_width=200,min_height=200'],
-            'country_id'           => ['required', 'exists:countries,id'],
-            'job_title'            => ['required', 'string', 'max:255'],
-            'sector_id'            => ['required', 'exists:sectors,id'],
-            'phone'                => ['nullable', 'string', 'max:30'],
-            'email_contact'        => ['nullable', 'email', 'max:255'],
-            'show_phone'           => ['boolean'],
-            'show_email_contact'   => ['boolean'],
-            'linkedin_url'         => ['nullable', 'url'],
-            'portfolio_url'        => ['nullable', 'url'],
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name' => ['required', 'string', 'max:100'],
+            'bio' => ['nullable', 'string', 'max:500'],
+            'avatar' => ['nullable', 'image', 'max:2048', 'dimensions:min_width=200,min_height=200'],
+            'country_id' => ['required', 'exists:countries,id'],
+            'job_title' => ['required', 'string', 'max:255'],
+            'sector_id' => ['required', 'exists:sectors,id'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'whatsapp' => ['nullable', 'string', 'max:30'],
+            'email_contact' => ['nullable', 'email', 'max:255'],
+            'show_phone' => ['boolean'],
+            'show_email_contact' => ['boolean'],
+            'show_whatsapp' => ['boolean'],
+            'gender' => ['nullable', 'in:M,F'],
+            'village_id' => ['nullable', 'exists:villages,id'],
+            'linkedin_url' => ['nullable', 'url'],
+            'portfolio_url' => ['nullable', 'url'],
         ];
     }
 
@@ -156,6 +187,27 @@ class CreateProfile extends Component
         }
     }
 
+    public function updatedEmailContact(string $value): void
+    {
+        if (trim($value) === '') {
+            $this->show_email_contact = false;
+        }
+    }
+
+    public function updatedPhone(string $value): void
+    {
+        if (trim($value) === '') {
+            $this->show_phone = false;
+        }
+    }
+
+    public function updatedWhatsapp(string $value): void
+    {
+        if (trim($value) === '') {
+            $this->show_whatsapp = false;
+        }
+    }
+
     /**
      * Skills grouped by category, filtered by $skillSearch.
      * Returns a Collection of [category => Collection<Skill>].
@@ -171,7 +223,7 @@ class CreateProfile extends Component
 
         $search = trim($this->skillSearch);
         if ($search !== '') {
-            $query->whereRaw('LOWER(name) LIKE ?', ['%' . Str::lower($search) . '%']);
+            $query->whereRaw('LOWER(name) LIKE ?', ['%'.Str::lower($search).'%']);
         }
 
         return $query->get()->groupBy('category');
@@ -187,31 +239,35 @@ class CreateProfile extends Component
             $avatarUrl = Storage::disk('public')->url($path);
         } else {
             $avatarGenerator = app(AvatarGenerator::class);
-            $avatarUrl = $avatarGenerator->generate(trim($this->first_name . ' ' . $this->last_name));
+            $avatarUrl = $avatarGenerator->generate(trim($this->first_name.' '.$this->last_name));
         }
 
         $country = Country::find($this->country_id);
 
         $profile = Profile::create([
-            'user_id'              => Auth::id(),
-            'first_name'           => $this->first_name,
-            'last_name'            => $this->last_name,
-            'bio'                  => $this->bio ?: null,
-            'avatar_url'           => $avatarUrl,
-            'city'                 => $this->city ?: null,
-            'country'              => $country?->name,
-            'country_id'           => $this->country_id,
-            'job_title'            => $this->job_title,
-            'company'              => $this->company ?: null,
-            'sector_id'            => $this->sector_id,
+            'user_id' => Auth::id(),
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'gender' => $this->gender ?: null,
+            'bio' => $this->bio ?: null,
+            'avatar_url' => $avatarUrl,
+            'city' => $this->city ?: null,
+            'country' => $country?->name,
+            'country_id' => $this->country_id,
+            'village_id' => $this->village_id,
+            'job_title' => $this->job_title,
+            'company' => $this->company ?: null,
+            'sector_id' => $this->sector_id,
             'education_start_year' => $this->education_start_year ?: null,
-            'education_end_year'   => $this->education_end_year ?: null,
-            'phone'                => $this->phone ?: null,
-            'email_contact'        => $this->email_contact ?: null,
-            'show_phone'           => $this->phone ? $this->show_phone : false,
-            'show_email_contact'   => $this->email_contact ? $this->show_email_contact : false,
-            'linkedin_url'         => $this->linkedin_url ?: null,
-            'portfolio_url'        => $this->portfolio_url ?: null,
+            'education_end_year' => $this->education_end_year ?: null,
+            'phone' => $this->phone ?: null,
+            'whatsapp' => $this->whatsapp ?: null,
+            'email_contact' => $this->email_contact ?: null,
+            'show_phone' => $this->phone ? $this->show_phone : false,
+            'show_email_contact' => $this->email_contact ? $this->show_email_contact : false,
+            'show_whatsapp' => $this->whatsapp ? $this->show_whatsapp : false,
+            'linkedin_url' => $this->linkedin_url ?: null,
+            'portfolio_url' => $this->portfolio_url ?: null,
         ]);
 
         $profile->skills()->sync($this->selectedSkills);
@@ -222,10 +278,16 @@ class CreateProfile extends Component
     public function render()
     {
         return view('livewire.profile.create-profile', [
-            'sectors'        => Sector::orderBy('name')->get(),
+            'sectors' => Sector::orderBy('name')->get(),
             'selectedSkillModels' => Skill::whereIn('id', $this->selectedSkills)
                 ->orderBy('name')->get(),
-            'countries'      => Country::orderBy('sort_order')->orderBy('name')->get(),
+            'countries' => Country::orderBy('sort_order')->orderBy('name')->get(),
+            'villages' => Village::query()
+                ->active()
+                ->orderBy('arrondissement')
+                ->orderBy('sort_order')
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 }

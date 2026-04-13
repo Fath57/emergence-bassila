@@ -42,7 +42,7 @@
                     @else
                         <span></span>
                     @enderror
-                    <p class="text-xs text-gray-400">{{ strlen($message) }}/2000</p>
+                    <p class="text-xs text-gray-400">{{ mb_strlen($message ?? '') }}/2000</p>
                 </div>
             </div>
 

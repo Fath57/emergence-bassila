@@ -22,7 +22,7 @@ class ContactMessageReceived extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Bassila Network] ' . $this->contactMessage->subject,
+            subject: '[Bassila Émergence] '.$this->contactMessage->subject,
         );
     }
 

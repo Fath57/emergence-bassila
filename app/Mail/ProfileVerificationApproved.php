@@ -22,7 +22,7 @@ class ProfileVerificationApproved extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Bassila Network] Votre profil a été vérifié !',
+            subject: '[Bassila Émergence] Votre profil a été vérifié !',
         );
     }
 

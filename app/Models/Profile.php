@@ -34,6 +34,7 @@ class Profile extends Model
         'show_email_contact',
         'gender',
         'whatsapp',
+        'show_whatsapp',
         'village_id',
         'is_verified',
         'verified_at',
@@ -43,10 +44,11 @@ class Profile extends Model
     // Eloquent loads it like any other attribute — do not put it in $fillable.
 
     protected $casts = [
-        'is_verified'        => 'boolean',
-        'verified_at'        => 'datetime',
-        'show_phone'         => 'boolean',
+        'is_verified' => 'boolean',
+        'verified_at' => 'datetime',
+        'show_phone' => 'boolean',
         'show_email_contact' => 'boolean',
+        'show_whatsapp' => 'boolean',
     ];
 
     // Relations
@@ -97,7 +99,7 @@ class Profile extends Model
     {
         return $query
             ->when($from, fn (Builder $q) => $q->where('education_end_year', '>=', $from))
-            ->when($to,   fn (Builder $q) => $q->where('education_end_year', '<=', $to));
+            ->when($to, fn (Builder $q) => $q->where('education_end_year', '<=', $to));
     }
 
     public function scopeWithSkills(Builder $query, array $skillIds): Builder

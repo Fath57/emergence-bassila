@@ -124,9 +124,9 @@
 
             {{-- Profile grid --}}
             @if ($profiles->count() > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" wire:loading.class="opacity-60">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 items-stretch" wire:loading.class="opacity-60">
                     @foreach ($profiles as $profile)
-                        <livewire:profile.profile-card :profile="$profile" :key="$profile->id" />
+                        <livewire:profile.profile-card :profile="$profile" :key="$profile->id" class="h-full" />
                     @endforeach
                 </div>
                 <div class="mt-8">

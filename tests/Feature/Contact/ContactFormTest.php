@@ -27,8 +27,8 @@ it('can send a contact message', function () {
 
     $this->assertDatabaseHas('contact_messages', [
         'from_user_id' => $sender->id,
-        'to_user_id'   => $receiver->id,
-        'subject'      => 'Bonjour!',
+        'to_user_id' => $receiver->id,
+        'subject' => 'Bonjour!',
     ]);
 
     Mail::assertQueued(ContactMessageReceived::class);
@@ -56,5 +56,8 @@ it('requires authentication to send contact message', function () {
     $profile = Profile::factory()->create();
 
     $this->get(route('profile.show', $profile))
-        ->assertSee('Se connecter');
+        ->assertSuccessful()
+        ->assertSee('Contacter', escape: false)
+        ->assertSee(route('login'), escape: false)
+        ->assertDontSeeLivewire(ContactForm::class);
 });

@@ -93,6 +93,23 @@
                         </div>
                     </div>
 
+                    <div>
+                        <p class="block text-xs font-semibold text-gray-500 mb-2.5 uppercase tracking-wider">Sexe</p>
+                        <div class="flex items-center gap-6">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input wire:model="gender" type="radio" value="M"
+                                       class="text-[#0066CC] focus:ring-[#0066CC]">
+                                <span class="text-sm text-gray-700">Homme</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input wire:model="gender" type="radio" value="F"
+                                       class="text-[#0066CC] focus:ring-[#0066CC]">
+                                <span class="text-sm text-gray-700">Femme</span>
+                            </label>
+                        </div>
+                        @error('gender') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                    </div>
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label for="job_title" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
@@ -137,8 +154,8 @@
         @if ($step === 2)
             <div class="p-8 pl-10">
                 <div class="mb-7">
-                    <h2 class="text-lg font-bold text-[#111827]">Localisation & Contact</h2>
-                    <p class="text-sm text-gray-400 mt-0.5">Où vivez-vous et comment vous joindre ?</p>
+                    <h2 class="text-lg font-bold text-[#111827]">Localisation</h2>
+                    <p class="text-sm text-gray-400 mt-0.5">Où vivez-vous et votre lien avec Bassila ?</p>
                 </div>
 
                 <div class="space-y-5">
@@ -174,39 +191,26 @@
                                class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition">
                     </div>
 
-                    {{-- Contact --}}
-                    <div class="pt-2 border-t border-gray-100">
-                        <p class="text-xs font-semibold text-gray-500 mb-4 uppercase tracking-wider">Coordonnées de contact <span class="text-gray-400 normal-case font-normal">(optionnel)</span></p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label for="email_contact" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
-                                    Email de contact
-                                </label>
-                                <input wire:model="email_contact"
-                                       id="email_contact" type="email"
-                                       placeholder="contact@exemple.com"
-                                       class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('email_contact') border-red-400 @enderror">
-                                @error('email_contact') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
-                                <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
-                                    <input type="checkbox" wire:model="show_email_contact" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
-                                    <span class="text-xs text-gray-400">Visible sur mon profil</span>
-                                </label>
-                            </div>
-                            <div>
-                                <label for="phone" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
-                                    Téléphone / WhatsApp
-                                </label>
-                                <input wire:model="phone"
-                                       id="phone" type="tel"
-                                       placeholder="+229 01 00 00 00"
-                                       class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('phone') border-red-400 @enderror">
-                                @error('phone') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
-                                <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
-                                    <input type="checkbox" wire:model="show_phone" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
-                                    <span class="text-xs text-gray-400">Visible sur mon profil</span>
-                                </label>
-                            </div>
-                        </div>
+                    <div>
+                        <label for="village_id" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
+                            Village d'origine à Bassila
+                        </label>
+                        <select wire:model="village_id"
+                                id="village_id"
+                                class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition bg-white @error('village_id') border-red-400 @enderror">
+                            <option value="">Choisir un village…</option>
+                            @php $lastArr = null; @endphp
+                            @foreach ($villages as $v)
+                                @if ($lastArr !== $v->arrondissement)
+                                    @if ($lastArr !== null)</optgroup>@endif
+                                    <optgroup label="{{ $v->arrondissement ?? 'Autres' }}">
+                                @endif
+                                <option value="{{ $v->id }}">{{ $v->name }}</option>
+                                @php $lastArr = $v->arrondissement; @endphp
+                            @endforeach
+                            @if ($lastArr !== null)</optgroup>@endif
+                        </select>
+                        @error('village_id') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
                     </div>
 
                     {{-- Formation --}}
@@ -228,6 +232,76 @@
                                        type="number" min="1950" max="{{ date('Y') + 10 }}"
                                        placeholder="Ex : 2005"
                                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition">
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Contact public : bloc séparé (hors du flux localisation / formation) --}}
+                    <div class="rounded-xl border border-[#0066CC]/25 bg-[#0066CC]/[0.04] p-6 space-y-5">
+                        <div>
+                            <h3 class="text-sm font-bold text-[#0A1628]">Contact sur votre fiche publique</h3>
+                            <p class="text-xs text-gray-500 mt-1">Optionnel. Remplissez puis cochez « Visible » pour afficher sur votre profil.</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-x-4">
+                                <div class="min-w-0">
+                                    <label for="email_contact" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Email</label>
+                                    <input wire:model.live.debounce.300ms="email_contact"
+                                           id="email_contact" type="email"
+                                           placeholder="contact@exemple.com"
+                                           class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition bg-white @error('email_contact') border-red-400 @enderror">
+                                    @error('email_contact') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                                </div>
+                                <label @class([
+                                    'flex items-center gap-2 pb-1 select-none sm:min-w-[9rem]',
+                                    'cursor-pointer' => filled(trim($email_contact)),
+                                    'cursor-not-allowed opacity-50' => ! filled(trim($email_contact)),
+                                ])>
+                                    <input type="checkbox" wire:model.live="show_email_contact" @disabled(! filled(trim($email_contact)))
+                                           class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC] disabled:opacity-40 shrink-0">
+                                    <span class="text-xs font-semibold text-gray-600">Visible</span>
+                                </label>
+                            </div>
+
+                            <div class="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-x-4">
+                                <div class="min-w-0">
+                                    <label for="phone" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Téléphone</label>
+                                    <input wire:model.live.debounce.300ms="phone"
+                                           id="phone" type="tel"
+                                           placeholder="+229 01 00 00 00"
+                                           class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition bg-white @error('phone') border-red-400 @enderror">
+                                    @error('phone') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                                </div>
+                                <label @class([
+                                    'flex items-center gap-2 pb-1 select-none sm:min-w-[9rem]',
+                                    'cursor-pointer' => filled(trim($phone)),
+                                    'cursor-not-allowed opacity-50' => ! filled(trim($phone)),
+                                ])>
+                                    <input type="checkbox" wire:model.live="show_phone" @disabled(! filled(trim($phone)))
+                                           class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC] disabled:opacity-40 shrink-0">
+                                    <span class="text-xs font-semibold text-gray-600">Visible</span>
+                                </label>
+                            </div>
+
+                            <div class="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end sm:gap-x-4">
+                                <div class="min-w-0">
+                                    <label for="whatsapp" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">WhatsApp</label>
+                                    <input wire:model.live.debounce.300ms="whatsapp"
+                                           id="whatsapp" type="tel"
+                                           placeholder="+229 01 00 00 00"
+                                           class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition bg-white @error('whatsapp') border-red-400 @enderror">
+                                    @error('whatsapp') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                                </div>
+                                <label @class([
+                                    'flex items-center gap-2 pb-1 select-none sm:min-w-[9rem]',
+                                    'cursor-pointer' => filled(trim($whatsapp)),
+                                    'cursor-not-allowed opacity-50' => ! filled(trim($whatsapp)),
+                                ])>
+                                    <input type="checkbox" wire:model.live="show_whatsapp" @disabled(! filled(trim($whatsapp)))
+                                           class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC] disabled:opacity-40 shrink-0">
+                                    <span class="text-xs font-semibold text-gray-600">Visible</span>
+                                </label>
                             </div>
                         </div>
                     </div>

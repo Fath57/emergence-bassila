@@ -1,9 +1,9 @@
 <?php
 
 use App\Livewire\Auth\VerifyEmail;
+use App\Mail\VerifyEmailMail;
 use App\Models\User;
-use Illuminate\Auth\Notifications\VerifyEmail as VerifyEmailNotification;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Livewire;
 
 it('redirects unverified user to verification notice', function () {
@@ -24,7 +24,7 @@ it('allows verified user to access profile creation', function () {
 });
 
 it('can resend verification email via livewire component', function () {
-    Notification::fake();
+    Mail::fake();
 
     $user = User::factory()->create(['email_verified_at' => null]);
 
@@ -33,5 +33,5 @@ it('can resend verification email via livewire component', function () {
         ->call('resend')
         ->assertSet('successMessage', 'Un nouveau lien de vérification a été envoyé à votre adresse email.');
 
-    Notification::assertSentTo($user, VerifyEmailNotification::class);
+    Mail::assertQueued(VerifyEmailMail::class, fn (VerifyEmailMail $mail) => $mail->hasTo($user->email));
 });

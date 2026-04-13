@@ -1,33 +1,49 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogImageUploadController;
-use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\NewsletterTrackingController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\SitemapController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\EditUser;
+use App\Livewire\Admin\InviteUser;
+use App\Livewire\Admin\ManageCategories;
 use App\Livewire\Admin\ManagePosts as AdminManagePosts;
+use App\Livewire\Admin\ManageVillages;
 use App\Livewire\Admin\ModerateComments as AdminModerateComments;
 use App\Livewire\Admin\ModerateProfiles as AdminModerateProfiles;
+use App\Livewire\Admin\Newsletter\Campaigns;
+use App\Livewire\Admin\Newsletter\CreateCampaign;
+use App\Livewire\Admin\Newsletter\EditCampaign;
+use App\Livewire\Admin\Newsletter\PreviewCampaign;
+use App\Livewire\Admin\Newsletter\Subscribers;
+use App\Livewire\Admin\RoleMatrix;
+use App\Livewire\Admin\Settings;
+use App\Livewire\Admin\Users;
 use App\Livewire\Auth\AcceptInvitation;
+use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
-use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\Auth\VerifyEmail;
-use App\Livewire\Profile\CreateProfile;
-use App\Livewire\Profile\EditProfile;
-use App\Livewire\Directory\SearchDirectory;
 use App\Livewire\Blog\CreatePost;
 use App\Livewire\Blog\EditPost;
 use App\Livewire\Blog\MyPosts;
 use App\Livewire\Blog\PreviewPost;
+use App\Livewire\Directory\SearchDirectory;
+use App\Livewire\Profile\CreateProfile;
+use App\Livewire\Profile\EditProfile;
 use App\Models\BlogPost;
+use App\Models\NewsletterCampaign;
+use App\Models\NewsletterCampaignSend;
+use App\Models\NewsletterSubscriber;
 use App\Models\Profile;
 use App\Models\Sector;
 use App\Models\User;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/', function () {
@@ -51,10 +67,10 @@ Route::get('/', function () {
         ->values();
 
     $stats = [
-        'members'   => User::count(),
-        'profiles'  => Profile::verified()->count(),
+        'members' => User::count(),
+        'profiles' => Profile::verified()->count(),
         'countries' => Profile::verified()->distinct('country')->count('country'),
-        'posts'     => BlogPost::published()->count(),
+        'posts' => BlogPost::published()->count(),
     ];
 
     return view('welcome', compact('recentPosts', 'featuredProfiles', 'sectors', 'stats'));
@@ -81,6 +97,7 @@ Route::post('/deconnexion', function () {
     auth()->logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
+
     return redirect('/');
 })->middleware('auth')->name('logout');
 
@@ -89,8 +106,9 @@ Route::get('/invitation/{token}', AcceptInvitation::class)->name('invitation.acc
 
 // Email verification
 Route::get('/email/verify', VerifyEmail::class)->middleware('auth')->name('verification.notice');
-Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
+
     return redirect()->route('profile.create');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
@@ -123,7 +141,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Newsletter - public (no auth required)
-Route::get('/newsletter/confirmer/{token}',  [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
+Route::get('/newsletter/confirmer/{token}', [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
 Route::get('/newsletter/desabonner/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 // RFC 8058 one-click unsubscribe (POST from mail clients — CSRF exempted in bootstrap/app.php)
 Route::post('/newsletter/desabonner/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe.post');
@@ -136,25 +154,27 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Admin — auth + role:admin, Livewire pages
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/',                           AdminDashboard::class)->name('dashboard');
-    Route::get('/profils',                    AdminModerateProfiles::class)->name('profiles');
-    Route::get('/articles',                   AdminManagePosts::class)->name('posts');
-    Route::get('/categories',                 \App\Livewire\Admin\ManageCategories::class)->name('categories');
-    Route::get('/commentaires',               AdminModerateComments::class)->name('comments');
-    Route::get('/utilisateurs',               \App\Livewire\Admin\Users::class)->name('users');
-    Route::get('/utilisateurs/inviter',       \App\Livewire\Admin\InviteUser::class)->name('users.invite');
-    Route::get('/utilisateurs/{user}/editer', \App\Livewire\Admin\EditUser::class)->name('users.edit');
-    Route::get('/roles',                      \App\Livewire\Admin\RoleMatrix::class)->name('roles');
-    Route::get('/parametres',                 \App\Livewire\Admin\Settings::class)->name('settings');
-    Route::get('/newsletter',                 \App\Livewire\Admin\Newsletter\Campaigns::class)->name('newsletter');
-    Route::get('/newsletter/creer',           \App\Livewire\Admin\Newsletter\CreateCampaign::class)->name('newsletter.create');
-    Route::get('/newsletter/{campaign}/editer', \App\Livewire\Admin\Newsletter\EditCampaign::class)->name('newsletter.edit');
-    Route::get('/newsletter/{campaign}/apercu',  \App\Livewire\Admin\Newsletter\PreviewCampaign::class)->name('newsletter.preview');
-    Route::get('/newsletter/abonnes',         \App\Livewire\Admin\Newsletter\Subscribers::class)->name('newsletter.subscribers');
-    Route::get('/newsletter/{campaign}/html', function (\App\Models\NewsletterCampaign $campaign) {
+    Route::get('/', AdminDashboard::class)->name('dashboard');
+    Route::get('/profils', AdminModerateProfiles::class)->name('profiles');
+    Route::get('/articles', AdminManagePosts::class)->name('posts');
+    Route::get('/categories', ManageCategories::class)->name('categories');
+    Route::get('/villages', ManageVillages::class)->name('villages');
+    Route::get('/commentaires', AdminModerateComments::class)->name('comments');
+    Route::get('/utilisateurs', Users::class)->name('users');
+    Route::get('/utilisateurs/inviter', InviteUser::class)->name('users.invite');
+    Route::get('/utilisateurs/{user}/editer', EditUser::class)->name('users.edit');
+    Route::get('/roles', RoleMatrix::class)->name('roles');
+    Route::get('/parametres', Settings::class)->name('settings');
+    Route::get('/newsletter', Campaigns::class)->name('newsletter');
+    Route::get('/newsletter/creer', CreateCampaign::class)->name('newsletter.create');
+    Route::get('/newsletter/{campaign}/editer', EditCampaign::class)->name('newsletter.edit');
+    Route::get('/newsletter/{campaign}/apercu', PreviewCampaign::class)->name('newsletter.preview');
+    Route::get('/newsletter/abonnes', Subscribers::class)->name('newsletter.subscribers');
+    Route::get('/newsletter/{campaign}/html', function (NewsletterCampaign $campaign) {
         // Fake subscriber and send for preview rendering
-        $sub  = new \App\Models\NewsletterSubscriber(['email' => 'apercu@example.com', 'unsubscribe_token' => 'preview']);
-        $send = new \App\Models\NewsletterCampaignSend(['open_token' => 'preview']);
+        $sub = new NewsletterSubscriber(['email' => 'apercu@example.com', 'unsubscribe_token' => 'preview']);
+        $send = new NewsletterCampaignSend(['open_token' => 'preview']);
+
         return view('mail.newsletter.newsletter', compact('campaign', 'sub', 'send'));
     })->name('newsletter.html');
 });

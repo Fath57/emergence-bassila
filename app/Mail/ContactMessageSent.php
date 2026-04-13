@@ -22,7 +22,7 @@ class ContactMessageSent extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: '[Bassila Network] Votre message a bien été envoyé',
+            subject: '[Bassila Émergence] Votre message a bien été envoyé',
         );
     }
 
