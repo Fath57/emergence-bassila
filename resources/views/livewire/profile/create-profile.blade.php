@@ -176,7 +176,7 @@
 
                     {{-- Contact --}}
                     <div class="pt-2 border-t border-gray-100">
-                        <p class="text-xs font-semibold text-gray-500 mb-4 uppercase tracking-wider">Coordonnées de contact <span class="text-gray-400 normal-case font-normal">(optionnel — visibles sur votre profil)</span></p>
+                        <p class="text-xs font-semibold text-gray-500 mb-4 uppercase tracking-wider">Coordonnées de contact <span class="text-gray-400 normal-case font-normal">(optionnel)</span></p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="email_contact" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
@@ -187,6 +187,10 @@
                                        placeholder="contact@exemple.com"
                                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('email_contact') border-red-400 @enderror">
                                 @error('email_contact') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                                <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
+                                    <input type="checkbox" wire:model="show_email_contact" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
+                                    <span class="text-xs text-gray-400">Visible sur mon profil</span>
+                                </label>
                             </div>
                             <div>
                                 <label for="phone" class="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">
@@ -197,6 +201,10 @@
                                        placeholder="+229 01 00 00 00"
                                        class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition @error('phone') border-red-400 @enderror">
                                 @error('phone') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
+                                <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
+                                    <input type="checkbox" wire:model="show_phone" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
+                                    <span class="text-xs text-gray-400">Visible sur mon profil</span>
+                                </label>
                             </div>
                         </div>
                     </div>

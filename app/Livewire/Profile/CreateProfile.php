@@ -38,6 +38,8 @@ class CreateProfile extends Component
     // Step 3 — Contact
     public string $phone = '';
     public string $email_contact = '';
+    public bool $show_phone = false;
+    public bool $show_email_contact = false;
 
     // Step 3 — À propos
     public string $bio = '';
@@ -75,8 +77,10 @@ class CreateProfile extends Component
             ],
             2 => [
                 'country_id'    => ['required', 'exists:countries,id'],
-                'phone'         => ['nullable', 'string', 'max:30'],
-                'email_contact' => ['nullable', 'email', 'max:255'],
+                'phone'              => ['nullable', 'string', 'max:30'],
+                'email_contact'      => ['nullable', 'email', 'max:255'],
+                'show_phone'         => ['boolean'],
+                'show_email_contact' => ['boolean'],
             ],
             3 => [
                 'bio' => ['nullable', 'string', 'max:500'],
@@ -102,6 +106,8 @@ class CreateProfile extends Component
             'sector_id'            => ['required', 'exists:sectors,id'],
             'phone'                => ['nullable', 'string', 'max:30'],
             'email_contact'        => ['nullable', 'email', 'max:255'],
+            'show_phone'           => ['boolean'],
+            'show_email_contact'   => ['boolean'],
             'linkedin_url'         => ['nullable', 'url'],
             'portfolio_url'        => ['nullable', 'url'],
         ];
@@ -202,6 +208,8 @@ class CreateProfile extends Component
             'education_end_year'   => $this->education_end_year ?: null,
             'phone'                => $this->phone ?: null,
             'email_contact'        => $this->email_contact ?: null,
+            'show_phone'           => $this->show_phone,
+            'show_email_contact'   => $this->show_email_contact,
             'linkedin_url'         => $this->linkedin_url ?: null,
             'portfolio_url'        => $this->portfolio_url ?: null,
         ]);
