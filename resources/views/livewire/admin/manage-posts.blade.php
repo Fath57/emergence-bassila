@@ -46,7 +46,7 @@
                             <p class="text-xs text-gray-400">{{ $post->created_at->format('d/m/Y') }}</p>
                         </td>
                         <td class="px-4 py-4 hidden md:table-cell">
-                            <p class="text-sm text-gray-600">{{ $post->user->name }}</p>
+                            <p class="text-sm text-gray-600">{{ $post->display_author_name }}</p>
                         </td>
                         <td class="px-4 py-4 hidden lg:table-cell">
                             <p class="text-xs font-semibold text-[#0066CC] uppercase tracking-wider">

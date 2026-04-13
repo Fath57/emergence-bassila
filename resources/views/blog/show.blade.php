@@ -1,7 +1,7 @@
 @php
     use App\Support\Seo\SeoData;
 
-    $authorProfile = $post->user->profile ?? null;
+    $authorProfile = $post->user?->profile;
     $authorName = $authorProfile
         ? trim($authorProfile->first_name . ' ' . $authorProfile->last_name)
         : null;
@@ -71,7 +71,7 @@
             </h1>
 
             {{-- Author --}}
-            @if ($post->user->profile)
+            @if ($post->user && $post->user->profile)
                 <div class="flex items-center gap-3 mb-8 pb-6 border-b border-gray-100">
                     @if ($post->user->profile->avatar_url)
                         <img src="{{ $post->user->profile->avatar_url }}"
@@ -102,6 +102,13 @@
                         </div>
                     @endcan
                 </div>
+            @else
+                <div class="flex items-center gap-3 mb-8 pb-6 border-b border-gray-100">
+                    <div class="h-10 w-10 bg-gray-300 flex items-center justify-center text-white text-sm font-bold shrink-0">
+                        ?
+                    </div>
+                    <span class="text-sm font-semibold text-gray-500">{{ $post->display_author_name }}</span>
+                </div>
             @endif
 
             {{-- Content (sanitized HTML via BlogContentSanitizer) --}}
@@ -123,18 +130,18 @@
                 @foreach ($post->comments as $comment)
                     <div class="bg-white border border-gray-200 p-5">
                         <div class="flex items-center gap-3 mb-3">
-                            @if ($comment->user->profile?->avatar_url)
+                            @if ($comment->user?->profile?->avatar_url)
                                 <img src="{{ $comment->user->profile->avatar_url }}"
                                      alt=""
                                      class="h-8 w-8 object-cover">
                             @else
                                 <div class="h-8 w-8 bg-gray-200 flex items-center justify-center text-gray-600 text-xs font-bold shrink-0">
-                                    {{ strtoupper(substr($comment->user->name, 0, 1)) }}
+                                    {{ strtoupper(substr($comment->display_author_name, 0, 1)) }}
                                 </div>
                             @endif
                             <div>
                                 <span class="text-sm font-semibold text-[#111827]">
-                                    {{ $comment->user->profile?->full_name ?? $comment->user->name }}
+                                    {{ $comment->display_author_name }}
                                 </span>
                                 <span class="text-xs text-gray-400 ml-2">{{ $comment->created_at->diffForHumans() }}</span>
                             </div>

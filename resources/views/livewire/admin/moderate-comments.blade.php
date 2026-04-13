@@ -25,7 +25,7 @@
                 <div class="flex items-start justify-between gap-4 mb-3">
                     <div class="min-w-0 flex-1">
                         <div class="flex items-center gap-2 mb-1">
-                            <p class="font-semibold text-[#111827] text-sm">{{ $comment->user->name }}</p>
+                            <p class="font-semibold text-[#111827] text-sm">{{ $comment->display_author_name }}</p>
                             @if ($comment->moderated_at)
                                 <span class="inline-flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-100 px-2 py-0.5">
                                     <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>

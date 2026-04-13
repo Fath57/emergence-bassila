@@ -25,6 +25,7 @@ class BlogPost extends Model
         'status',
         'category_id',
         'published_at',
+        'author_display_name',
     ];
 
     protected $casts = [
@@ -85,5 +86,14 @@ class BlogPost extends Model
     {
         return $this->meta_description
             ?: Str::limit(strip_tags((string) $this->content), 155);
+    }
+
+    public function getDisplayAuthorNameAttribute(): string
+    {
+        if ($this->user) {
+            return trim($this->user->first_name.' '.$this->user->last_name) ?: $this->user->email;
+        }
+
+        return $this->author_display_name ?? 'Ancien membre';
     }
 }

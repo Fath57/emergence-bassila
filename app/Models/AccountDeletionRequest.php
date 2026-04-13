@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
+use App\Mail\AccountDeletionCompleted;
+use App\Models\BlogComment;
+use App\Models\BlogPost;
+use App\Models\NewsletterSubscriber;
 use Database\Factories\AccountDeletionRequestFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use LogicException;
 
@@ -99,6 +105,40 @@ class AccountDeletionRequest extends Model
             'purged_at'          => now(),
             'confirmation_token' => null,
         ]);
+    }
+
+    public function purge(): void
+    {
+        if ($this->status !== 'confirmed') {
+            throw new LogicException("Cannot purge from status {$this->status}");
+        }
+
+        $user = $this->user;
+        $email = $user->email;
+        $firstName = $user->first_name;
+
+        DB::transaction(function () use ($user) {
+            BlogPost::where('user_id', $user->id)->update([
+                'user_id'             => null,
+                'author_display_name' => 'Ancien membre',
+            ]);
+
+            BlogComment::where('user_id', $user->id)->update([
+                'user_id'             => null,
+                'author_display_name' => 'Membre supprimé',
+            ]);
+
+            NewsletterSubscriber::where('email', $user->email)->delete();
+
+            $user->profile()?->delete();
+            $user->delete();
+
+            $this->markPurged();
+        });
+
+        Mail::to($email)->queue(
+            (new AccountDeletionCompleted($firstName))->afterCommit()
+        );
     }
 
     public function isTokenExpired(): bool

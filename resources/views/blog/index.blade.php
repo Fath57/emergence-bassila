@@ -108,10 +108,12 @@
                                         <p class="text-sm text-gray-500 line-clamp-2 mb-3">{{ $post->excerpt }}</p>
                                     @endif
                                     <div class="flex items-center gap-2 text-xs text-gray-400 border-t border-gray-100 pt-3 mt-3">
-                                        @if ($post->user->profile)
+                                        @if ($post->user?->profile)
                                             <span>{{ $post->user->profile->full_name }}</span>
-                                            <span>·</span>
+                                        @else
+                                            <span>{{ $post->display_author_name }}</span>
                                         @endif
+                                        <span>·</span>
                                         <span>{{ $post->reading_time }} min</span>
                                         <span>·</span>
                                         <span>{{ $post->published_at->diffForHumans() }}</span>

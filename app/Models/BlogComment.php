@@ -19,6 +19,7 @@ class BlogComment extends Model
         'user_id',
         'content',
         'moderated_at',
+        'author_display_name',
     ];
 
     protected $casts = [
@@ -42,5 +43,16 @@ class BlogComment extends Model
     public function scopeApproved(Builder $query): Builder
     {
         return $query->whereNotNull('moderated_at');
+    }
+
+    // Accessors
+
+    public function getDisplayAuthorNameAttribute(): string
+    {
+        if ($this->user) {
+            return trim($this->user->first_name.' '.$this->user->last_name) ?: $this->user->email;
+        }
+
+        return $this->author_display_name ?? 'Membre supprimé';
     }
 }

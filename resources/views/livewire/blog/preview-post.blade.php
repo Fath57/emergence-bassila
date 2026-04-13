@@ -41,7 +41,7 @@
         </h1>
 
         <div class="mt-6 flex items-center gap-3 text-sm text-gray-600 border-b border-gray-100 pb-6">
-            <span class="font-semibold text-[#0A1628]">{{ $post->user->name }}</span>
+            <span class="font-semibold text-[#0A1628]">{{ $post->display_author_name }}</span>
             <span>·</span>
             <span>{{ $post->reading_time }} min de lecture</span>
         </div>
