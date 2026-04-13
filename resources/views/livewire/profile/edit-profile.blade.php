@@ -262,6 +262,45 @@
                 </div>
             </div>
 
+            <!-- Contact info -->
+<div class="space-y-4">
+    <p class="text-sm font-semibold text-gray-700">Coordonnées de contact <span class="text-xs font-normal text-gray-400">(optionnel)</span></p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+            <label for="email_contact" class="block text-sm font-medium text-gray-700 mb-1">Email de contact</label>
+            <input
+                wire:model="email_contact"
+                id="email_contact"
+                type="email"
+                placeholder="contact@exemple.com"
+                class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('email_contact') border-red-400 @enderror"
+            >
+            @error('email_contact') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+            <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
+                <input type="checkbox" wire:model="show_email_contact" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
+                <span class="text-xs text-gray-500">Afficher sur mon profil public</span>
+            </label>
+        </div>
+
+        <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Téléphone / WhatsApp</label>
+            <input
+                wire:model="phone"
+                id="phone"
+                type="tel"
+                placeholder="+229 01 00 00 00"
+                class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0066CC] @error('phone') border-red-400 @enderror"
+            >
+            @error('phone') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+            <label class="flex items-center gap-2 mt-2 cursor-pointer select-none">
+                <input type="checkbox" wire:model="show_phone" class="w-4 h-4 rounded text-[#0066CC] focus:ring-[#0066CC]">
+                <span class="text-xs text-gray-500">Afficher sur mon profil public</span>
+            </label>
+        </div>
+    </div>
+</div>
+
             <!-- Links -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
