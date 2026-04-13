@@ -12,7 +12,14 @@ class RedirectIfDeletionPending
     {
         $user = $request->user();
 
-        if (! $user || ! $user->hasPendingDeletion()) {
+        // Only redirect users whose deletion has been confirmed (account
+        // deactivated). Users in the `requested` state still have full access
+        // until they click the confirmation link in their email.
+        if (! $user || $user->is_active) {
+            return $next($request);
+        }
+
+        if (! $user->hasPendingDeletion()) {
             return $next($request);
         }
 

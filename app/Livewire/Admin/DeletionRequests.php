@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Admin;
 
+use App\Mail\AccountDeletionCancelled;
 use App\Models\AccountDeletionRequest;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,6 +27,10 @@ class DeletionRequests extends Component
         $reason = $this->cancelReason[$id] ?? null;
         $req->cancel(auth()->user(), $reason);
         $req->user?->update(['is_active' => true]);
+
+        if ($req->user) {
+            Mail::to($req->user->email)->queue(new AccountDeletionCancelled($req));
+        }
 
         session()->flash('status', 'Demande annulée.');
     }

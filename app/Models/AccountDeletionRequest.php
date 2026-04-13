@@ -130,10 +130,12 @@ class AccountDeletionRequest extends Model
 
             NewsletterSubscriber::where('email', $user->email)->delete();
 
-            $user->profile()?->delete();
-            $user->delete();
-
+            // Mark the request purged BEFORE deleting the user so the audit
+            // row survives (account_deletion_requests.user_id is nullOnDelete).
             $this->markPurged();
+
+            $user->profile?->delete();
+            $user->delete();
         });
 
         Mail::to($email)->queue(

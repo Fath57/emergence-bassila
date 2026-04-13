@@ -111,6 +111,7 @@ Route::get('/invitation/{token}', AcceptInvitation::class)->name('invitation.acc
 
 // Account deletion confirmation (no auth required — token-gated)
 Route::get('/compte/suppression/confirmer/{token}', ConfirmDeletion::class)
+    ->middleware('throttle:6,1')
     ->name('account.deletion.confirm');
 
 // Account deletion cancellation (auth required — grace period)
