@@ -82,6 +82,9 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 // Static content pages
 Route::view('/qui-sommes-nous', 'pages.qui-sommes-nous')->name('pages.about-us');
 Route::view('/a-propos-de-bassila', 'pages.a-propos-de-bassila')->name('pages.about-bassila');
+Route::view('/cgu', 'pages.cgu')->name('pages.cgu');
+Route::view('/politique-de-confidentialite', 'pages.politique-confidentialite')->name('pages.privacy');
+Route::view('/mentions-legales', 'pages.mentions-legales')->name('pages.legal');
 
 // Auth
 Route::middleware(['guest', 'throttle:10,1'])->group(function () {

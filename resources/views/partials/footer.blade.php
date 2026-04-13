@@ -57,8 +57,9 @@
         <div class="flex flex-col sm:flex-row justify-between items-center gap-3 pt-6 text-xs">
             <p>© {{ date('Y') }} Bassila Émergence. Tous droits réservés.</p>
             <div class="flex gap-5">
-                <a href="#" class="hover:text-white transition">Confidentialité</a>
-                <a href="#" class="hover:text-white transition">Conditions d'utilisation</a>
+                <a href="{{ route('pages.privacy') }}" class="hover:text-white transition">Confidentialité</a>
+                <a href="{{ route('pages.cgu') }}" class="hover:text-white transition">CGU</a>
+                <a href="{{ route('pages.legal') }}" class="hover:text-white transition">Mentions légales</a>
             </div>
         </div>
     </div>
