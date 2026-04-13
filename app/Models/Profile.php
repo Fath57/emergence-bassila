@@ -29,7 +29,9 @@ class Profile extends Model
         'linkedin_url',
         'portfolio_url',
         'phone',
+        'show_phone',
         'email_contact',
+        'show_email_contact',
         'is_verified',
         'verified_at',
     ];
@@ -38,8 +40,10 @@ class Profile extends Model
     // Eloquent loads it like any other attribute — do not put it in $fillable.
 
     protected $casts = [
-        'is_verified'  => 'boolean',
-        'verified_at'  => 'datetime',
+        'is_verified'        => 'boolean',
+        'verified_at'        => 'datetime',
+        'show_phone'         => 'boolean',
+        'show_email_contact' => 'boolean',
     ];
 
     // Relations
