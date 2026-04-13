@@ -36,6 +36,10 @@ class EditProfile extends Component
     public string $education_end_year = '';
     public string $linkedin_url = '';
     public string $portfolio_url = '';
+    public string $phone = '';
+    public string $email_contact = '';
+    public bool $show_phone = false;
+    public bool $show_email_contact = false;
     public array $selectedSkills = [];
 
     // Skill picker state
@@ -55,6 +59,10 @@ class EditProfile extends Component
             'sector_id'            => ['required', 'exists:sectors,id'],
             'linkedin_url'         => ['nullable', 'url'],
             'portfolio_url'        => ['nullable', 'url'],
+            'phone'              => ['nullable', 'string', 'max:30'],
+            'email_contact'      => ['nullable', 'email', 'max:255'],
+            'show_phone'         => ['boolean'],
+            'show_email_contact' => ['boolean'],
         ];
     }
 
@@ -83,6 +91,10 @@ class EditProfile extends Component
         $this->education_end_year   = $profile->education_end_year ?? '';
         $this->linkedin_url         = $profile->linkedin_url ?? '';
         $this->portfolio_url        = $profile->portfolio_url ?? '';
+        $this->phone              = $profile->phone ?? '';
+        $this->email_contact      = $profile->email_contact ?? '';
+        $this->show_phone         = (bool) ($profile->show_phone ?? false);
+        $this->show_email_contact = (bool) ($profile->show_email_contact ?? false);
         $this->selectedSkills       = $profile->skills->pluck('id')->toArray();
 
         // Pre-expand the categories of already-selected skills so the user
@@ -169,6 +181,10 @@ class EditProfile extends Component
             'education_end_year'   => $this->education_end_year ?: null,
             'linkedin_url'         => $this->linkedin_url ?: null,
             'portfolio_url'        => $this->portfolio_url ?: null,
+            'phone'              => $this->phone ?: null,
+            'email_contact'      => $this->email_contact ?: null,
+            'show_phone'         => $this->show_phone,
+            'show_email_contact' => $this->show_email_contact,
         ]);
 
         $this->profile->skills()->sync($this->selectedSkills);
