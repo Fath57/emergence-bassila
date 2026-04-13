@@ -56,6 +56,36 @@ it('validates required fields for profile creation', function () {
         ->assertHasErrors(['first_name', 'last_name', 'job_title', 'sector_id']);
 });
 
+it('persists show_phone and show_email_contact correctly', function () {
+    Storage::fake('s3');
+
+    $user = User::factory()->create(['email_verified_at' => now()]);
+    $user->assignRole('member');
+    $sector  = Sector::factory()->create();
+    $country = Country::create(['name' => 'Bénin', 'code' => 'BJ', 'flag' => '🇧🇯', 'sort_order' => 1]);
+
+    Livewire::actingAs($user)
+        ->test(CreateProfile::class)
+        ->set('first_name', 'Jean')
+        ->set('last_name', 'Dupont')
+        ->set('job_title', 'Développeur')
+        ->set('country_id', $country->id)
+        ->set('sector_id', $sector->id)
+        ->set('phone', '+22960000000')
+        ->set('show_phone', true)
+        ->set('email_contact', 'jean@example.com')
+        ->set('show_email_contact', false)
+        ->call('save');
+
+    $this->assertDatabaseHas('profiles', [
+        'user_id'            => $user->id,
+        'phone'              => '+22960000000',
+        'show_phone'         => true,
+        'email_contact'      => 'jean@example.com',
+        'show_email_contact' => false,
+    ]);
+});
+
 it('shows public profile page', function () {
     $profile = Profile::factory()->create();
 

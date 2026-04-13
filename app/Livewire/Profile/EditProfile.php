@@ -183,8 +183,8 @@ class EditProfile extends Component
             'portfolio_url'        => $this->portfolio_url ?: null,
             'phone'              => $this->phone ?: null,
             'email_contact'      => $this->email_contact ?: null,
-            'show_phone'         => $this->show_phone,
-            'show_email_contact' => $this->show_email_contact,
+            'show_phone'         => $this->phone ? $this->show_phone : false,
+            'show_email_contact' => $this->email_contact ? $this->show_email_contact : false,
         ]);
 
         $this->profile->skills()->sync($this->selectedSkills);
