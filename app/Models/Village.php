@@ -17,6 +17,7 @@ class Village extends Model
         return $query->where('is_active', true);
     }
 
+    // Requires village_id FK on profiles table (added in add_gender_whatsapp_village_to_profiles migration).
     public function profiles(): HasMany
     {
         return $this->hasMany(Profile::class);
