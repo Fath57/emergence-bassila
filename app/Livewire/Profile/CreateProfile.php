@@ -35,7 +35,7 @@ class CreateProfile extends Component
     public string $education_start_year = '';
     public string $education_end_year = '';
 
-    // Step 3 — Contact
+    // Step 2 — Contact
     public string $phone = '';
     public string $email_contact = '';
     public bool $show_phone = false;
