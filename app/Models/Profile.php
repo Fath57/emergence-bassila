@@ -32,6 +32,9 @@ class Profile extends Model
         'show_phone',
         'email_contact',
         'show_email_contact',
+        'gender',
+        'whatsapp',
+        'village_id',
         'is_verified',
         'verified_at',
     ];
@@ -61,6 +64,11 @@ class Profile extends Model
     public function countryRelation(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function village(): BelongsTo
+    {
+        return $this->belongsTo(Village::class);
     }
 
     public function skills(): BelongsToMany
