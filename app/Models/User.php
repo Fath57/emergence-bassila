@@ -94,4 +94,16 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(ContactMessage::class, 'to_user_id');
     }
+
+    public function deletionRequest(): HasOne
+    {
+        return $this->hasOne(AccountDeletionRequest::class);
+    }
+
+    public function hasPendingDeletion(): bool
+    {
+        return $this->deletionRequest()
+            ->whereIn('status', ['requested', 'confirmed'])
+            ->exists();
+    }
 }

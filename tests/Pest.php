@@ -11,3 +11,9 @@ uses(TestCase::class, RefreshDatabase::class)
     ->in('Feature');
 
 uses(TestCase::class)->in('Unit/Seo');
+
+uses(TestCase::class, RefreshDatabase::class)
+    ->beforeEach(function () {
+        $this->seed(RolePermissionSeeder::class);
+    })
+    ->in('Unit/AccountDeletionRequestTest.php');
