@@ -70,3 +70,45 @@ it('rejects when the user is the last active admin', function () {
 
     expect(AccountDeletionRequest::count())->toBe(0);
 });
+
+it('confirms a deletion when clicking a valid token URL, disables the account, and schedules the purge', function () {
+    Mail::fake();
+
+    $user = User::factory()->create(['is_active' => true]);
+    $user->assignRole('member');
+    $req = AccountDeletionRequest::startFor($user);
+    $token = $req->confirmation_token;
+
+    $this->get(route('account.deletion.confirm', ['token' => $token]))
+        ->assertOk()
+        ->assertSee('confirmée');
+
+    $user->refresh();
+    $req->refresh();
+
+    expect($req->status)->toBe('confirmed')
+        ->and($req->scheduled_purge_at)->not->toBeNull()
+        ->and($user->is_active)->toBeFalse();
+
+    Mail::assertQueued(\App\Mail\AccountDeletionConfirmed::class);
+});
+
+it('rejects an expired confirmation token (>24h)', function () {
+    $user = User::factory()->create();
+    $user->assignRole('member');
+    $req = AccountDeletionRequest::startFor($user);
+    $req->update(['requested_at' => now()->subHours(25)]);
+    $token = $req->confirmation_token;
+
+    $this->get(route('account.deletion.confirm', ['token' => $token]))
+        ->assertOk()
+        ->assertSee('expiré');
+
+    $req->refresh();
+    expect($req->status)->toBe('cancelled');
+});
+
+it('rejects an unknown token with 404', function () {
+    $this->get(route('account.deletion.confirm', ['token' => str_repeat('x', 64)]))
+        ->assertNotFound();
+});

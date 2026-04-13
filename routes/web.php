@@ -22,6 +22,7 @@ use App\Livewire\Admin\Newsletter\Subscribers;
 use App\Livewire\Admin\RoleMatrix;
 use App\Livewire\Admin\Settings;
 use App\Livewire\Admin\Users;
+use App\Livewire\Account\ConfirmDeletion;
 use App\Livewire\Auth\AcceptInvitation;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
@@ -106,6 +107,10 @@ Route::post('/deconnexion', function () {
 
 // Public invitation acceptance (no auth required — token-gated)
 Route::get('/invitation/{token}', AcceptInvitation::class)->name('invitation.accept');
+
+// Account deletion confirmation (no auth required — token-gated)
+Route::get('/compte/suppression/confirmer/{token}', ConfirmDeletion::class)
+    ->name('account.deletion.confirm');
 
 // Email verification
 Route::get('/email/verify', VerifyEmail::class)->middleware('auth')->name('verification.notice');
