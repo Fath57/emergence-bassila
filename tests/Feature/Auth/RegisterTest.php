@@ -15,6 +15,7 @@ it('can register a new user', function () {
         ->set('email', 'test@example.com')
         ->set('password', 'password123')
         ->set('password_confirmation', 'password123')
+        ->set('accepts_terms', true)
         ->call('register');
 
     $this->assertDatabaseHas('users', [
@@ -40,6 +41,7 @@ it('rejects duplicate email on registration', function () {
         ->set('email', 'existing@example.com')
         ->set('password', 'password123')
         ->set('password_confirmation', 'password123')
+        ->set('accepts_terms', true)
         ->call('register')
         ->assertHasErrors(['email']);
 });
@@ -51,6 +53,7 @@ it('rejects mismatched passwords', function () {
         ->set('email', 'test@example.com')
         ->set('password', 'password123')
         ->set('password_confirmation', 'different')
+        ->set('accepts_terms', true)
         ->call('register')
         ->assertHasErrors(['password']);
 });

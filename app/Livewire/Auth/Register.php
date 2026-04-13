@@ -14,14 +14,23 @@ class Register extends Component
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public bool $accepts_terms = false;
 
     protected function rules(): array
     {
         return [
-            'first_name' => ['required', 'string', 'max:100'],
-            'last_name'  => ['required', 'string', 'max:100'],
-            'email'      => ['required', 'email', 'unique:users,email'],
-            'password'   => ['required', 'min:8', 'confirmed'],
+            'first_name'    => ['required', 'string', 'max:100'],
+            'last_name'     => ['required', 'string', 'max:100'],
+            'email'         => ['required', 'email', 'unique:users,email'],
+            'password'      => ['required', 'min:8', 'confirmed'],
+            'accepts_terms' => ['accepted'],
+        ];
+    }
+
+    protected function messages(): array
+    {
+        return [
+            'accepts_terms.accepted' => 'Vous devez accepter les CGU et la Politique de confidentialité pour créer un compte.',
         ];
     }
 

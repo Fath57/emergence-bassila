@@ -91,6 +91,18 @@
             </div>
         </div>
 
+        <div class="flex items-start gap-2">
+            <input wire:model="accepts_terms" id="accepts_terms" type="checkbox"
+                   class="mt-1 h-4 w-4 border-gray-300 text-[#0066CC] focus:ring-[#0066CC]">
+            <label for="accepts_terms" class="text-sm text-gray-600 leading-snug">
+                J'accepte les
+                <a href="{{ route('pages.cgu') }}" target="_blank" class="text-[#0066CC] hover:underline">CGU</a>
+                et la
+                <a href="{{ route('pages.privacy') }}" target="_blank" class="text-[#0066CC] hover:underline">Politique de confidentialité</a>.
+            </label>
+        </div>
+        @error('accepts_terms') <p class="text-xs text-red-600">{{ $message }}</p> @enderror
+
         <button type="submit"
                 class="w-full bg-[#0066CC] hover:bg-blue-800 text-white font-semibold py-3 text-sm transition"
                 wire:loading.attr="disabled"
