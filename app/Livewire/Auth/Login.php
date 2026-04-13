@@ -28,7 +28,8 @@ class Login extends Component
             return;
         }
 
-        if (! Auth::user()->is_active) {
+        $user = Auth::user();
+        if (! $user->is_active && ! $user->hasPendingDeletion()) {
             Auth::logout();
             $this->addError('email', 'Votre compte a été désactivé. Contactez un administrateur.');
             return;

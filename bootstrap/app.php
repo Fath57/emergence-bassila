@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'registration.check' => \App\Http\Middleware\CheckRegistrationOpen::class,
+            'deletion.redirect' => \App\Http\Middleware\RedirectIfDeletionPending::class,
         ]);
 
         // RFC 8058 one-click unsubscribe: mail clients POST directly, no session/CSRF
@@ -27,6 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->appendToGroup('web', [
             \App\Http\Middleware\MaintenanceModeCheck::class,
+            \App\Http\Middleware\RedirectIfDeletionPending::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

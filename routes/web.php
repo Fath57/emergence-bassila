@@ -22,6 +22,7 @@ use App\Livewire\Admin\Newsletter\Subscribers;
 use App\Livewire\Admin\RoleMatrix;
 use App\Livewire\Admin\Settings;
 use App\Livewire\Admin\Users;
+use App\Livewire\Account\CancelDeletion;
 use App\Livewire\Account\ConfirmDeletion;
 use App\Livewire\Auth\AcceptInvitation;
 use App\Livewire\Auth\ForgotPassword;
@@ -111,6 +112,11 @@ Route::get('/invitation/{token}', AcceptInvitation::class)->name('invitation.acc
 // Account deletion confirmation (no auth required — token-gated)
 Route::get('/compte/suppression/confirmer/{token}', ConfirmDeletion::class)
     ->name('account.deletion.confirm');
+
+// Account deletion cancellation (auth required — grace period)
+Route::get('/compte/suppression/annuler', CancelDeletion::class)
+    ->middleware('auth')
+    ->name('account.deletion.cancel');
 
 // Email verification
 Route::get('/email/verify', VerifyEmail::class)->middleware('auth')->name('verification.notice');

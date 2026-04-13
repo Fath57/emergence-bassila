@@ -112,3 +112,36 @@ it('rejects an unknown token with 404', function () {
     $this->get(route('account.deletion.confirm', ['token' => str_repeat('x', 64)]))
         ->assertNotFound();
 });
+
+it('lets a user in grace period cancel their pending deletion', function () {
+    Mail::fake();
+
+    $user = User::factory()->create(['is_active' => false, 'password' => Hash::make('secret1234')]);
+    $user->assignRole('member');
+    $req = AccountDeletionRequest::factory()->for($user)->confirmed()->create();
+
+    // Log in via the Livewire Login component. is_active=false would normally block,
+    // but the pending deletion exception allows it through.
+    Livewire::test(\App\Livewire\Auth\Login::class)
+        ->set('email', $user->email)
+        ->set('password', 'secret1234')
+        ->call('login')
+        ->assertHasNoErrors();
+
+    $this->actingAs($user->fresh());
+
+    // Any page other than cancel/confirm/logout should redirect to cancel.
+    $this->get('/')->assertRedirect(route('account.deletion.cancel'));
+
+    Livewire::test(\App\Livewire\Account\CancelDeletion::class)
+        ->call('cancel')
+        ->assertRedirect('/');
+
+    $req->refresh();
+    $user->refresh();
+
+    expect($req->status)->toBe('cancelled')
+        ->and($user->is_active)->toBeTrue();
+
+    Mail::assertQueued(\App\Mail\AccountDeletionCancelled::class);
+});
