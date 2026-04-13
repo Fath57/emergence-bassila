@@ -25,10 +25,10 @@
         <env name="CACHE_STORE" value="array" force="true"/>
         <env name="DB_CONNECTION" value="pgsql" force="true"/>
         <env name="DB_HOST" value="127.0.0.1" force="true"/>
-        <env name="DB_PORT" value="5437" force="true"/>
+        <env name="DB_PORT" value="5437"/>
         <env name="DB_DATABASE" value="emergence_bassila_test" force="true"/>
         <env name="DB_USERNAME" value="postgres" force="true"/>
-        <env name="DB_PASSWORD" value="secret" force="true"/>
+        <env name="DB_PASSWORD" value="secret"/>
         <env name="MAIL_MAILER" value="array" force="true"/>
         <env name="QUEUE_CONNECTION" value="sync" force="true"/>
         <env name="SESSION_DRIVER" value="array" force="true"/>
