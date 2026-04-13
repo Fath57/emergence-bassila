@@ -427,4 +427,6 @@
             <span wire:loading wire:target="save">Enregistrement...</span>
         </button>
     </div>
+
+    @livewire('profile.delete-account')
 </div>
