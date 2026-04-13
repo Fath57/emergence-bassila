@@ -178,6 +178,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/utilisateurs/inviter', InviteUser::class)->name('users.invite');
     Route::get('/utilisateurs/{user}/editer', EditUser::class)->name('users.edit');
     Route::get('/roles', RoleMatrix::class)->name('roles');
+    Route::get('/suppressions', \App\Livewire\Admin\DeletionRequests::class)->name('deletions');
     Route::get('/parametres', Settings::class)->name('settings');
     Route::get('/newsletter', Campaigns::class)->name('newsletter');
     Route::get('/newsletter/creer', CreateCampaign::class)->name('newsletter.create');

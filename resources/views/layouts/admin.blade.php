@@ -47,6 +47,7 @@
                     ['route' => 'admin.users',     'label' => 'Utilisateurs',    'icon' => 'user-plus'],
                     ['route' => 'admin.roles',     'label' => 'Rôles',           'icon' => 'shield'],
                     ['route' => 'admin.newsletter', 'label' => 'Newsletter',       'icon' => 'mail'],
+                    ['route' => 'admin.deletions', 'label' => 'Suppressions',   'icon' => 'trash'],
                     ['route' => 'admin.settings',  'label' => 'Paramètres',      'icon' => 'cog'],
                 ];
             @endphp
@@ -76,6 +77,8 @@
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     @elseif ($item['icon'] === 'shield')
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    @elseif ($item['icon'] === 'trash')
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3"/></svg>
                     @endif
                     <span>{{ $item['label'] }}</span>
                 </a>

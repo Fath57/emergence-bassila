@@ -44,6 +44,12 @@ class ConfirmDeletion extends Component
 
         Mail::to($req->user->email)->queue(new AccountDeletionConfirmed($req));
 
+        $published = $req->user->blogPosts()->where('status', 'published')->count();
+        if ($published > 0) {
+            Mail::to('contact@bassila-emergence.org')
+                ->queue(new \App\Mail\AdminDeletionPendingWithContent($req, $published));
+        }
+
         $this->request = $req;
         $this->state = 'confirmed';
     }
