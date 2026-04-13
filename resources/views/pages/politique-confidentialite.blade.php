@@ -4,7 +4,8 @@
     $seo = SeoData::default()
         ->withTitle('Politique de confidentialité')
         ->withDescription('Politique de confidentialité de la plateforme Bassila Emergence — vos données, vos droits.')
-        ->withOgType('website');
+        ->withOgType('website')
+        ->withNoindex();
 
     $version = '1.0';
     $updatedAt = '14 avril 2026';

@@ -4,7 +4,8 @@
     $seo = SeoData::default()
         ->withTitle('Conditions Générales d\'Utilisation')
         ->withDescription('Conditions Générales d\'Utilisation de la plateforme Bassila Emergence.')
-        ->withOgType('website');
+        ->withOgType('website')
+        ->withNoindex();
 
     $version = '1.0';
     $updatedAt = '14 avril 2026';

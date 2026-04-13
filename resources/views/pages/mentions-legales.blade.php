@@ -4,7 +4,8 @@
     $seo = SeoData::default()
         ->withTitle('Mentions légales')
         ->withDescription('Mentions légales de la plateforme Bassila Emergence.')
-        ->withOgType('website');
+        ->withOgType('website')
+        ->withNoindex();
 
     $version = '1.0';
     $updatedAt = '14 avril 2026';
