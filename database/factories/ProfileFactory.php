@@ -24,6 +24,12 @@ class ProfileFactory extends Factory
             'sector_id'  => Sector::factory(),
             'avatar_url' => null,
             'bio'        => $this->faker->sentence(),
+            'linkedin_url'       => null,
+            'portfolio_url'      => null,
+            'phone'              => null,
+            'email_contact'      => null,
+            'show_phone'         => false,
+            'show_email_contact' => false,
             'is_verified' => false,
         ];
     }
