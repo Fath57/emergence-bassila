@@ -42,7 +42,10 @@ it('cannot edit another user\'s profile', function () {
 it('saves phone, email_contact and visibility flags', function () {
     $user = User::factory()->create(['email_verified_at' => now()]);
     $user->assignRole('member');
-    $profile = Profile::factory()->create(['user_id' => $user->id]);
+    $profile = Profile::factory()->create([
+        'user_id'            => $user->id,
+        'show_email_contact' => true,  // force known starting state so we can verify false was written
+    ]);
 
     Livewire::actingAs($user)
         ->test(\App\Livewire\Profile\EditProfile::class)

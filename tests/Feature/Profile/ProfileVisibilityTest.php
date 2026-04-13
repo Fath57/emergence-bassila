@@ -4,7 +4,7 @@ use App\Models\Profile;
 use App\Models\User;
 
 it('shows phone on profile page when show_phone is true', function () {
-    $user = User::factory()->create(['email_verified_at' => now()]);
+    $user = User::factory()->create(['email_verified_at' => now(), 'is_active' => true]);
     $profile = Profile::factory()->create([
         'user_id'    => $user->id,
         'phone'      => '+229 01 23 45 67',
@@ -17,7 +17,7 @@ it('shows phone on profile page when show_phone is true', function () {
 });
 
 it('hides phone on profile page when show_phone is false', function () {
-    $user = User::factory()->create(['email_verified_at' => now()]);
+    $user = User::factory()->create(['email_verified_at' => now(), 'is_active' => true]);
     $profile = Profile::factory()->create([
         'user_id'    => $user->id,
         'phone'      => '+229 01 23 45 67',
@@ -30,7 +30,7 @@ it('hides phone on profile page when show_phone is false', function () {
 });
 
 it('shows email_contact on profile page when show_email_contact is true', function () {
-    $user = User::factory()->create(['email_verified_at' => now()]);
+    $user = User::factory()->create(['email_verified_at' => now(), 'is_active' => true]);
     $profile = Profile::factory()->create([
         'user_id'            => $user->id,
         'email_contact'      => 'pro@example.com',
@@ -43,7 +43,7 @@ it('shows email_contact on profile page when show_email_contact is true', functi
 });
 
 it('hides email_contact on profile page when show_email_contact is false', function () {
-    $user = User::factory()->create(['email_verified_at' => now()]);
+    $user = User::factory()->create(['email_verified_at' => now(), 'is_active' => true]);
     $profile = Profile::factory()->create([
         'user_id'            => $user->id,
         'email_contact'      => 'pro@example.com',
