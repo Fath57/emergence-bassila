@@ -71,6 +71,29 @@ it('cannot cancel an already cancelled request', function () {
     expect(fn () => $req->cancel($user))->toThrow(LogicException::class);
 });
 
+it('cannot mark a cancelled request as purged', function () {
+    $user = User::factory()->create();
+    $req = AccountDeletionRequest::startFor($user);
+    $req->cancel($user);
+
+    expect(fn () => $req->markPurged())->toThrow(LogicException::class);
+});
+
+it('cannot mark an already-purged request as purged', function () {
+    $user = User::factory()->create();
+    $req = AccountDeletionRequest::factory()->for($user)->purged()->create();
+
+    expect(fn () => $req->markPurged())->toThrow(LogicException::class);
+});
+
+it('reports the token as expired once the request leaves the requested state', function () {
+    $user = User::factory()->create();
+    $req = AccountDeletionRequest::startFor($user);
+    $req->confirm();
+
+    expect($req->isTokenExpired())->toBeTrue();
+});
+
 it('dueForPurge scope returns only confirmed requests whose purge date has passed', function () {
     $u1 = User::factory()->create();
     $u2 = User::factory()->create();

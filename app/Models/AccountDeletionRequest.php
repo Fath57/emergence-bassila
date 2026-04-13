@@ -90,6 +90,10 @@ class AccountDeletionRequest extends Model
 
     public function markPurged(): void
     {
+        if ($this->status !== 'confirmed') {
+            throw new LogicException("Cannot purge from status {$this->status}");
+        }
+
         $this->update([
             'status'             => 'purged',
             'purged_at'          => now(),
@@ -99,6 +103,10 @@ class AccountDeletionRequest extends Model
 
     public function isTokenExpired(): bool
     {
+        if ($this->status !== 'requested') {
+            return true;
+        }
+
         return $this->requested_at->diffInHours(now()) >= self::TOKEN_TTL_HOURS;
     }
 

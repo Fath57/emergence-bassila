@@ -37,8 +37,9 @@ class AccountDeletionRequestFactory extends Factory
     public function cancelled(): self
     {
         return $this->state(fn () => [
-            'status'        => 'cancelled',
-            'cancelled_at'  => now(),
+            'status'       => 'cancelled',
+            'cancelled_at' => now(),
+            'cancelled_by' => User::factory(),
         ]);
     }
 
