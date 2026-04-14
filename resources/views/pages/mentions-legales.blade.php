@@ -34,8 +34,6 @@
         <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Sommaire</p>
         <ol class="list-decimal list-inside text-sm space-y-1">
             <li><a href="#editeur" class="hover:underline">Éditeur du site</a></li>
-            <li><a href="#publication" class="hover:underline">Directeur de la publication</a></li>
-            <li><a href="#hebergeur" class="hover:underline">Hébergeur</a></li>
             <li><a href="#pi" class="hover:underline">Propriété intellectuelle</a></li>
             <li><a href="#signalement" class="hover:underline">Signalement de contenu illicite</a></li>
         </ol>
@@ -52,26 +50,15 @@
                 Bassila, Département de la Donga, République du Bénin<br>
                 Email : <a href="mailto:contact@bassila-emergence.org">contact@bassila-emergence.org</a>
             </p>
-            <p>Représentant : à renseigner au déploiement.</p>
-        </section>
-
-        <section id="publication">
-            <h2>2. Directeur de la publication</h2>
-            <p>À renseigner au déploiement.</p>
-        </section>
-
-        <section id="hebergeur">
-            <h2>3. Hébergeur</h2>
-            <p>Nom et adresse à renseigner au déploiement.</p>
         </section>
 
         <section id="pi">
-            <h2>4. Propriété intellectuelle</h2>
+            <h2>2. Propriété intellectuelle</h2>
             <p>Le logo, le design, le code source et l'ensemble des éléments graphiques originaux de la plateforme sont la propriété exclusive de Bassila Emergence. Toute reproduction, représentation, modification, publication, adaptation ou exploitation de tout ou partie de ces éléments, quel qu'en soit le moyen ou le procédé, est interdite sans l'autorisation écrite préalable de Bassila Emergence.</p>
         </section>
 
         <section id="signalement">
-            <h2>5. Signalement de contenu illicite</h2>
+            <h2>3. Signalement de contenu illicite</h2>
             <p>Pour signaler tout contenu illicite publié sur la plateforme, veuillez écrire à l'adresse dédiée : <a href="mailto:contact@bassila-emergence.org">contact@bassila-emergence.org</a>. Toute demande fera l'objet d'un examen dans les meilleurs délais.</p>
         </section>
 
