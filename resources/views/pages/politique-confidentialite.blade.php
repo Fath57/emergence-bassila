@@ -175,9 +175,9 @@
             <h2>9. Cookies et traceurs</h2>
             <p>La plateforme utilise les cookies et traceurs suivants :</p>
             <ul>
-                <li><strong><code>laravel_session</code></strong> : cookie de session Laravel, strictement nécessaire au fonctionnement du service.</li>
-                <li><strong><code>XSRF-TOKEN</code></strong> : jeton de protection contre les attaques CSRF, strictement nécessaire à la sécurité des formulaires.</li>
-                <li><strong><code>remember_web_*</code></strong> : cookie de connexion persistante (« se souvenir de moi »), actif uniquement si le membre a coché l'option correspondante lors de la connexion.</li>
+                <li><strong>Cookie de session</strong> : maintient votre session de navigation. Strictement nécessaire au fonctionnement du service.</li>
+                <li><strong>Jeton anti-CSRF</strong> : protège les formulaires contre les attaques de type « Cross-Site Request Forgery ». Strictement nécessaire à la sécurité.</li>
+                <li><strong>Cookie de connexion persistante</strong> : permet de rester connecté entre deux visites (« se souvenir de moi »), déposé uniquement si vous cochez l'option correspondante lors de la connexion.</li>
                 <li><strong>Pixel d'ouverture newsletter</strong> : traceur d'ouverture inclus dans les emails de la newsletter. Son utilisation est soumise au consentement donné lors de l'inscription à la newsletter.</li>
             </ul>
             <p>Tous les cookies utilisés sont soit strictement nécessaires au service, soit conditionnés à un consentement opt-in explicite. Aucun bandeau de consentement cookies n'est affiché pour les cookies strictement nécessaires.</p>
@@ -188,7 +188,7 @@
             <p>Bassila Emergence met en œuvre les mesures techniques et organisationnelles suivantes pour protéger vos données :</p>
             <ul>
                 <li>Chiffrement des communications via HTTPS (TLS).</li>
-                <li>Hachage des mots de passe selon les algorithmes bcrypt ou Argon2id.</li>
+                <li>Hachage des mots de passe à l'aide d'un algorithme cryptographique reconnu et à l'état de l'art.</li>
                 <li>Accès à l'interface d'administration restreint aux rôles habilités.</li>
                 <li>Journaux d'audit permettant la détection d'accès non autorisés.</li>
             </ul>
