@@ -173,7 +173,6 @@
 
         <section id="cookies">
             <h2>9. Cookies et traceurs</h2>
-            <p>Dans un souci de transparence, nous précisons que la plateforme Bassila Emergence est développée avec le framework open source <strong>Laravel</strong> (PHP), l'interface interactive utilise <strong>Livewire</strong>, les feuilles de style sont générées via <strong>Tailwind CSS</strong>, et les données sont stockées dans une base de données relationnelle <strong>PostgreSQL</strong>. Les noms de certains cookies reflètent directement ces choix techniques (par exemple <code>laravel_session</code>) ; cette information est partagée ici pour vous permettre de comprendre ce qui est déposé dans votre navigateur.</p>
             <p>La plateforme utilise les cookies et traceurs suivants :</p>
             <ul>
                 <li><strong><code>laravel_session</code></strong> : cookie de session Laravel, strictement nécessaire au fonctionnement du service.</li>
