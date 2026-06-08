@@ -153,18 +153,31 @@
         @endif
 
         {{-- Education --}}
-        @if ($profile->education_start_year || $profile->education_end_year)
-            <div class="bg-white border border-gray-200 p-6">
-                <h2 class="font-bold text-sm text-[#111827] mb-4 uppercase tracking-wider">Formation à Bassila</h2>
-                <p class="text-sm text-gray-600">
-                    @if ($profile->education_start_year && $profile->education_end_year)
-                        {{ $profile->education_start_year }} – {{ $profile->education_end_year }}
-                    @elseif ($profile->education_start_year)
-                        Depuis {{ $profile->education_start_year }}
-                    @else
-                        Jusqu'en {{ $profile->education_end_year }}
-                    @endif
-                </p>
+        @if ($profile->education_level || $profile->education_start_year || $profile->education_end_year)
+            <div class="bg-white border border-gray-200 p-6 space-y-4">
+                <h2 class="font-bold text-sm text-[#111827] uppercase tracking-wider">Formation</h2>
+
+                @if ($profile->education_level)
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Niveau d'étude</p>
+                        <p class="text-sm text-gray-700 font-medium">{{ $profile->education_level }}</p>
+                    </div>
+                @endif
+
+                @if ($profile->education_start_year || $profile->education_end_year)
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1">Études à Bassila</p>
+                        <p class="text-sm text-gray-600">
+                            @if ($profile->education_start_year && $profile->education_end_year)
+                                {{ $profile->education_start_year }} – {{ $profile->education_end_year }}
+                            @elseif ($profile->education_start_year)
+                                Depuis {{ $profile->education_start_year }}
+                            @else
+                                Jusqu'en {{ $profile->education_end_year }}
+                            @endif
+                        </p>
+                    </div>
+                @endif
             </div>
         @endif
 

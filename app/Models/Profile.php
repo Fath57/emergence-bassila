@@ -12,6 +12,23 @@ class Profile extends Model
 {
     use HasFactory;
 
+    /**
+     * Highest education level (système francophone/béninois), ordered.
+     * Stored as the label itself; used by the profile form and directory filter.
+     *
+     * @var list<string>
+     */
+    public const EDUCATION_LEVELS = [
+        'Sans diplôme',
+        'CEP',
+        'BEPC',
+        'BAC',
+        'BAC+2 (DUT/BTS)',
+        'Licence (BAC+3)',
+        'Master (BAC+5)',
+        'Doctorat',
+    ];
+
     protected $fillable = [
         'user_id',
         'first_name',
@@ -26,6 +43,7 @@ class Profile extends Model
         'sector_id',
         'education_start_year',
         'education_end_year',
+        'education_level',
         'linkedin_url',
         'portfolio_url',
         'phone',
@@ -100,6 +118,11 @@ class Profile extends Model
         return $query
             ->when($from, fn (Builder $q) => $q->where('education_end_year', '>=', $from))
             ->when($to, fn (Builder $q) => $q->where('education_end_year', '<=', $to));
+    }
+
+    public function scopeWithEducationLevel(Builder $query, ?string $level): Builder
+    {
+        return $query->when($level, fn (Builder $q) => $q->where('education_level', $level));
     }
 
     public function scopeWithSkills(Builder $query, array $skillIds): Builder

@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -46,6 +47,8 @@ class CreateProfile extends Component
     public string $education_start_year = '';
 
     public string $education_end_year = '';
+
+    public string $education_level = '';
 
     // Step 2 — Contact
     public string $phone = '';
@@ -139,6 +142,7 @@ class CreateProfile extends Component
             'show_whatsapp' => ['boolean'],
             'gender' => ['nullable', 'in:M,F'],
             'village_id' => ['nullable', 'exists:villages,id'],
+            'education_level' => ['nullable', Rule::in(Profile::EDUCATION_LEVELS)],
             'linkedin_url' => ['nullable', 'url'],
             'portfolio_url' => ['nullable', 'url'],
         ];
@@ -260,6 +264,7 @@ class CreateProfile extends Component
             'sector_id' => $this->sector_id,
             'education_start_year' => $this->education_start_year ?: null,
             'education_end_year' => $this->education_end_year ?: null,
+            'education_level' => $this->education_level ?: null,
             'phone' => $this->phone ?: null,
             'whatsapp' => $this->whatsapp ?: null,
             'email_contact' => $this->email_contact ?: null,

@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -44,6 +45,8 @@ class EditProfile extends Component
     public string $education_start_year = '';
 
     public string $education_end_year = '';
+
+    public string $education_level = '';
 
     public string $linkedin_url = '';
 
@@ -93,6 +96,7 @@ class EditProfile extends Component
             'gender' => ['nullable', 'in:M,F'],
             'whatsapp' => ['nullable', 'string', 'max:30'],
             'village_id' => ['nullable', 'exists:villages,id'],
+            'education_level' => ['nullable', Rule::in(Profile::EDUCATION_LEVELS)],
         ];
     }
 
@@ -120,6 +124,7 @@ class EditProfile extends Component
         $this->sector_id = $profile->sector_id;
         $this->education_start_year = $profile->education_start_year ?? '';
         $this->education_end_year = $profile->education_end_year ?? '';
+        $this->education_level = $profile->education_level ?? '';
         $this->linkedin_url = $profile->linkedin_url ?? '';
         $this->portfolio_url = $profile->portfolio_url ?? '';
         $this->phone = $profile->phone ?? '';
@@ -237,6 +242,7 @@ class EditProfile extends Component
             'sector_id' => $this->sector_id,
             'education_start_year' => $this->education_start_year ?: null,
             'education_end_year' => $this->education_end_year ?: null,
+            'education_level' => $this->education_level ?: null,
             'linkedin_url' => $this->linkedin_url ?: null,
             'portfolio_url' => $this->portfolio_url ?: null,
             'phone' => $this->phone ?: null,

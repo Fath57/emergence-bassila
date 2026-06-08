@@ -130,6 +130,50 @@ it('saves gender, whatsapp and village_id on profile creation', function () {
     ]);
 });
 
+it('saves the education level on profile creation', function () {
+    Storage::fake('s3');
+
+    $user = User::factory()->create(['email_verified_at' => now()]);
+    $user->assignRole('member');
+    $sector = Sector::factory()->create();
+    $country = Country::create(['name' => 'Bénin', 'code' => 'BJ', 'flag' => '🇧🇯', 'sort_order' => 1]);
+
+    Livewire::actingAs($user)
+        ->test(CreateProfile::class)
+        ->set('first_name', 'Awa')
+        ->set('last_name', 'Sambo')
+        ->set('job_title', 'Sage-femme')
+        ->set('country_id', $country->id)
+        ->set('sector_id', $sector->id)
+        ->set('education_level', 'Licence (BAC+3)')
+        ->call('save');
+
+    $this->assertDatabaseHas('profiles', [
+        'user_id' => $user->id,
+        'education_level' => 'Licence (BAC+3)',
+    ]);
+});
+
+it('rejects an education level outside the allowed list', function () {
+    Storage::fake('s3');
+
+    $user = User::factory()->create(['email_verified_at' => now()]);
+    $user->assignRole('member');
+    $sector = Sector::factory()->create();
+    $country = Country::create(['name' => 'Bénin', 'code' => 'BK', 'flag' => '🇧🇯', 'sort_order' => 1]);
+
+    Livewire::actingAs($user)
+        ->test(CreateProfile::class)
+        ->set('first_name', 'Awa')
+        ->set('last_name', 'Sambo')
+        ->set('job_title', 'Sage-femme')
+        ->set('country_id', $country->id)
+        ->set('sector_id', $sector->id)
+        ->set('education_level', 'PhD inventé')
+        ->call('save')
+        ->assertHasErrors(['education_level']);
+});
+
 it('rejects invalid gender value', function () {
     Storage::fake('s3');
 

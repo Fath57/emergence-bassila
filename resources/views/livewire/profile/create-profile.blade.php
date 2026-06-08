@@ -213,6 +213,20 @@
                         @error('village_id') <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p> @enderror
                     </div>
 
+                    {{-- Niveau d'étude --}}
+                    <div class="pt-2 border-t border-gray-100">
+                        <label for="education_level" class="block text-xs text-gray-400 mb-1.5">Niveau d'étude <span class="text-gray-400">(optionnel)</span></label>
+                        <select wire:model="education_level"
+                                id="education_level"
+                                class="w-full border border-gray-200 px-4 py-3 text-sm focus:outline-none focus:border-[#0066CC] transition bg-white">
+                            <option value="">Sélectionnez votre niveau…</option>
+                            @foreach (\App\Models\Profile::EDUCATION_LEVELS as $level)
+                                <option value="{{ $level }}">{{ $level }}</option>
+                            @endforeach
+                        </select>
+                        @error('education_level') <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+
                     {{-- Formation --}}
                     <div class="pt-2 border-t border-gray-100">
                         <p class="text-xs font-semibold text-gray-500 mb-4 uppercase tracking-wider">Formation à Bassila <span class="text-gray-400 normal-case font-normal">(optionnel)</span></p>
