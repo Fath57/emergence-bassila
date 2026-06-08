@@ -10,6 +10,8 @@
         <p class="text-sm text-gray-400">Rejoignez la communauté Bassila Émergence</p>
     </div>
 
+    @include('partials.google-auth-button', ['label' => "S'inscrire avec Google"])
+
     <form wire:submit.prevent="register" class="space-y-5">
 
         <div class="grid grid-cols-2 gap-3">

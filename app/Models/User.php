@@ -17,8 +17,8 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['first_name', 'last_name', 'email', 'password', 'is_active'])]
-#[Hidden(['password', 'remember_token'])]
+#[Fillable(['first_name', 'last_name', 'email', 'password', 'is_active', 'google_id', 'avatar'])]
+#[Hidden(['password', 'remember_token', 'google_id'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */

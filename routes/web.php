@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BlogImageUploadController;
 use App\Http\Controllers\NewsletterController;
@@ -96,6 +97,10 @@ Route::middleware(['guest', 'throttle:10,1'])->group(function () {
     Route::get('/connexion', Login::class)->name('login');
     Route::get('/mot-de-passe-oublie', ForgotPassword::class)->name('password.request');
     Route::get('/reinitialiser-mot-de-passe/{token}', ResetPassword::class)->name('password.reset');
+
+    // Google OAuth (sign in / register)
+    Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])->name('auth.google.redirect');
+    Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 });
 
 Route::post('/deconnexion', function () {
